@@ -1,77 +1,48 @@
 Estructuras de Datos
 ====================
 
-Práctica 7: Montículos mínimos
+PROYECTO 2
 ------------------------------
 
 ### Fecha de entrega: martes 8 de diciembre, 2020
 
-Deben implementar los métodos faltantes de las clases
-[`MonticuloArreglo`](https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica7/blob/master/src/main/java/mx/unam/ciencias/edd/MonticuloArreglo.java)
-y
-[`MonticuloMinimo`](https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica7/blob/master/src/main/java/mx/unam/ciencias/edd/MonticuloMinimo.java).
+Fecha de entrega: viernes 8 de enero, 2020
+Deben escribir un programa para graficar las estructuras de datos que se han
+cubierto a lo largo del curso (hasta montículos mínimos), utilizando SVG.
+SVG es un lenguaje descriptivo para gráficos escalares muy sencillo. Por
+ejemplo, la siguiente imagen:
 
-Una vez que hayan terminado sus clases, la práctica debe compilar al hacer:
+Decidir cómo deben verse las gráficas (cómo acomodar los vértices y cómo
+conectarlos), es parte de lo que tienen que resolver para el proyecto. Pilas,
+colas y el resto de las otras clases debería ser trivial. Los montículos mínimos
+son árboles binarios y además arreglos.
+El programa escribirá su salida en la salida estándar, y recibirá su entrada a
+través de un nombre de archivo o de la entrada estándar (si no se especifica
+ningún nombre de archivo en la línea de comandos). El formato del archivo es el
+siguiente:
 
-```
-$ mvn compile
-```
+Los espacios (incluyendo tabuladores, saltos de línea y cualquier otro
+carácter no imprimible) son ignorados excepto como separadores.
+Si el programa encuentra una almohadilla (el símbolo #), se ignoran todos los
+siguientes caracteres hasta el fin de línea.
+Lo primero que debe encontrar el programa es el nombre de una de las clases
+concretas permitidas.
+Después del nombre de clase deben venir enteros (siempre enteros) que son
+los elementos de la estructura.
+En el caso de las gráficas, el número de elementos debe ser par, y cada par
+de elementos es una arista. Si un par de elementos son iguales, esto
+representa un vértice desconectado del resto de la gráfica.
 
-También debe pasar todas sus pruebas unitarias al hacer:
-
-```
-$ mvn test
-```
-
-Y por último, debe correr correctamente el programa escrito en la clase
-[`Practica7`](https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica7/blob/master/src/main/java/mx/unam/ciencias/edd/Practica7.java)
-al ejecutar:
-
-```
-$ mvn install
-...
-$ java -jar target/practica7.jar
-```
-
-Los únicos archivos que deben modificar son:
-
-* `ArbolAVL.java`,
-* `ArbolBinario.java`,
-* `ArbolBinarioCompleto.java`,
-* `ArbolBinarioOrdenado.java`,
-* `ArbolRojinegro.java`,
-* `Arreglos.java`,
-* `Cola.java`,
-* `Grafica.java`,
-* `Lista.java`,
-* `MeteSaca.java`,
-* `MonticuloArreglo.java`,
-* `MonticuloMinimo.java`,
-* `Pila.java`, y
-* `ValorIndexable.java`.
-
-*No deben modificar de ninguna manera ninguno de los otros archivos de la
-práctica*.
-
-### Repositorio
-
-Pueden clonar la práctica con el siguiente comando:
-
-```
-$ git clone https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica7.git
-```
-
-### Documentación
-
-La documentación generada por JavaDoc la pueden consultar aquí:
-
-[Documentación generada por JavaDoc para la práctica
-7](https://aztlan.fciencias.unam.mx/~canek/2021-1-edd/practica7/apidocs/index.html)
-
-### Capítulos del libro
-
-Los capítulos
-[del libro](https://tienda.fciencias.unam.mx/es/home/437-estructuras-de-datos-con-java-moderno-9786073009157.html)
-relacionados a esta práctica son:
-
-18. Montículos mínimos
+Por ejemplo, el siguiente archivo:
+ArbolRojinegro 1 2 3 4 5 6 7 8 9 10 11 12 13 14 5
+describe el mismo árbol rojinegro que el siguiente archivo:
+# Clase:
+        ArbolRojinegro
+    # Elementos:
+    1 2 3 4
+# Más elementos
+5 6 7 8
+                        # Todavía MÁS elementos
+                        9 10 11 12
+    # Los últimos elementos
+    13 14 5
