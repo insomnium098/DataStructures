@@ -43,6 +43,12 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
 
 
     <circle cx='15%' cy='230' r='10' stroke='black' stroke-width='3' fill='yellow' />
+
+    <text fill='black' font-family='sans-serif' font-size='10' x='16%' y='218'
+          text-anchor='middle'>3/10</text>
+
+
+
     <line x1='15%' y1='239' x2='12.5%' y2='300' stroke='black' stroke-width='3' />
 
     <circle cx='12.5%' cy='300' r='10' stroke='black' stroke-width='3' fill='red' />

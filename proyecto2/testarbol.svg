@@ -3,49 +3,49 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
 <g>
 <circle cx='50.0%' cy='40' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='50.0%' y='42'
-          text-anchor='middle'>1</text>
+          text-anchor='middle'>5</text>
 </g>
 <line x1='50.0%' y1='49' x2='25.0%' y2='110' stroke='black' stroke-width='3' />
 <g>
 <circle cx='25.0%' cy='110' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='25.0%' y='112'
-          text-anchor='middle'>2</text>
+          text-anchor='middle'>1</text>
 </g>
 <line x1='50.0%' y1='49' x2='75.0%' y2='110' stroke='black' stroke-width='3' />
 <g>
 <circle cx='75.0%' cy='110' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='75.0%' y='112'
-          text-anchor='middle'>3</text>
+          text-anchor='middle'>4</text>
 </g>
 <line x1='25.0%' y1='119' x2='12.5%' y2='180' stroke='black' stroke-width='3' />
 <g>
 <circle cx='12.5%' cy='180' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='12.5%' y='182'
-          text-anchor='middle'>4</text>
+          text-anchor='middle'>7</text>
 </g>
 <line x1='25.0%' y1='119' x2='37.5%' y2='180' stroke='black' stroke-width='3' />
 <g>
 <circle cx='37.5%' cy='180' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='37.5%' y='182'
-          text-anchor='middle'>5</text>
+          text-anchor='middle'>0</text>
 </g>
 <line x1='75.0%' y1='119' x2='62.5%' y2='180' stroke='black' stroke-width='3' />
 <g>
 <circle cx='62.5%' cy='180' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='62.5%' y='182'
-          text-anchor='middle'>6</text>
+          text-anchor='middle'>2</text>
 </g>
 <line x1='75.0%' y1='119' x2='87.5%' y2='180' stroke='black' stroke-width='3' />
 <g>
 <circle cx='87.5%' cy='180' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='87.5%' y='182'
-          text-anchor='middle'>7</text>
+          text-anchor='middle'>3</text>
 </g>
 <line x1='12.5%' y1='189' x2='6.25%' y2='250' stroke='black' stroke-width='3' />
 <g>
 <circle cx='6.25%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='6.25%' y='252'
-          text-anchor='middle'>8</text>
+          text-anchor='middle'>6</text>
 </g>
 <line x1='12.5%' y1='189' x2='18.75%' y2='250' stroke='black' stroke-width='3' />
 <g>
@@ -57,210 +57,6 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
 <g>
 <circle cx='31.25%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
 <text fill='black' font-family='sans-serif' font-size='10' x='31.25%' y='252'
-          text-anchor='middle'>10</text>
-</g>
-<line x1='37.5%' y1='189' x2='43.75%' y2='250' stroke='black' stroke-width='3' />
-<g>
-<circle cx='43.75%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='43.75%' y='252'
-          text-anchor='middle'>11</text>
-</g>
-<line x1='62.5%' y1='189' x2='56.25%' y2='250' stroke='black' stroke-width='3' />
-<g>
-<circle cx='56.25%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='56.25%' y='252'
-          text-anchor='middle'>12</text>
-</g>
-<line x1='62.5%' y1='189' x2='68.75%' y2='250' stroke='black' stroke-width='3' />
-<g>
-<circle cx='68.75%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='68.75%' y='252'
-          text-anchor='middle'>13</text>
-</g>
-<line x1='87.5%' y1='189' x2='81.25%' y2='250' stroke='black' stroke-width='3' />
-<g>
-<circle cx='81.25%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='81.25%' y='252'
-          text-anchor='middle'>14</text>
-</g>
-<line x1='87.5%' y1='189' x2='93.75%' y2='250' stroke='black' stroke-width='3' />
-<g>
-<circle cx='93.75%' cy='250' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='93.75%' y='252'
-          text-anchor='middle'>29</text>
-</g>
-<line x1='6.25%' y1='259' x2='3.125%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='3.125%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='3.125%' y='322'
-          text-anchor='middle'>2</text>
-</g>
-<line x1='6.25%' y1='259' x2='9.375%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='9.375%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='9.375%' y='322'
-          text-anchor='middle'>3</text>
-</g>
-<line x1='18.75%' y1='259' x2='15.625%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='15.625%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='15.625%' y='322'
-          text-anchor='middle'>30</text>
-</g>
-<line x1='18.75%' y1='259' x2='21.875%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='21.875%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='21.875%' y='322'
           text-anchor='middle'>31</text>
-</g>
-<line x1='31.25%' y1='259' x2='28.125%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='28.125%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='28.125%' y='322'
-          text-anchor='middle'>32</text>
-</g>
-<line x1='31.25%' y1='259' x2='34.375%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='34.375%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='34.375%' y='322'
-          text-anchor='middle'>33</text>
-</g>
-<line x1='43.75%' y1='259' x2='40.625%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='40.625%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='40.625%' y='322'
-          text-anchor='middle'>34</text>
-</g>
-<line x1='43.75%' y1='259' x2='46.875%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='46.875%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='46.875%' y='322'
-          text-anchor='middle'>35</text>
-</g>
-<line x1='56.25%' y1='259' x2='53.125%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='53.125%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='53.125%' y='322'
-          text-anchor='middle'>36</text>
-</g>
-<line x1='56.25%' y1='259' x2='59.375%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='59.375%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='59.375%' y='322'
-          text-anchor='middle'>37</text>
-</g>
-<line x1='68.75%' y1='259' x2='65.625%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='65.625%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='65.625%' y='322'
-          text-anchor='middle'>38</text>
-</g>
-<line x1='68.75%' y1='259' x2='71.875%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='71.875%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='71.875%' y='322'
-          text-anchor='middle'>39</text>
-</g>
-<line x1='81.25%' y1='259' x2='78.125%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='78.125%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='78.125%' y='322'
-          text-anchor='middle'>40</text>
-</g>
-<line x1='81.25%' y1='259' x2='84.375%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='84.375%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='84.375%' y='322'
-          text-anchor='middle'>41</text>
-</g>
-<line x1='93.75%' y1='259' x2='90.625%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='90.625%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='90.625%' y='322'
-          text-anchor='middle'>42</text>
-</g>
-<line x1='93.75%' y1='259' x2='96.875%' y2='320' stroke='black' stroke-width='3' />
-<g>
-<circle cx='96.875%' cy='320' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='96.875%' y='322'
-          text-anchor='middle'>43</text>
-</g>
-<line x1='3.125%' y1='329' x2='1.5625%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='1.5625%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='1.5625%' y='392'
-          text-anchor='middle'>44</text>
-</g>
-<line x1='3.125%' y1='329' x2='4.6875%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='4.6875%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='4.6875%' y='392'
-          text-anchor='middle'>45</text>
-</g>
-<line x1='9.375%' y1='329' x2='7.8125%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='7.8125%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='7.8125%' y='392'
-          text-anchor='middle'>46</text>
-</g>
-<line x1='9.375%' y1='329' x2='10.9375%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='10.9375%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='10.9375%' y='392'
-          text-anchor='middle'>47</text>
-</g>
-<line x1='15.625%' y1='329' x2='14.0625%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='14.0625%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='14.0625%' y='392'
-          text-anchor='middle'>49</text>
-</g>
-<line x1='15.625%' y1='329' x2='14.0625%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='14.0625%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='14.0625%' y='392'
-          text-anchor='middle'>49</text>
-</g>
-<line x1='21.875%' y1='329' x2='20.3125%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='20.3125%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='20.3125%' y='392'
-          text-anchor='middle'>50</text>
-</g>
-<line x1='21.875%' y1='329' x2='23.4375%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='23.4375%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='23.4375%' y='392'
-          text-anchor='middle'>51</text>
-</g>
-<line x1='28.125%' y1='329' x2='26.5625%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='26.5625%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='26.5625%' y='392'
-          text-anchor='middle'>52</text>
-</g>
-<line x1='28.125%' y1='329' x2='29.6875%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='29.6875%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='29.6875%' y='392'
-          text-anchor='middle'>53</text>
-</g>
-<line x1='34.375%' y1='329' x2='32.8125%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='32.8125%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='32.8125%' y='392'
-          text-anchor='middle'>54</text>
-</g>
-<line x1='34.375%' y1='329' x2='35.9375%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='35.9375%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='35.9375%' y='392'
-          text-anchor='middle'>55</text>
-</g>
-<line x1='40.625%' y1='329' x2='39.0625%' y2='390' stroke='black' stroke-width='3' />
-<g>
-<circle cx='39.0625%' cy='390' r='10' stroke='black' stroke-width='3' fill='white' />
-<text fill='black' font-family='sans-serif' font-size='10' x='39.0625%' y='392'
-          text-anchor='middle'>56</text>
 </g>
 </svg>

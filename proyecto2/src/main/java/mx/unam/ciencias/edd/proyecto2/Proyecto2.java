@@ -119,31 +119,65 @@ public class Proyecto2 {
                 for (String s : elementos_split){
                     arbol.agrega(Integer.parseInt(s));
                 }
-                graficaArbolBFS(arbol,"ArbolBinarioCompleto");
+                graficaArbolBFS(arbol,estructura);
 
                 break;
 
             case "ArbolBinarioOrdenado":
-                System.out.println("La estructura es un Arbol Binario Ordenado");
+                ArbolBinarioOrdenado<Integer> arbolOrdenado = new ArbolBinarioOrdenado<>();
+                for (String s : elementos_split){
+                    arbolOrdenado.agrega(Integer.parseInt(s));
+                }
+
+                graficaArbolBFS(arbolOrdenado,estructura);
+                //System.out.println(arbolOrdenado.toString());
+
                 break;
 
             case "ArbolRojinegro":
-                //System.out.println("La estructura es un Arbol Rojinegro");
+
                 ArbolRojinegro<Integer> arbolRojinegro = new ArbolRojinegro<>();
                 for (String s : elementos_split){
                     arbolRojinegro.agrega(Integer.parseInt(s));
                 }
-                graficaArbolBFS(arbolRojinegro,"ArbolRojinegro");
 
-                //ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)arbolRojinegro.raiz;
+                //graficaArbolRojinegro(arbolRojinegro);
+                graficaArbolBFS(arbolRojinegro,estructura);
+                //System.out.println(arbolRojinegro.toString());
 
-                //System.out.println(vert.toString());
-                //System.out.println(vert.elemento);
-                //System.out.println(vert.color);
+                /*
+
+                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)arbolRojinegro.raiz;
+
+                System.out.println(vert.toString());
+                System.out.println(vert.elemento.toString());
+                System.out.println(vert.color);
+
+                 */
                 break;
 
             case "ArbolAVL":
-                System.out.println("La estructura es un Arbol AVL");
+                //System.out.println("La estructura es un Arbol AVL");
+                ArbolAVL<Integer> arbolAVL = new ArbolAVL<>();
+                for (String s : elementos_split){
+                    arbolAVL.agrega(Integer.parseInt(s));
+                }
+
+
+                /*
+                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)arbolAVL.raiz;
+                System.out.println(vert.toString());
+                System.out.println(vert.elemento.toString());
+                System.out.println(vert.get());
+                System.out.println("El balance de la raiz es");
+                System.out.println(getBalanceAVL(arbolAVL.raiz));
+
+                 */
+
+
+
+                graficaArbolBFS(arbolAVL,estructura);
+
                 break;
 
             case "Arreglos":
@@ -250,87 +284,106 @@ public class Proyecto2 {
         return estructura;
     }
 
+
+    /*
+    Metodo que procesa un vertice AVL y devuelve un string con su balance
+     */
+
+    public static String getBalanceAVL(ArbolBinario.Vertice vertice){
+        String balance;
+        ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL) vertice;
+
+        balance = vert.toString();
+        int espacio = balance.indexOf(" ");
+
+        balance = balance.substring(espacio,balance.length());
+
+        return balance.trim();
+
+    }
+
+    /*
+    Metodo que grafica el balance de un vertice AVL
+     */
+    public static void balanceSVG(Double coordX, Integer coordY, String balance,String lado){
+
+        if (lado.equals("Izquierdo")){
+            coordX = coordX-0.4;
+        } else {
+            coordX = coordX+0.4;
+        }
+
+
+
+        String imprimeBalance = String.format("<text fill='black' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
+                "          text-anchor='middle'>%3$s</text>",coordX,coordY - 12,balance);
+
+
+        System.out.println(imprimeBalance);
+    }
+
+
+
     /*
     Metodo Que grafica un arbolbinario basado en BFS por vertices
 
      */
 
-    public static void graficaArbolBFS (ArbolBinario<Integer> arbol, String tipo_arbol){
-        //arbol.bfs(vertice -> System.out.println(vertice.get()));
-        //System.out.println();
+    public static void graficaArbolBFS (ArbolBinario<Integer> arbol, String tipoArbol ){
 
-        //System.out.println(arbol.toString());
-
-
-        ///Definimos los parametros iniciales
-        //Las X se mueven en porcentajes
-        int x_Circulo_inicial = 50;
         int y_Circulo_inicial = 40;
-
-        //Definimos las constantes que variaran las X y Y cada que se cambie de nivel
-
-
-
         graficaHeaderSVG();
 
 
-
-
-        //Inicializamos profundidad y x
+        //Inicializamos profundidad y el contador de Y
         int profundidad = 0;
-        int aux_profundidad;
+
         int contadorY = y_Circulo_inicial;
 
 
+        //////V2 HACER LISTAS PARA LOS PADRES Y LOS ELEMENTOS
+        Lista<Integer> nombresPadres = new Lista<>();
+        Lista<Double> coordenadasPadres = new Lista<>();
 
-        ////Hacemos arrays para los Padres
-
-
-        //Hacemos un array con el nombre
-        Integer [] arrayNombresPadres = new Integer[(int)Math.pow(2,profundidad)];
-        //Hacemos un array con las coordenadas del indice
-        Double [] arrayCoordenadasPadres = new Double[(int)Math.pow(2,profundidad)];
-
-        ///Contador para recorrer el numero de elementos
-        int contadorElementos = 0;
-
-        ///Hacemos arrays para los elementos
-        //Hacemos un array con el nombre
-        Integer [] arrayNombresElementos = new Integer[(int)Math.pow(2,profundidad)];
-        //Hacemos un array con las coordenadas del indice
-        Double [] arrayCoordenadasElementos = new Double[(int)Math.pow(2,profundidad)];
+        Lista<Integer> nombresElementos = new Lista<>();
+        Lista<Double> coordenadasElementos = new Lista<>();
 
 
 
         /////////RECORRER POR BFS
-        Cola<VerticeArbolBinario<Integer>> cola = new Cola<>();
+
+
+        Cola<ArbolBinario.Vertice> cola = new Cola<>();
 
         cola.mete(arbol.raiz);
         while (!cola.esVacia()) {
-            VerticeArbolBinario<Integer> vertice = cola.saca();
-            Integer nombreElemento = vertice.get();//Integer.parseInt(vertice.toString());
-            String color = "white";
 
 
-            /*
 
-            ///Caso Rojinegro
-            if(tipo_arbol == "ArbolRojinegro"){
-                ArbolRojinegro.VerticeRojinegro verticeRojinegro = (ArbolRojinegro.VerticeRojinegro)vertice;
-                nombreElemento = Integer.parseInt(verticeRojinegro.elemento.toString());
-                color = verticeRojinegro.color.toString();
-            } else {
-                nombreElemento = Integer.parseInt(vertice.toString());
+            ArbolBinario.Vertice vertice = cola.saca();
+
+            Integer nombreElemento;
+
+            String color;
+
+            if(tipoArbol.equals("ArbolRojinegro")){
+                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
+                color = vert.color.toString();
+                nombreElemento = Integer.parseInt(vert.elemento.toString());
+
+            } else if (tipoArbol.equals("ArbolAVL")){
                 color = "white";
+                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
+                nombreElemento = Integer.parseInt(vert.elemento.toString());
+
+
+            } else {
+
+                color = "white";
+                nombreElemento = Integer.parseInt(vertice.toString());
 
             }
 
-             */
-
-
-
-
-            ////AQUI HACER EL PROCESO
             ///Primero verificar si la profundidad cambio
 
 
@@ -341,14 +394,19 @@ public class Proyecto2 {
                 profundidad = vertice.profundidad();
                 contadorY = contadorY + 70;
 
+                nombresPadres.limpia();
+                for(Integer a : nombresElementos){
+                    nombresPadres.agrega(a);
+                }
 
-                arrayNombresPadres = arrayNombresElementos;
-                arrayCoordenadasPadres = arrayCoordenadasElementos;
+                coordenadasPadres.limpia();
+                for(Double a : coordenadasElementos){
+                    coordenadasPadres.agrega(a);
+                }
 
 
-                arrayNombresElementos = new Integer[(int)Math.pow(2,profundidad)];
-                arrayCoordenadasElementos = new Double[(int)Math.pow(2,profundidad)];
-                contadorElementos = 0;
+                nombresElementos.limpia();
+                coordenadasElementos.limpia();
 
 
 
@@ -358,79 +416,83 @@ public class Proyecto2 {
 
             ////Primer caso donde el elemento es la raiz
             if (!vertice.hayPadre()){
-
-
                 ///Despues llenamos los arrays de ELEMENTOS
-                arrayNombresElementos[contadorElementos] = nombreElemento;//vertice.get();
+
+                nombresElementos.agrega(nombreElemento);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                arrayCoordenadasElementos [contadorElementos] = Double.valueOf(50);
+                coordenadasElementos.agrega(Double.valueOf(50));
 
                 ///Despues llenamos los arrays de PADRES
-                arrayNombresPadres[contadorElementos] = nombreElemento;//vertice.get();
+                nombresPadres.agrega(nombreElemento);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                arrayCoordenadasPadres [contadorElementos] = Double.valueOf(50);
+                coordenadasPadres.agrega(Double.valueOf(50));
 
 
 
                 circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color);
 
+                if(tipoArbol.equals("ArbolAVL")){
+                    balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo");
+                }
+
 
             } else {
 
                 ///Buscamos las coordenadas del padre
-                ///Buscar el padre en array
-
-                /*
 
                 Integer nombrePadre;
 
-                if(tipo_arbol == "ArbolRojinegro"){
-                    ArbolRojinegro.VerticeRojinegro verticeRojinegroPadre = (ArbolRojinegro.VerticeRojinegro)vertice.padre();
-                    nombrePadre = Integer.parseInt(verticeRojinegroPadre.elemento.toString());
+                if (tipoArbol.equals("ArbolRojinegro")) {
+                    ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
+
+                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
+
+                } else if (tipoArbol.equals("ArbolAVL")){
+                    ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
+                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
+
+
                 } else {
                     nombrePadre = Integer.parseInt(vertice.padre().toString());
 
                 }
 
-                 */
 
-                Integer nombrePadre = Integer.parseInt(vertice.padre().toString());
-
-
-
-                int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
+                //int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
+                int index_padre = nombresPadres.indiceDe(nombrePadre);
                 //Se extraen sus coordenadas
-                double coordPadre = arrayCoordenadasPadres[index_padre];
+                //double coordPadre = arrayCoordenadasPadres[index_padre];
+                double coordPadre = coordenadasPadres.get(index_padre);
 
                 double coordElemento;
-
-
-
-
-
                 ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
                 if(esIzquierdo(vertice)){
                     coordElemento = calculaCoordenadas(coordPadre,"Izquierdo",profundidad);
 
                 } else {
-                    coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);;
-
+                    coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
                 }
 
-
-
-                arrayNombresElementos[contadorElementos] = vertice.get();
-                arrayCoordenadasElementos [contadorElementos] = coordElemento;
-                contadorElementos++;
+                nombresElementos.agrega(Integer.parseInt(nombreElemento.toString()));
+                coordenadasElementos.agrega(coordElemento);
 
 
                 lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY);
 
-
-
                 circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color);
+
+                if(tipoArbol.equals("ArbolAVL")){
+
+                    if(esIzquierdo(vertice)){
+                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Izquierdo");
+                    } else {
+                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Derecho");
+                    }
+
+                }
+
 
 
             }
@@ -443,11 +505,11 @@ public class Proyecto2 {
             //////AQUI TERMINA EL PROCESO
 
             if(vertice.hayIzquierdo()){
-                cola.mete(vertice.izquierdo());
+                cola.mete((ArbolBinario.Vertice) vertice.izquierdo());
             }
 
             if(vertice.hayDerecho()){
-                cola.mete(vertice.derecho());
+                cola.mete((ArbolBinario.Vertice) vertice.derecho());
             }
 
 
@@ -466,359 +528,6 @@ public class Proyecto2 {
 
 
 
-    /*
-    Metodo que recibe un Arbol binario y lo grafica
-    Funciona cuando no se tienen valores repetidos
-    ///Se deprecara por la version BFS
-     */
-
-    public static void graficaArbolBinario(ArbolBinario<Integer> arbol){
-
-        System.out.println(arbol.toString());
-
-
-        ///Definimos los parametros iniciales
-        //Las X se mueven en porcentajes
-        int x_Circulo_inicial = 50;
-        int y_Circulo_inicial = 40;
-
-        //Definimos las constantes que variaran las X y Y cada que se cambie de nivel
-
-
-
-        //graficaHeaderSVG();
-        ;
-
-
-
-        //Inicializamos profundidad y x
-        int profundidad = 0;
-        int aux_profundidad;
-        int contadorX = x_Circulo_inicial;
-        int contadorY = y_Circulo_inicial;
-
-
-
-        ////Hacemos arrays para los Padres
-
-
-        //Hacemos un array con el nombre
-        Integer [] arrayNombresPadres = new Integer[(int)Math.pow(2,profundidad)];
-        //Hacemos un array con las coordenadas del indice
-        Integer [] arrayCoordenadasPadres = new Integer[(int)Math.pow(2,profundidad)];
-
-        ///Contador para recorrer el numero de elementos
-        int contadorElementos = 0;
-
-        ///Hacemos arrays para los elementos
-        //Hacemos un array con el nombre
-        Integer [] arrayNombresElementos = new Integer[(int)Math.pow(2,profundidad)];
-        //Hacemos un array con las coordenadas del indice
-        Integer [] arrayCoordenadasElementos = new Integer[(int)Math.pow(2,profundidad)];
-
-
-
-
-
-        for (Integer i : arbol){
-
-
-
-
-
-            VerticeArbolBinario<Integer> vertice = arbol.busca(i);
-
-
-            ///Primero verificar si la profundidad cambio
-
-
-            //Si cambio reiniciamos hacemos los arrays de elementos como los padres
-            ///Y reiniciamos los de elementos
-            if(profundidad != vertice.profundidad()){
-                System.out.println("La profundidad cambio");
-
-
-                System.out.println("Antes:");
-                System.out.println("El contenido de arrayNombresElementos es:");
-
-
-                for (int y = 0; y < arrayNombresElementos.length; y++){
-                    System.out.println(arrayNombresElementos[y]);
-                }
-
-
-
-                profundidad = vertice.profundidad();
-
-
-                arrayNombresPadres = arrayNombresElementos;
-                arrayCoordenadasPadres = arrayCoordenadasElementos;
-
-
-                arrayNombresElementos = new Integer[(int)Math.pow(2,profundidad)];
-                arrayCoordenadasElementos = new Integer[(int)Math.pow(2,profundidad)];
-                contadorElementos = 0;
-
-
-
-
-                System.out.println("DESPUES");
-
-                System.out.println("El contenido de arrayNombresElementos es:");
-
-
-                for (int y = 0; y < arrayNombresElementos.length; y++){
-                    System.out.println(arrayNombresElementos[y]);
-                }
-
-            } else {
-                System.out.println("La profundidad no cambio");
-            }
-
-
-
-
-            ////Primer caso donde el elemento es la raiz
-            if (!vertice.hayPadre()){
-                System.out.println(i);
-                System.out.println("Es la raiz");
-                System.out.println("La profundidad es");
-                System.out.println(profundidad);
-
-                ///Despues llenamos los arrays
-                arrayNombresElementos[contadorElementos] = i;
-
-                ///Aqui va la funcion que calcula la coordenada
-                arrayCoordenadasElementos [contadorElementos] = (contadorElementos + 1)* 50;
-
-                ///Despues llenamos los arrays
-                arrayNombresPadres[contadorElementos] = i;
-
-                ///Aqui va la funcion que calcula la coordenada
-                arrayCoordenadasPadres [contadorElementos] = (contadorElementos + 1)* 50;
-
-
-
-
-
-
-
-            } else {
-
-                ///Buscamos las coordenadas del padre
-                ///Buscar el padre en array
-
-                for (int x = 0; x < arrayNombresPadres.length; x++){
-                    System.out.println(arrayNombresPadres[x]);
-                }
-
-                System.out.println("El i es;");
-                System.out.println(i);
-
-                Integer nombrePadre = Integer.parseInt(vertice.padre().toString());
-                System.out.println("El padre de I es;");
-                System.out.println(nombrePadre);
-
-
-
-
-
-
-                int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
-                //Se extraen sus coordenadas
-                int coordPadre = arrayCoordenadasPadres[index_padre];
-
-                System.out.println("Las coordenadas del padre son");
-                System.out.println(coordPadre);
-                int coordElemento;
-
-
-
-
-
-                ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
-                if(esIzquierdo(vertice)){
-                    coordElemento = coordPadre - 10 ;
-
-                } else {
-                    coordElemento = coordPadre + 20;
-
-                }
-
-
-
-                //coordElemento = i+50;
-
-                ///Llenamos el array de elementos con su coordenada
-
-
-                System.out.println("El contador elementos es");
-                System.out.println(contadorElementos);
-
-
-                arrayNombresElementos[contadorElementos] = i;
-                arrayCoordenadasElementos [contadorElementos] = coordElemento;
-                contadorElementos++;
-
-
-
-            }
-
-
-
-
-
-            ////////////
-
-
-
-
-
-
-
-
-
-
-
-            //System.out.println(arrayNombres[0]);
-            //System.out.println(arrayCoordenadas [0]);
-
-
-            /*
-
-
-
-
-
-
-
-            //Caso donde es el primer elemento y por lo tanto la raiz
-            if (!vertice.hayPadre()){
-                System.out.println(i);
-                System.out.println("Es la raiz");
-                System.out.println("La profundidad es");
-                System.out.println(profundidad);
-
-
-
-
-
-
-            } else {
-
-                aux_profundidad = profundidad;
-                System.out.println(i);
-                System.out.println("Su padre es: ");
-                System.out.println(vertice.padre().toString());
-
-
-                ///Buscar el padre en array
-                int index_padre = Arreglos.busquedaBinaria(arrayNombres,i);
-                //Se extraen sus coordenadas
-                int coord = arrayCoordenadas[index_padre];
-
-                System.out.println("Las coordenadas son:");
-                System.out.println(coord);
-
-
-                ///Revisar si la profundidad cambio
-
-                if(profundidad != vertice.profundidad()){
-                    System.out.println("La profundidad cambio");
-                    profundidad = vertice.profundidad();
-                } else {
-                    System.out.println("La profundidad no cambio");
-                }
-
-                if(esIzquierdo(vertice)){
-                    //System.out.println("Es izquierdo");
-
-
-                    System.out.println("La profundidad es");
-                    System.out.println(vertice.profundidad());
-                    /*
-                    System.out.println("En este nivel caben:");
-                    System.out.println(Math.pow(2,vertice.profundidad()));
-                    System.out.println("Cada uno con una separacion de");
-                    System.out.println(calculaDistancia(vertice.profundidad()));
-
-                     */
-
-                /*
-                } else {
-                    //System.out.println("Es derecho");
-
-
-                    System.out.println("La profundidad es");
-                    System.out.println(vertice.profundidad());
-                    /*
-                    System.out.println("En este nivel caben:");
-                    System.out.println(Math.pow(2,vertice.profundidad()));
-                    System.out.println("Cada uno con una separacion de");
-                    System.out.println(calculaDistancia(vertice.profundidad()));
-
-                     */
-                /*
-                }
-
-
-
-
-
-
-            }
-
-                 */
-
-
-
-
-
-
-
-            /*
-
-
-            if(vertice.hayDerecho()){
-                System.out.println("Hay derecho");
-            }
-            if(vertice.hayIzquierdo()){
-                System.out.println("Hay izquierdo");
-            }
-
-            if(!vertice.hayIzquierdo() && !vertice.hayDerecho()){
-                System.out.println("No hay hijos");
-            }
-
-             */
-
-
-
-        }
-
-
-        System.out.println("El contenido de arrayNombresPadres es:");
-
-
-        for (int y = 0; y < arrayNombresPadres.length; y++){
-            System.out.println(arrayNombresPadres[y]);
-        }
-
-        System.out.println(arbol.toString());
-
-
-
-
-        //graficaFinalSVG();
-
-
-
-
-
-
-
-
-    }
 
 
     /*
@@ -830,9 +539,7 @@ public class Proyecto2 {
         String linea = String.format("<line x1='%1$s%%' y1='%2$s' x2='%3$s%%' y2='%4$s' stroke='black' stroke-width='3' />",
                 coordXPadre,coordYPadre+9,coordXVertice,coordYVertice);
 
-        //System.out.println("<g>");
         System.out.println(linea);
-        //System.out.println("</g>");
     }
 
 
@@ -871,35 +578,43 @@ public class Proyecto2 {
     }
 
 
-    /*
-    Metodo que regresa si un vertice es derecho
-     */
 
-    public static boolean esDerecho(VerticeArbolBinario<Integer> vertice){
-        if(vertice.equals(vertice.padre().derecho())){
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
         /*
     Metodo que regresa si un vertice es izquierdo
      */
 
-    public static boolean esIzquierdo(VerticeArbolBinario<Integer> vertice){
-        if(vertice.equals(vertice.padre().izquierdo())){
+    public static boolean esIzquierdo(ArbolBinario.Vertice vertice){
+
+        if(vertice == vertice.padre.izquierdo){
             return true;
         } else {
             return false;
         }
+
     }
+
 
     /*
     Metodo que grafica un circulo
     Las coordenadas X se representaran en porcentaje
      */
     public static void circuloSVG(Double coordX, Integer coordY, String texto, String color){
+
+        String colorTexto = "black";
+
+        if(color.equals("NEGRO")){
+            color = "black";
+            colorTexto = "white";
+        } else if (color.equals("ROJO")){
+            color = "red";
+            colorTexto = "white";
+        } else {
+            color = "white";
+        }
+
+
 
 
         String circulo = String.format("<circle cx='%1$s%%' cy='%2$s' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
@@ -908,12 +623,8 @@ public class Proyecto2 {
 
         int y_text = coordY + 2;
 
-
-        //String circuloTexto = String.format("<text x=\"%1$s\" y=\"%2$s\" font-family=\"Verdana\" font-size=\"10\" fill=\"black\">%3$s</text>",
-        //        x_text,y_text,texto);
-
-        String circuloTexto = String.format("<text fill='black' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
-                "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto);
+        String circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
+                "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
 
         System.out.println("<g>");
         System.out.println(circulo);

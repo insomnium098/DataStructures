@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: mx.unam.ciencias.edd.proyecto2.test.TestArbolBinarioOrdenado
 -------------------------------------------------------------------------------
-Tests run: 33, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 sec
+Tests run: 33, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 sec

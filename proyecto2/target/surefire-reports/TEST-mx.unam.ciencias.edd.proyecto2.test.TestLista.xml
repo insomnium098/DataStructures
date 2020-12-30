@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="31" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestLista" time="0.084" errors="0" skipped="0">
+<testsuite tests="31" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestLista" time="0.081" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib"/>
     <property name="gopherProxySet" value="false"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/proyecto2"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/DataStructures/proyecto2"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://openjdk.java.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="MX"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/proyecto2"/>
+    <property name="user.dir" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/DataStructures/proyecto2"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="11.0.8+10-LTS"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
@@ -64,26 +64,26 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testAgregaFinal" time="0.01"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testAgregaFinal" time="0.009"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testElimina" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testMergeSort" time="0.015"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testMergeSort" time="0.014"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testEsVacia" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testEliminaPrimero" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorHasNext" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorHasNext" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testBusquedaLineal" time="0.002"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGet" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testAgregaInicio" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testCopia" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testToString" time="0.035"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorStart" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetLongitud" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testEliminaUltimo" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testAgregaInicio" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testCopia" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testToString" time="0.036"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorStart" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetLongitud" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testEliminaUltimo" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetPrimero" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testContiene" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorNext" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorNext" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorPrevious" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorEnd" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testBusquedaLinealLista" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testIteradorEnd" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testBusquedaLinealLista" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testMergeSortLista" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testReversa" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetElementos" time="0.001"/>
@@ -92,7 +92,7 @@
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testAgrega" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testEquals" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testLimpia" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetUltimo" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testInserta" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testConstructor" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testGetUltimo" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testInserta" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestLista" name="testConstructor" time="0"/>
 </testsuite>

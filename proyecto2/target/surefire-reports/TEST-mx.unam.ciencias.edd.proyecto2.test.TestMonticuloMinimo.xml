@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="16" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" time="0.026" errors="0" skipped="0">
+<testsuite tests="16" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" time="0.068" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib"/>
     <property name="gopherProxySet" value="false"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/proyecto2"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/DataStructures/proyecto2"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://openjdk.java.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="MX"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/proyecto2"/>
+    <property name="user.dir" value="/Users/daniel/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/owncloud/Documentos/CIENCIAS DE LA COMPUTACION/2DO_SEMESTRE/ESTRUCTURAS DE DATOS/PROYECTOS/P2/DataStructures/proyecto2"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="11.0.8+10-LTS"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
@@ -65,19 +65,19 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testElimina" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testEsVacio" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testIteradorHasNext" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testEsVacio" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testIteradorHasNext" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testGet" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testToString" time="0.012"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testHeapSort" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testEliminaElemento" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testContiene" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testConstructores" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testToString" time="0.056"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testHeapSort" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testEliminaElemento" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testContiene" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testConstructores" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testIteradorNext" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testReordena" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testReordena" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testGetElementos" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testAgrega" time="0.002"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testEquals" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testLimpia" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testIterator" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testLimpia" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloMinimo" name="testIterator" time="0"/>
 </testsuite>
