@@ -11,6 +11,7 @@ import java.util.Iterator;
  * Proyecto 2.
  */
 public class Proyecto2 {
+    private static String cadena;
 
 
     /* Imprime el uso del programa y lo termina. */
@@ -84,14 +85,12 @@ public class Proyecto2 {
 
         switch(estructura){
             case "Lista":
-                //System.out.println("La estructura es una Lista");
                 Lista<Integer> lista = new Lista<>();
                 for (String s : elementos_split){
                     lista.agrega(Integer.parseInt(s));
                 }
 
                 graficaLista(lista);
-                //System.out.println(lista.toString());
 
                 break;
 
@@ -100,8 +99,6 @@ public class Proyecto2 {
                 for (String s : elementos_split){
                     pila.mete(Integer.parseInt(s));
                 }
-
-                //graficaMeteSaca(pila);
                 graficaPila(pila);
 
                 break;
@@ -131,8 +128,6 @@ public class Proyecto2 {
                 }
 
                 graficaArbolBFS(arbolOrdenado,estructura);
-                //System.out.println(arbolOrdenado.toString());
-
                 break;
 
             case "ArbolRojinegro":
@@ -188,7 +183,19 @@ public class Proyecto2 {
                 break;
 
             case "Grafica":
-                System.out.println("La estructura es una Grafica");
+                //System.out.println("La estructura es una Grafica");
+                Grafica<Integer> grafica = new Grafica<>();
+                Lista<Integer> listag = new Lista<>();
+
+                ///Verificamos que el numero de elementos sea par
+                if ((elementos_split.length % 2 ) !=0){
+                    System.out.println("El numero de elementos en la grafica debe de ser par");
+                    System.exit(1);
+                }
+
+                svgGrafica(grafica, listag, elementos_split);
+
+
                 break;
 
             case "MonticuloMinimo":
@@ -283,6 +290,120 @@ public class Proyecto2 {
 
 
         return estructura;
+    }
+
+    /*
+    Metodo que procesa una grafica y la visualiza en SVG
+     */
+
+    public static void svgGrafica (Grafica<Integer> grafica, Lista<Integer> lista, String[] elementos_split){
+
+        ///La lista va a contener los elementos repetidos, que estaran desconectados de la grafica
+
+        Integer anterior = null;
+        Integer contadorPares = 0;
+
+        for (String s : elementos_split){
+            contadorPares ++;
+            Integer actual = Integer.parseInt(s);
+
+            ///Revisar si el par de elementos son iguales
+            if(anterior == actual){
+                //System.out.println("Son iguales");
+                lista.agrega(actual);
+                //Agregamos un -1 al siguiente para denotar que no tiene por el momento aristas
+                lista.agrega(-1);
+                anterior = null;
+                continue;
+            }
+
+            ///Buscamos si el anterior del elemento ya existe en los elementos desconectados
+            if(lista.indiceDe(anterior) != -1){
+                //Agregamos a ambos
+                lista.agrega(anterior);
+                lista.agrega(actual);
+                anterior = null;
+                continue;
+            }
+
+            ///Buscamos si el elemento ya existe en la grafica
+            if(grafica.contiene(actual)){
+                //Si es impar el contador el actual se hace el anterior
+                //Si es par se conecta con su anterior
+                if((contadorPares % 2) !=0){
+                    anterior = actual;
+                } else {
+                    grafica.conecta(anterior,actual);
+                }
+
+                continue;
+
+            }
+
+            grafica.agrega(actual);
+
+            if (anterior != null) {
+                //Conectamos el actual con el anterior
+                 grafica.conecta(anterior, actual);
+
+            }
+            ///Hacemos el actual como el anterior
+            anterior = actual;
+
+            if((contadorPares % 2) == 0){
+                anterior = null;
+            }
+
+        }
+
+
+        /*
+
+        System.out.println("Las aristas");
+
+        System.out.println(grafica.getAristas());
+
+        System.out.println("Las aristas conectadas");
+        //grafica.conecta(5,7);
+        //grafica.conecta(5,0);
+        //grafica.conecta(0,7);
+
+        System.out.println(grafica.getAristas());
+        System.out.println(grafica.sonVecinos(8,31));
+
+        System.out.println("Los elementos");
+        System.out.println(grafica.getElementos());
+
+         */
+
+        System.out.println("La lista");
+        System.out.println(lista.toString());
+
+
+                /* BFS de la clase */
+        cadena = "";
+        grafica.bfs(5, v -> cadena += v.get() + ", ");
+
+
+
+                /*
+
+                grafica.bfs(0, v -> cadena += v.get() + ", ");
+                System.out.println(cadena);
+
+                 */
+
+        /*
+
+
+        for (Integer i : grafica){
+            grafica.bfs(i, v -> cadena += v.get() + ", ");
+            System.out.println(cadena);
+            cadena = "";
+        }
+
+         */
+
     }
 
 

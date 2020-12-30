@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" time="0.103" errors="0" skipped="0">
+<testsuite tests="8" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" time="0.029" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
@@ -65,11 +65,11 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testElimina" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testToString" time="0.097"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testToString" time="0.019"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testGiraDerecha" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testAgrega" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testEquals" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testGiraIzquierda" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testAgrega" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testEquals" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testGiraIzquierda" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testConstructorColeccion" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testConstructor" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestArbolAVL" name="testConstructor" time="0.001"/>
 </testsuite>
