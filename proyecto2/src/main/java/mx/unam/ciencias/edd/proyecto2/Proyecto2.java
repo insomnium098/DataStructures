@@ -183,7 +183,7 @@ public class Proyecto2 {
 
             case "Arreglos":
                 //System.out.println("La estructura es un Arreglo");
-                graficaArreglo(elementos_split);
+                graficaArreglo(elementos_split,70);
 
                 break;
 
@@ -724,7 +724,7 @@ public class Proyecto2 {
 
     }
 
-    public static void graficaArreglo(String [] arreglo){
+    public static void graficaArreglo(String [] arreglo, Integer yInicial){
 
         //Creamos el arreglo
         Integer[] arreglo_int = new Integer [arreglo.length];
@@ -734,7 +734,7 @@ public class Proyecto2 {
 
         //La ordenamos
 
-        Arreglos.quickSort(arreglo_int);
+        //Arreglos.quickSort(arreglo_int);
 
         ///Lo graficamos
         graficaHeaderSVG();
@@ -743,29 +743,28 @@ public class Proyecto2 {
         ///Definimos los valores iniciales de X y Y para el cuadrado y las dobles flechas
 
         int x_cuadrado_inicial = 10;
-        int y_cuadrado_inicial = 10;
+        //int y_cuadrado_inicial = 10;
+        int y_cuadrado_inicial = yInicial;
         //Definimos las constantes para separar los cuadrados
         int x_const = 40;
 
         String elemento = "";
 
         int contador_cuadrado = x_cuadrado_inicial;
-        int cont_cuad_y = 1;
+        int cont_cuad_y = 0;
 
 
-
-
-        for (int i = 0; i < arreglo_int.length; i ++){
-            elemento = String.valueOf(arreglo_int[i]);
-            if((cont_cuad_y % 20) == 0){
+        for (Integer integer : arreglo_int) {
+            elemento = String.valueOf(integer);
+            if ((cont_cuad_y % 20) == 0) {
                 y_cuadrado_inicial = y_cuadrado_inicial + 70;
                 contador_cuadrado = x_cuadrado_inicial;
             }
             cuadradoSVG(contador_cuadrado,
-                    y_cuadrado_inicial,elemento);
+                    y_cuadrado_inicial, elemento);
 
             contador_cuadrado = contador_cuadrado + x_const;
-            cont_cuad_y ++;
+            cont_cuad_y++;
         }
 
         graficaFinalSVG();

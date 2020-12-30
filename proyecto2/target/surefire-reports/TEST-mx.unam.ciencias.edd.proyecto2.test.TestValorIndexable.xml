@@ -64,13 +64,13 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testGetValor" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testToString" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testGetValor" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testToString" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testCompareTo" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testIndexable" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testSetIndice" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testGetIndice" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testGetIndice" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testEquals" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testGetElemento" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testSetValor" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestValorIndexable" name="testSetValor" time="0"/>
 </testsuite>
