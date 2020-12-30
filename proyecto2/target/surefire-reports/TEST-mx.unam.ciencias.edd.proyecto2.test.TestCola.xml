@@ -64,11 +64,11 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testEsVacia" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testMete" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testEsVacia" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testMete" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testMira" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testSaca" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testToString" time="0.005"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testToString" time="0.006"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testEquals" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testConstructor" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestCola" name="testConstructor" time="0.001"/>
 </testsuite>

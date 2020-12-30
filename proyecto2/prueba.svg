@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink">
+xmlns:xlink="http://www.w3.org/1999/xlink" width='700'  height= '420'>
+
 <g>
 <rect x="10" y="10" height="40" width="40" style="stroke:#006600; fill: #66000000"/>
 <text x="16" y="33" font-family="Verdana" font-size="10" fill="blue">Hello</text>

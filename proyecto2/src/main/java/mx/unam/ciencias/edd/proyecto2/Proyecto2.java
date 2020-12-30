@@ -101,7 +101,8 @@ public class Proyecto2 {
                     pila.mete(Integer.parseInt(s));
                 }
 
-                graficaMeteSaca(pila);
+                //graficaMeteSaca(pila);
+                graficaPila(pila);
 
                 break;
 
@@ -634,6 +635,59 @@ public class Proyecto2 {
 
 
     /*
+    Metodo que recibe una Pila y la grafica
+     */
+
+    public static void graficaPila(Pila<Integer> pila){
+
+
+        ///Hacemos una lista para guardar los elementos de la pila en orden reverso
+        Lista<Integer> lista = new Lista<>();
+        while (!pila.esVacia()){
+            lista.agrega(pila.saca());
+        }
+
+        lista.reversa();
+
+        //Obtenemos el numero de elementos para establecer el height del svg
+        ///Por cada elemento se agregan 50 al svg
+        int longSVG = lista.getLongitud()*50;
+
+        String headerSVG = String.format("<svg xmlns=\"http://www.w3.org/2000/svg\"\n" +
+                        "xmlns:xlink=\"http://www.w3.org/1999/xlink\" width='700'  height= '%1$s'>",
+                longSVG);
+
+        System.out.println(headerSVG);
+
+
+
+        int x_cuadrado_inicial = 500;
+        int y_cuadrado_inicial = 10;
+        //Definimos las constantes para separar los cuadrados
+        int x_const = 40;
+
+        String elemento = "";
+
+        int contador_cuadrado = x_cuadrado_inicial;
+
+
+        for (Integer i : lista){
+            elemento = String.valueOf(i);
+            cuadradoSVG(contador_cuadrado,
+                    y_cuadrado_inicial,elemento);
+
+            y_cuadrado_inicial = y_cuadrado_inicial + x_const;
+
+
+
+        }
+
+        graficaFinalSVG();
+
+    }
+
+
+    /*
     Metodo que recibe un objeto de MeteSaca y lo grafica
      */
 
@@ -649,7 +703,7 @@ public class Proyecto2 {
         String elemento = "";
 
         int contador_cuadrado = x_cuadrado_inicial;
-        int cont_cuad_y = 1;
+        int cont_cuad_y = 0;
 
 
 
