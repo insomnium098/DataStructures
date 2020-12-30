@@ -760,18 +760,16 @@ public class Proyecto2 {
         int y_flecha_inicial = 31;
 
 
-
-
         ///Imprimimos el SVG
-
-
         graficaHeaderSVG();
 
-
-        //Primero imprimimos todos los cuadrados
-        String elemento = null;
+        String elemento;
         int contador_cuadrado = x_cuadrado_inicial;
-        int cont_cuad_y = 1;
+        int cont_cuad_y = 0;
+
+        int contador = 0;
+        int contadorFlechaX = x_flecha_inicial;
+        int y_flecha = y_flecha_inicial;
 
         for (Integer i : lista){
             elemento = i.toString();
@@ -780,6 +778,15 @@ public class Proyecto2 {
             if((cont_cuad_y % 10) == 0){
                 y_cuadrado_inicial = y_cuadrado_inicial + 70;
                 contador_cuadrado = x_cuadrado_inicial;
+                contadorFlechaX = x_flecha_inicial;
+                y_flecha = y_flecha + 69;
+            }
+
+            //Imprimimos las dobles flechas correspondientes
+            if(!i.equals(lista.getUltimo())){
+                flechaDoble(contadorFlechaX,y_flecha,contador);
+                contadorFlechaX = contadorFlechaX + x_arrow_const;
+                contador++;
             }
 
             cuadradoSVG(contador_cuadrado,
@@ -789,26 +796,6 @@ public class Proyecto2 {
             cont_cuad_y ++;
         }
 
-        ///Imprimimos las dobles flechas correspondientes
-
-        //Calculamos el numero de flechas, esto es el numero de elementos -1
-        int n_elementos = lista.getLongitud();
-        int contador = 1;
-        int contadorFlechaX = x_flecha_inicial;
-        int y_flecha = y_flecha_inicial;
-
-
-
-        for(int i = 0; i < n_elementos-1; i++){
-            if((contador % 10) == 0){
-                contadorFlechaX = x_flecha_inicial;
-                y_flecha = y_flecha + 69;
-            }
-
-            flechaDoble(contadorFlechaX,y_flecha,contador);
-            contadorFlechaX = contadorFlechaX + x_arrow_const;
-            contador++;
-        }
 
         graficaFinalSVG();
     }
