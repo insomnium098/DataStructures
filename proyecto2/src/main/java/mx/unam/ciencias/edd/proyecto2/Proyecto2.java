@@ -376,13 +376,129 @@ public class Proyecto2 {
 
          */
 
-        System.out.println("La lista");
-        System.out.println(lista.toString());
+
+        //System.out.println("La lista");
+        //System.out.println(lista.toString());
+
+
+        ///Hacemos listas para guardar los elementos y sus coordenadas X y Y
+        ////Estas coordenadas estaran fuera del loop
+        Lista<String> nombreElemento = new Lista<>();
+        Lista<Double> listacoordX = new Lista<>();
+        Lista<Double> listacoordY = new Lista<>();
+
+
+        ////Obtenemos el numero de elementos para graficarlos en el circulo
+        ///Establecemos el centro 700 y 300 en normal
+        Double xCentro = 50.0;
+        Double yCentro = 50.0;
+
+        //Integer nElementos = grafica.getElementos();
+        Integer radio = 10;
+
+
+
+
+
+        graficaHeaderSVG();
 
 
                 /* BFS de la clase */
         cadena = "";
-        grafica.bfs(5, v -> cadena += v.get() + ", ");
+        grafica.bfs(5, v -> cadena += v.get() + " ");
+        //System.out.println(cadena);
+        //graficaCadenaSVG(cadena);
+
+        //Aqui empieza el procesamiento de la cadena, esto se hara por cada bfs
+
+        String[] cadena_split = cadena.split("\\s+");
+        Integer nElementos = cadena_split.length;
+
+        int contador = 1;
+
+
+        for (String s : cadena_split){
+            //El primer elemento es el nodo, los demas son sus vertices
+
+            Double coordXelem;
+            double coordYelem;
+
+            Double coordXPadre;
+            Double coordYPadre;
+
+            coordXelem = xCentro + radio * Math.cos(2*Math.PI * contador / nElementos);//Math.random()*30;//coordXPadre + forward;
+            coordYelem = yCentro + radio * Math.sin(2*Math.PI * contador / nElementos);//180 - f;
+
+
+
+
+            if(contador == 1){
+                //Lo guardamos
+                ///El primer elemento estará centrado
+
+
+                circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+                //circuloGrafica(coordXelem,coordYelem,s,"NEGRO");
+                ///Despues agregamos el elemento y sus coordenadas a las listas
+                nombreElemento.agrega(s);
+                listacoordX.agrega(coordXelem);
+                listacoordY.agrega(coordYelem);
+                contador ++;
+                continue;
+
+            }
+
+
+            ////Obtenemos las coordenadas de su padre
+            int indicePadre = nombreElemento.indiceDe(cadena_split[0]);
+            coordXPadre = listacoordX.get(indicePadre);
+            coordYPadre = listacoordY.get(indicePadre);
+
+
+
+
+
+            ///Buscamos si el elemento ya ha sido graficado y se encuentra en las listas
+
+
+            ///
+            if(nombreElemento.contiene(s)){
+                //Obtenemos su indice
+                int indice = nombreElemento.indiceDe(s);
+                ///Obtenemos sus coordenadas X y Y
+                coordXelem = listacoordX.get(indice);
+                coordYelem = listacoordY.get(indice);
+
+
+                ///Graficamos las lineas entre el elemento y su padre
+                lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
+                contador ++;
+                continue;
+
+            }
+
+
+
+
+            ////Caso donde el elemento no ha sido graficado
+
+            ///Agregamos el elemento a las listas
+            nombreElemento.agrega(s);
+            listacoordX.agrega(coordXelem);
+            listacoordY.agrega(coordYelem);
+
+            ///Graficamos el circulo del elemento
+            //circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+            circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+            //Graficamos las lineas entre el elemento y su padre
+            lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
+
+            contador ++;
+
+        }
+
+
+
 
 
 
@@ -403,6 +519,52 @@ public class Proyecto2 {
         }
 
          */
+
+        graficaFinalSVG();
+
+    }
+
+
+
+    /*
+    Metodo que calcula las coordenadas X de un elemento para la grafica
+     */
+
+    public static Double coordenadasXElemento (double coordXPadre,Integer contador){
+        int x = 5;
+        double circulo = 360 / 5;
+        Double coordfinal = circulo * Double.valueOf(contador);
+
+        return coordXPadre + 10;//(coordfinal*.10);//coordXPadre + (4*contador);
+
+    }
+
+        /*
+    Metodo que calcula las coordenadas Y de un elemento para la grafica
+     */
+
+    public static Integer coordenadasYElemento (Integer coordYPadre, Integer contador){
+
+        int x = 5;
+        double circulo = 360 / 5;
+        Integer coordfinal = Integer.valueOf((int) circulo) + (contador);
+
+
+        return coordYPadre + 10;//(coordfinal);
+
+    }
+
+    /*
+    Metodo que procesa una cadena con los elementos de una grafica y los grafica
+     */
+
+    public static void graficaCadenaSVG(String cadena){
+
+        String[] cadena_split = cadena.split("\\s+");
+
+        for (String s : cadena_split){
+            System.out.println(s);
+        }
 
     }
 
@@ -427,7 +589,7 @@ public class Proyecto2 {
     /*
     Metodo que grafica el balance de un vertice AVL
      */
-    public static void balanceSVG(Double coordX, Integer coordY, String balance,String lado){
+    public static void balanceSVG(Double coordX, Double coordY, String balance,String lado){
 
         if (lado.equals("Izquierdo")){
             coordX = coordX-0.4;
@@ -453,14 +615,14 @@ public class Proyecto2 {
 
     public static void graficaArbolBFS (ArbolBinario<Integer> arbol, String tipoArbol ){
 
-        int y_Circulo_inicial = 40;
+        Double y_Circulo_inicial = 40.0;
         graficaHeaderSVG();
 
 
         //Inicializamos profundidad y el contador de Y
         int profundidad = 0;
 
-        int contadorY = y_Circulo_inicial;
+        Double contadorY = y_Circulo_inicial;
 
 
         //////V2 HACER LISTAS PARA LOS PADRES Y LOS ELEMENTOS
@@ -553,7 +715,7 @@ public class Proyecto2 {
 
 
 
-                circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color);
+                circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color,true);
 
                 if(tipoArbol.equals("ArbolAVL")){
                     balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo");
@@ -601,9 +763,9 @@ public class Proyecto2 {
                 coordenadasElementos.agrega(coordElemento);
 
 
-                lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY);
+                lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true);
 
-                circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color);
+                circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true);
 
                 if(tipoArbol.equals("ArbolAVL")){
 
@@ -656,10 +818,22 @@ public class Proyecto2 {
     Metodo que recibe las coordenadas X y Y del vertice padre y del vertice y grafica la linea
      */
 
-    public static void lineaSVG(Double coordXPadre, Integer coordYPadre, Double coordXVertice,Integer coordYVertice){
+    public static void lineaSVG(Double coordXPadre, Double coordYPadre, Double coordXVertice,Double coordYVertice,
+                                boolean arbol){
 
-        String linea = String.format("<line x1='%1$s%%' y1='%2$s' x2='%3$s%%' y2='%4$s' stroke='black' stroke-width='3' />",
-                coordXPadre,coordYPadre+9,coordXVertice,coordYVertice);
+        String linea;
+
+        if(arbol){
+            linea = String.format("<line x1='%1$s%%' y1='%2$s' x2='%3$s%%' y2='%4$s' stroke='black' stroke-width='3' />",
+                    coordXPadre,coordYPadre+9,coordXVertice,coordYVertice);
+
+        } else {
+            linea = String.format("<line x1='%1$s%%' y1='%2$s%%' x2='%3$s%%' y2='%4$s%%' stroke='black' stroke-width='3' />",
+                    coordXPadre -0.4 , coordYPadre - 0.4, coordXVertice + 0.4, coordYVertice + 0.4);
+
+        }
+
+
 
         System.out.println(linea);
     }
@@ -722,9 +896,10 @@ public class Proyecto2 {
     Metodo que grafica un circulo
     Las coordenadas X se representaran en porcentaje
      */
-    public static void circuloSVG(Double coordX, Integer coordY, String texto, String color){
+    public static void circuloSVG(Double coordX, Double coordY, String texto, String color, boolean arbol){
 
         String colorTexto = "black";
+
 
         if(color.equals("NEGRO")){
             color = "black";
@@ -736,17 +911,36 @@ public class Proyecto2 {
             color = "white";
         }
 
+        Double y_text;
+
+        String circulo;
+        String circuloTexto;
+
+        if (arbol ){
+            y_text = coordY + 2;
+            circulo = String.format("<circle cx='%1$s%%' cy='%2$s' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
+                    coordX,coordY, color);
+
+
+            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
+                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
+
+        } else {
+            y_text = coordY + 0.5;
+
+            circulo = String.format("<circle cx='%1$s%%' cy='%2$s%%' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
+                    coordX,coordY, color);
+
+
+            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s%%'\n" +
+                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
+
+        }
 
 
 
-        String circulo = String.format("<circle cx='%1$s%%' cy='%2$s' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
-                coordX,coordY, color);
 
 
-        int y_text = coordY + 2;
-
-        String circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
-                "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
 
         System.out.println("<g>");
         System.out.println(circulo);
