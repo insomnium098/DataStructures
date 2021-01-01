@@ -117,7 +117,7 @@ public class Proyecto2 {
                 for (String s : elementos_split){
                     arbol.agrega(Integer.parseInt(s));
                 }
-                graficaArbolBFS(arbol,estructura);
+                graficaArbolBFS(arbol,estructura,true);
 
                 break;
 
@@ -127,7 +127,7 @@ public class Proyecto2 {
                     arbolOrdenado.agrega(Integer.parseInt(s));
                 }
 
-                graficaArbolBFS(arbolOrdenado,estructura);
+                graficaArbolBFS(arbolOrdenado,estructura,true);
                 break;
 
             case "ArbolRojinegro":
@@ -138,7 +138,7 @@ public class Proyecto2 {
                 }
 
                 //graficaArbolRojinegro(arbolRojinegro);
-                graficaArbolBFS(arbolRojinegro,estructura);
+                graficaArbolBFS(arbolRojinegro,estructura,true);
                 //System.out.println(arbolRojinegro.toString());
 
                 /*
@@ -172,13 +172,13 @@ public class Proyecto2 {
 
 
 
-                graficaArbolBFS(arbolAVL,estructura);
+                graficaArbolBFS(arbolAVL,estructura,true);
 
                 break;
 
             case "Arreglos":
                 //System.out.println("La estructura es un Arreglo");
-                graficaArreglo(elementos_split,70);
+                graficaArreglo(elementos_split,70,true);
 
                 break;
 
@@ -199,11 +199,13 @@ public class Proyecto2 {
                 break;
 
             case "MonticuloMinimo":
-                System.out.println("La estructura es un Monticulo minimo");
-                break;
 
             case "MonticuloArreglo":
-                System.out.println("La estructura es un Monticulo Arreglo");
+                //System.out.println("La estructura es un Monticulo Arreglo");
+                //System.out.println("La estructura es un Monticulo minimo");
+                graficaMonticulo(elementos_split);
+
+
                 break;
 
 
@@ -290,6 +292,43 @@ public class Proyecto2 {
 
 
         return estructura;
+    }
+
+    /*
+    Metodo que grafica un monticulo
+     */
+
+    public static void graficaMonticulo (String [] elementos_split){
+        Lista<Integer> listaMonticulo = new Lista<>();
+
+
+        for (String s : elementos_split){
+            listaMonticulo.agrega(Integer.parseInt(s));
+        }
+
+        listaMonticulo = MonticuloMinimo.heapSort(listaMonticulo);
+
+
+        String [] elementosOrdenados = new String [listaMonticulo.getLongitud()];
+
+
+
+        ArbolBinarioCompleto<Integer> arbolMonticulo = new ArbolBinarioCompleto<>();
+
+        int contador = 0;
+        for (Integer i : listaMonticulo){
+            arbolMonticulo.agrega(i);
+            elementosOrdenados[contador] = i.toString();
+            contador ++;
+
+        }
+
+        graficaArbolBFS(arbolMonticulo,"ArbolBinarioCompleto",false);
+
+
+
+        graficaArreglo(elementosOrdenados,500,false);
+
     }
 
     /*
@@ -556,7 +595,7 @@ public class Proyecto2 {
 
      */
 
-    public static void graficaArbolBFS (ArbolBinario<Integer> arbol, String tipoArbol ){
+    public static void graficaArbolBFS (ArbolBinario<Integer> arbol, String tipoArbol, boolean header ){
 
         Double y_Circulo_inicial = 40.0;
         graficaHeaderSVG();
@@ -747,7 +786,11 @@ public class Proyecto2 {
 
         //////////
 
-        graficaFinalSVG();
+        if(header){
+            graficaFinalSVG();
+        }
+
+
 
 
 
@@ -983,7 +1026,7 @@ public class Proyecto2 {
 
     }
 
-    public static void graficaArreglo(String [] arreglo, Integer yInicial){
+    public static void graficaArreglo(String [] arreglo, Integer yInicial, boolean header){
 
         //Creamos el arreglo
         Integer[] arreglo_int = new Integer [arreglo.length];
@@ -996,7 +1039,11 @@ public class Proyecto2 {
         //Arreglos.quickSort(arreglo_int);
 
         ///Lo graficamos
-        graficaHeaderSVG();
+
+        if(header){
+            graficaHeaderSVG();
+        }
+
 
 
         ///Definimos los valores iniciales de X y Y para el cuadrado y las dobles flechas
@@ -1026,7 +1073,12 @@ public class Proyecto2 {
             cont_cuad_y++;
         }
 
+
+
         graficaFinalSVG();
+
+
+
 
     }
 
