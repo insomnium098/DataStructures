@@ -137,39 +137,16 @@ public class Proyecto2 {
                     arbolRojinegro.agrega(Integer.parseInt(s));
                 }
 
-                //graficaArbolRojinegro(arbolRojinegro);
+                
                 graficaArbolBFS(arbolRojinegro,estructura,true);
-                //System.out.println(arbolRojinegro.toString());
 
-                /*
-
-                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)arbolRojinegro.raiz;
-
-                System.out.println(vert.toString());
-                System.out.println(vert.elemento.toString());
-                System.out.println(vert.color);
-
-                 */
                 break;
 
             case "ArbolAVL":
-                //System.out.println("La estructura es un Arbol AVL");
                 ArbolAVL<Integer> arbolAVL = new ArbolAVL<>();
                 for (String s : elementos_split){
                     arbolAVL.agrega(Integer.parseInt(s));
                 }
-
-
-                /*
-                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)arbolAVL.raiz;
-                System.out.println(vert.toString());
-                System.out.println(vert.elemento.toString());
-                System.out.println(vert.get());
-                System.out.println("El balance de la raiz es");
-                System.out.println(getBalanceAVL(arbolAVL.raiz));
-
-                 */
-
 
 
                 graficaArbolBFS(arbolAVL,estructura,true);
@@ -177,13 +154,11 @@ public class Proyecto2 {
                 break;
 
             case "Arreglos":
-                //System.out.println("La estructura es un Arreglo");
                 graficaArreglo(elementos_split,70,true);
 
                 break;
 
             case "Grafica":
-                //System.out.println("La estructura es una Grafica");
                 Grafica<Integer> grafica = new Grafica<>();
                 Lista<Integer> listag = new Lista<>();
 
@@ -201,8 +176,7 @@ public class Proyecto2 {
             case "MonticuloMinimo":
 
             case "MonticuloArreglo":
-                //System.out.println("La estructura es un Monticulo Arreglo");
-                //System.out.println("La estructura es un Monticulo minimo");
+
                 graficaMonticulo(elementos_split);
 
 
