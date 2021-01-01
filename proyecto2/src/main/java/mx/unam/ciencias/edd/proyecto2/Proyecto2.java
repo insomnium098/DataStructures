@@ -300,12 +300,95 @@ public class Proyecto2 {
 
         ///La lista va a contener los elementos repetidos, que estaran desconectados de la grafica
 
-        Integer anterior = null;
+        Integer anterior;
+        Integer actual;
         Integer contadorPares = 0;
+
+
+
+        for (int i = 1; i < elementos_split.length; i = i + 2){
+
+            anterior = Integer.valueOf(elementos_split[i-1]);
+            actual = Integer.valueOf(elementos_split[i]);
+
+            ///Revisar si el par de elementos son iguales
+            if(anterior.equals(actual)){
+                //System.out.println("Son iguales");
+                lista.agrega(actual);
+                //Agregamos un -1 al siguiente para denotar que no tiene por el momento aristas
+                //lista.agrega(-1);
+                continue;
+            }
+
+
+            /*
+            ///Buscamos si el anterior del elemento ya existe en los elementos desconectados
+            if(lista.indiceDe(anterior) != -1){
+                //Agregamos a ambos
+                lista.agrega(anterior);
+                lista.agrega(actual);
+                continue;
+            }
+
+             */
+
+            ///Buscamos si ambos elementos ya existen en la grafica
+
+            if(grafica.contiene(anterior) && grafica.contiene(actual)){
+
+                ///Revisar si la arista ya existe
+                if (!grafica.sonVecinos(anterior, actual)) {
+                    grafica.conecta(anterior, actual);
+                }
+                continue;
+
+            }
+
+            ///Buscamos si ya existe el anterior pero no el actual
+            if(grafica.contiene(anterior) && !grafica.contiene(actual)){
+                grafica.agrega(actual);
+                grafica.conecta(anterior,actual);
+                continue;
+            }
+            ///Buscamos si ya existe el actual pero no el anterior
+            if(grafica.contiene(actual) && !grafica.contiene(anterior)){
+                grafica.agrega(anterior);
+                grafica.conecta(anterior,actual);
+                continue;
+            }
+
+            ///Si no existen ambos se agregan y se conectan
+            grafica.agrega(actual);
+            grafica.agrega(anterior);
+            grafica.conecta(actual,anterior);
+
+
+
+        }
+
+
+
+
+
+
+        /*
+
+
+
+
+
 
         for (String s : elementos_split){
             contadorPares ++;
             Integer actual = Integer.parseInt(s);
+
+            ////Caso base
+
+            if(contadorPares == 1){
+                anterior = Integer.valueOf(elementos_split[0]);
+
+            }
+
 
             ///Revisar si el par de elementos son iguales
             if(anterior == actual){
@@ -313,31 +396,63 @@ public class Proyecto2 {
                 lista.agrega(actual);
                 //Agregamos un -1 al siguiente para denotar que no tiene por el momento aristas
                 lista.agrega(-1);
-                anterior = null;
+                //anterior = null;
                 continue;
             }
 
             ///Buscamos si el anterior del elemento ya existe en los elementos desconectados
-            if(lista.indiceDe(anterior) != -1){
+            if(lista.indiceDe(anterior) != -1 && lista.indiceDe(actual) != -1){
                 //Agregamos a ambos
-                lista.agrega(anterior);
-                lista.agrega(actual);
-                anterior = null;
                 continue;
             }
 
+            if(lista.indiceDe(anterior) != -1){
+                //Agregamos a ambos
+                lista.agrega(anterior);
+                continue;
+            }
+
+            if(lista.indiceDe(actual) != -1){
+                //Agregamos a ambos
+                lista.agrega(actual);
+                continue;
+            }
+
+            ///Caso donde la grafica tiene a ambos elementos
+            if (grafica.contiene(anterior) && grafica.contiene(actual)){
+                ///Caso donde los elementos son vecinos
+                if(grafica.sonVecinos(anterior,actual)){
+                    continue;
+                } else{
+                    grafica.conecta(actual,anterior);
+                    continue;
+                }
+
+            }
+
+
+
             ///Buscamos si el elemento ya existe en la grafica
             if(grafica.contiene(actual)){
+
                 //Si es impar el contador el actual se hace el anterior
                 //Si es par se conecta con su anterior
                 if((contadorPares % 2) !=0){
                     anterior = actual;
                 } else {
-                    grafica.conecta(anterior,actual);
+                    //grafica.conecta(anterior,actual);
+                    System.out.println("El anterior y el actual");
+                    System.out.println(anterior);
+                    System.out.println(actual);
+                    System.out.println(contadorPares);
                 }
 
                 continue;
 
+            }
+
+            if(lista.contiene(actual)){
+                continue;
             }
 
             grafica.agrega(actual);
@@ -345,16 +460,28 @@ public class Proyecto2 {
             if (anterior != null) {
                 //Conectamos el actual con el anterior
                  grafica.conecta(anterior, actual);
-
             }
             ///Hacemos el actual como el anterior
-            anterior = actual;
+            //anterior = actual;
 
             if((contadorPares % 2) == 0){
                 anterior = null;
             }
 
         }
+
+         */
+
+
+
+
+
+
+
+
+
+
+
 
 
         /*
@@ -393,33 +520,210 @@ public class Proyecto2 {
         Double xCentro = 50.0;
         Double yCentro = 50.0;
 
-        //Integer nElementos = grafica.getElementos();
-        Integer radio = 10;
+        Integer nElementos = grafica.getElementos();
+        Integer radio = 30;
+        int contador = 1;
+
+        Double coordXelem;
+        double coordYelem;
+
+        Double coordXPadre;
+        Double coordYPadre;
 
 
 
 
+
+
+
+
+        String[] cadena_split;
+
+        Lista<Integer> listaElementos = new Lista<>();
+
+        //Primero graficamos todos los nodos de la grafica y los agregamos a una lista
+        //Hacemos una lista para guardar las lineas ya hechas
+
+
+        Lista<String> listaLineas = new Lista<>();
 
         graficaHeaderSVG();
 
 
+
+
+        for (Integer i : grafica){
+            listaElementos.agrega(i);
+            String s = i.toString();
+            coordXelem = xCentro + radio * Math.cos(2*Math.PI * contador / nElementos);//Math.random()*30;//coordXPadre + forward;
+            coordYelem = yCentro + radio * Math.sin(2*Math.PI * contador / nElementos);//180 - f;
+
+            ///Despues agregamos el elemento y sus coordenadas a las listas
+            nombreElemento.agrega(s);
+            listacoordX.agrega(coordXelem);
+            listacoordY.agrega(coordYelem);
+            //circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+            contador ++;
+
+        }
+
+
+
+        for (Integer i : grafica){
+
+
+
+
+            for (Integer b : listaElementos){
+
+                ///Vemos si estan conectados
+                if(!grafica.sonVecinos(i,b)){
+                    continue;
+                }
+
+
+                ///Hacer un string con los elementos y su conexion
+                String texto = i.toString() + "_" + b.toString();
+                String textor = b.toString() + "_" + i.toString();
+
+
+                ///Vemos si las lineas entre los elementos ya existen en listaLineas,
+                //Si ya existen continuamos el loop
+                if(listaLineas.contiene(texto) || listaLineas.contiene(textor)) {
+                    continue;
+                }
+
+                listaLineas.agrega(texto);
+                listaLineas.agrega(textor);
+
+
+                //Si estan conectados se obtienen los indices y se hace la linea
+                int indicePadre = nombreElemento.indiceDe(i.toString());
+                coordXPadre = listacoordX.get(indicePadre);
+                coordYPadre = listacoordY.get(indicePadre);
+
+                int indice = nombreElemento.indiceDe(b.toString());
+                ///Obtenemos sus coordenadas X y Y
+                coordXelem = listacoordX.get(indice);
+                coordYelem = listacoordY.get(indice);
+
+
+                ///Graficamos las lineas entre el elemento y su padre
+                lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
+                circuloSVG(coordXelem,coordYelem,b.toString(),"NEGRO",false);
+                //lineaSVG(coordXLinea,coordYLinea,coordXPadre,coordYPadre,false);
+
+            }
+            int indiceP = nombreElemento.indiceDe(i.toString());
+            double coordXP = listacoordX.get(indiceP);
+            double coordYP= listacoordY.get(indiceP);
+            circuloSVG(coordXP,coordYP,i.toString(),"NEGRO",false);
+
+
+
+        }
+
+
+        ///Finalmente graficamos los elementos inconexos en lista
+        contador = 1;
+        anterior = null;
+        double yInicial = 90;
+        double xInicial = 2;
+
+        double separacionX = 5;
+        double separacionY= 3;
+
+        double yContador = yInicial;
+        double xContador= xInicial;
+
+        for (Integer i : lista){
+            //Si el elemento ya existe en la grafica continuamos
+            if(grafica.contiene(i) || listaElementos.contiene(i)){
+                continue;
+            }
+
+            ///Si el contador es modulo 20 se reinica el Xcontador y se actualiza el Y contador
+            if((contador % 20)==0){
+                xContador = xInicial;
+                yContador = yInicial + separacionY;
+                contador = 1;
+            }
+
+            listaElementos.agrega(i);
+            String s = i.toString();
+            coordXelem = xContador + (separacionX*contador);//Math.random()*30;//coordXPadre + forward;
+            coordYelem = yContador;//180 - f;
+
+            ///Despues agregamos el elemento y sus coordenadas a las listas
+            nombreElemento.agrega(s);
+            listacoordX.agrega(coordXelem);
+            listacoordY.agrega(coordYelem);
+            circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+
+            contador ++;
+
+
+        }
+
+
+
+
+
+        graficaFinalSVG();
+
+
+
+        /*
+
+
+
+
+
+         */
+
+
+        /*
+
+        System.out.println("La lista");
+
+        for (Integer i : lista){
+            System.out.println(i);
+        }
+
+         */
+
+
+
+
+
+
+        //graficaHeaderSVG();
+        //cadena = "";
+
+
                 /* BFS de la clase */
-        cadena = "";
+
+        /*
+
         grafica.bfs(5, v -> cadena += v.get() + " ");
+
+         */
         //System.out.println(cadena);
         //graficaCadenaSVG(cadena);
 
         //Aqui empieza el procesamiento de la cadena, esto se hara por cada bfs
+        /*
 
-        String[] cadena_split = cadena.split("\\s+");
-        Integer nElementos = cadena_split.length;
+         = cadena.split("\\s+");
+        //Integer nElementos = cadena_split.length;
 
-        int contador = 1;
+
+
+
 
 
         for (String s : cadena_split){
             //El primer elemento es el nodo, los demas son sus vertices
-
             Double coordXelem;
             double coordYelem;
 
@@ -428,9 +732,6 @@ public class Proyecto2 {
 
             coordXelem = xCentro + radio * Math.cos(2*Math.PI * contador / nElementos);//Math.random()*30;//coordXPadre + forward;
             coordYelem = yCentro + radio * Math.sin(2*Math.PI * contador / nElementos);//180 - f;
-
-
-
 
             if(contador == 1){
                 //Lo guardamos
@@ -453,14 +754,7 @@ public class Proyecto2 {
             int indicePadre = nombreElemento.indiceDe(cadena_split[0]);
             coordXPadre = listacoordX.get(indicePadre);
             coordYPadre = listacoordY.get(indicePadre);
-
-
-
-
-
             ///Buscamos si el elemento ya ha sido graficado y se encuentra en las listas
-
-
             ///
             if(nombreElemento.contiene(s)){
                 //Obtenemos su indice
@@ -468,20 +762,13 @@ public class Proyecto2 {
                 ///Obtenemos sus coordenadas X y Y
                 coordXelem = listacoordX.get(indice);
                 coordYelem = listacoordY.get(indice);
-
-
                 ///Graficamos las lineas entre el elemento y su padre
                 lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
                 contador ++;
                 continue;
 
             }
-
-
-
-
             ////Caso donde el elemento no ha sido graficado
-
             ///Agregamos el elemento a las listas
             nombreElemento.agrega(s);
             listacoordX.agrega(coordXelem);
@@ -494,65 +781,126 @@ public class Proyecto2 {
             lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
 
             contador ++;
-
         }
 
+         */
 
 
-
-
-
-                /*
-
-                grafica.bfs(0, v -> cadena += v.get() + ", ");
-                System.out.println(cadena);
-
-                 */
+        ///Aqui empieza el metodo general
 
         /*
 
 
+
+
+
+
+
         for (Integer i : grafica){
-            grafica.bfs(i, v -> cadena += v.get() + ", ");
-            System.out.println(cadena);
+            grafica.bfs(i, v -> cadena += v.get() + " ");
+            cadena_split = cadena.split("\\s+");
+
+            int contadorloop = 1;
+            anterior = null;
+            for (String s : cadena_split){
+
+
+
+
+                //El primer elemento es el nodo, los demas son sus vertices
+                Double coordXelem;
+                Double coordYelem;
+
+                Double coordXPadre;
+                Double coordYPadre;
+
+                coordXelem = xCentro + radio * Math.cos(2*Math.PI * contador / nElementos);//Math.random()*30;//coordXPadre + forward;
+                coordYelem = yCentro + radio * Math.sin(2*Math.PI * contador / nElementos);//180 - f;
+
+                if(contadorloop == 1){
+                    //Lo guardamos
+                    ///El primer elemento estará centrado
+                    anterior = Integer.parseInt(s);
+
+
+                    circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+                    //circuloGrafica(coordXelem,coordYelem,s,"NEGRO");
+                    ///Despues agregamos el elemento y sus coordenadas a las listas
+                    nombreElemento.agrega(s);
+                    listacoordX.agrega(coordXelem);
+                    listacoordY.agrega(coordYelem);
+                    contador ++;
+                    contadorloop ++;
+                    continue;
+
+                }
+
+                Integer actual = Integer.parseInt(s);
+                ///Vemos si el nodo esta conectado
+
+                if(!grafica.sonVecinos(anterior,actual)){
+                    continue;
+                }
+
+
+
+                ////Obtenemos las coordenadas de su padre
+                int indicePadre = nombreElemento.indiceDe(anterior.toString());
+
+                coordXPadre = listacoordX.get(indicePadre);
+                coordYPadre = listacoordY.get(indicePadre);
+                ///Buscamos si el elemento ya ha sido graficado y se encuentra en las listas
+                ///
+                if(nombreElemento.contiene(s)){
+                    //Obtenemos su indice
+                    int indice = nombreElemento.indiceDe(s);
+                    ///Obtenemos sus coordenadas X y Y
+                    coordXelem = listacoordX.get(indice);
+                    coordYelem = listacoordY.get(indice);
+                    ///Graficamos las lineas entre el elemento y su padre
+                    lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
+                    contador ++;
+                    contadorloop ++;
+                    anterior = actual;
+                    continue;
+
+                }
+                ////Caso donde el elemento no ha sido graficado
+                ///Agregamos el elemento a las listas
+                nombreElemento.agrega(s);
+                listacoordX.agrega(coordXelem);
+                listacoordY.agrega(coordYelem);
+
+                ///Graficamos el circulo del elemento
+                //circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+                circuloSVG(coordXelem,coordYelem,s,"NEGRO",false);
+                //Graficamos las lineas entre el elemento y su padre
+                lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false);
+
+                contador ++;
+                contadorloop++;
+                anterior = actual;
+            }
+
+
+
+            /////Reiniciar para cada loop
             cadena = "";
         }
 
          */
 
-        graficaFinalSVG();
+
+
+        //graficaFinalSVG();
 
     }
 
 
 
-    /*
-    Metodo que calcula las coordenadas X de un elemento para la grafica
-     */
-
-    public static Double coordenadasXElemento (double coordXPadre,Integer contador){
-        int x = 5;
-        double circulo = 360 / 5;
-        Double coordfinal = circulo * Double.valueOf(contador);
-
-        return coordXPadre + 10;//(coordfinal*.10);//coordXPadre + (4*contador);
-
-    }
-
-        /*
-    Metodo que calcula las coordenadas Y de un elemento para la grafica
-     */
-
-    public static Integer coordenadasYElemento (Integer coordYPadre, Integer contador){
-
-        int x = 5;
-        double circulo = 360 / 5;
-        Integer coordfinal = Integer.valueOf((int) circulo) + (contador);
 
 
-        return coordYPadre + 10;//(coordfinal);
 
-    }
 
     /*
     Metodo que procesa una cadena con los elementos de una grafica y los grafica
@@ -829,7 +1177,8 @@ public class Proyecto2 {
 
         } else {
             linea = String.format("<line x1='%1$s%%' y1='%2$s%%' x2='%3$s%%' y2='%4$s%%' stroke='black' stroke-width='3' />",
-                    coordXPadre -0.4 , coordYPadre - 0.4, coordXVertice + 0.4, coordYVertice + 0.4);
+                    //coordXPadre -0.4 , coordYPadre - 0.4, coordXVertice + 0.4, coordYVertice + 0.4);
+                    coordXPadre  , coordYPadre , coordXVertice , coordYVertice);
 
         }
 

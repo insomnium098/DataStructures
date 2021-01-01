@@ -67,7 +67,7 @@
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testElimina" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testEsVacio" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testGet" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testReordena" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testGetElementos" time="0.005"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testConstructor" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testReordena" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testGetElementos" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestMonticuloArreglo" name="testConstructor" time="0.001"/>
 </testsuite>

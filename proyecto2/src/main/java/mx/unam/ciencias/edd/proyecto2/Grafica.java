@@ -146,15 +146,15 @@ public class Grafica<T> implements Coleccion<T> {
     public void conecta(T a, T b) {
         // Aquí va su código.
         if(!contiene(a) || !contiene(b)){
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("No existe el elemento");
         }
 
         if(a == b){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Los elementos son iguales");
         }
 
         if(sonVecinos(a,b)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Los elementos son vecinos");
         }
 
 
