@@ -27,6 +27,10 @@ public class Proyecto2 {
 
     public static void main(String[] args) {
 
+        if (args.length > 1){
+            System.out.println("ERROR:Solo se recibe un argumento a lo maximo");
+            System.exit(0);
+        }
 
         ///Primero leer el archivo y procesar la linea
 
@@ -54,6 +58,8 @@ public class Proyecto2 {
         try {
             linea = leeLinea(nombreArchivo);
         } catch (Exception ex) {
+            System.out.println("ERROR: No se puede leer el archivo");
+            System.exit(0);
 
         }
 
@@ -74,7 +80,7 @@ public class Proyecto2 {
             try {
                 int N = Integer.parseInt(value);
             } catch (Exception ex) {
-                System.out.println("Los elementos de la estructura no son enteros validos");
+                System.out.println("ERROR:Los elementos de la estructura no son enteros validos");
                 System.exit(1);
 
             }
@@ -188,41 +194,7 @@ public class Proyecto2 {
                 System.exit(1);
         }
 
-
-
-        /*
-
-        for (String s : elementos_split){
-            System.out.println(s);
-        }
-
-         */
-
-        //System.out.println(elementos_split.toString());
-
-
-
-        //System.out.println(linea);
-        //System.out.println(estructura);
-
-
-
-        /*
-        if (args.length != 1)
-            uso();
-
-        int N = -1;
-        try {
-            N = Integer.parseInt(args[0]);
-        } catch (NumberFormatException nfe) {
-            uso();
-        }
-
-        if (N < 1)
-            uso();
-
-         */
-
+        
     }
 
     /*
@@ -240,6 +212,7 @@ public class Proyecto2 {
         } else {
              br = new BufferedReader(new FileReader(nombreArchivo));
         }
+
 
             while ((linea = br.readLine()) != null){
                 if(linea.startsWith("#")){
