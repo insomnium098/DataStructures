@@ -1,5 +1,5 @@
 # Clase:
-        MonticuloMinimo
+        Lista
     # Elementos:
     5 1 4 7 0 2 3 6 9 31 8 8 5 6 7 5 7 19 8 20 5 2 21 21 15 15 18 18 5 18 21 3 21 15 99 99
     1 2 3 4 5 6 7

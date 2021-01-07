@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestPila" time="0.037" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="mx.unam.ciencias.edd.proyecto2.test.TestPila" time="0.023" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
@@ -65,10 +65,10 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testEsVacia" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testMete" time="0.004"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testMira" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testSaca" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testToString" time="0.026"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testMete" time="0.005"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testMira" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testSaca" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testToString" time="0.013"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testEquals" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.proyecto2.test.TestPila" name="testConstructor" time="0.001"/>
 </testsuite>

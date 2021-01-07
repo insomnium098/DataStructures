@@ -70,10 +70,10 @@ public class Proyecto2 {
         String[] elementos_split = elementos.split("\\s+");
 
 
-        for ( int i = 0; i < elementos_split.length; i++){
+        for (String value : elementos_split) {
             try {
-                int N = Integer.parseInt(elementos_split[i]);
-            } catch (Exception ex){
+                int N = Integer.parseInt(value);
+            } catch (Exception ex) {
                 System.out.println("Los elementos de la estructura no son enteros validos");
                 System.exit(1);
 
@@ -137,7 +137,7 @@ public class Proyecto2 {
                     arbolRojinegro.agrega(Integer.parseInt(s));
                 }
 
-                
+
                 graficaArbolBFS(arbolRojinegro,estructura,true);
 
                 break;
@@ -950,7 +950,7 @@ public class Proyecto2 {
         for (Integer i : lista){
             elemento = String.valueOf(i);
             cuadradoSVG(contador_cuadrado,
-                    y_cuadrado_inicial,elemento);
+                    y_cuadrado_inicial,elemento,false,0);
 
             y_cuadrado_inicial = y_cuadrado_inicial + x_const;
 
@@ -990,7 +990,7 @@ public class Proyecto2 {
                 contador_cuadrado = x_cuadrado_inicial;
             }
             cuadradoSVG(contador_cuadrado,
-                    y_cuadrado_inicial,elemento);
+                    y_cuadrado_inicial,elemento,false,0);
 
             contador_cuadrado = contador_cuadrado + x_const;
             cont_cuad_y ++;
@@ -1022,7 +1022,7 @@ public class Proyecto2 {
 
         ///Definimos los valores iniciales de X y Y para el cuadrado y las dobles flechas
 
-        int x_cuadrado_inicial = 10;
+        int x_cuadrado_inicial = 140;
         //int y_cuadrado_inicial = 10;
         int y_cuadrado_inicial = yInicial;
         //Definimos las constantes para separar los cuadrados
@@ -1033,18 +1033,21 @@ public class Proyecto2 {
         int contador_cuadrado = x_cuadrado_inicial;
         int cont_cuad_y = 0;
 
+        int contador = 0;
+
 
         for (Integer integer : arreglo_int) {
             elemento = String.valueOf(integer);
-            if ((cont_cuad_y % 20) == 0) {
+            if ((cont_cuad_y % 25) == 0) {
                 y_cuadrado_inicial = y_cuadrado_inicial + 70;
                 contador_cuadrado = x_cuadrado_inicial;
             }
             cuadradoSVG(contador_cuadrado,
-                    y_cuadrado_inicial, elemento);
+                    y_cuadrado_inicial, elemento,true,contador);
 
             contador_cuadrado = contador_cuadrado + x_const;
             cont_cuad_y++;
+            contador ++;
         }
 
 
@@ -1108,6 +1111,7 @@ public class Proyecto2 {
         int contador = 0;
         int contadorFlechaX = x_flecha_inicial;
         int y_flecha = y_flecha_inicial;
+        int longitud = lista.getLongitud();
 
         for (Integer i : lista){
             elemento = i.toString();
@@ -1121,14 +1125,14 @@ public class Proyecto2 {
             }
 
             //Imprimimos las dobles flechas correspondientes
-            if(!i.equals(lista.getUltimo())){
+            if(contador < longitud - 1){
                 flechaDoble(contadorFlechaX,y_flecha,contador);
-                contadorFlechaX = contadorFlechaX + x_arrow_const;
-                contador++;
             }
+            contadorFlechaX = contadorFlechaX + x_arrow_const;
+            contador++;
 
             cuadradoSVG(contador_cuadrado,
-                    y_cuadrado_inicial,elemento);
+                    y_cuadrado_inicial,elemento,false,0);
 
             contador_cuadrado = contador_cuadrado + x_const;
             cont_cuad_y ++;
@@ -1141,7 +1145,7 @@ public class Proyecto2 {
     /*
     Metodo que dibuja un cuadrado en SVG
      */
-    public static void cuadradoSVG(Integer coordX, Integer coordY, String texto){
+    public static void cuadradoSVG(Integer coordX, Integer coordY, String texto, boolean esArreglo, Integer contadorArreglo){
 
         String cuadrado = String.format("<rect x=\"%1$s\" y=\"%2$s\" height=\"40\" width=\"40\" style=\"stroke:#000000; fill: #66000000\"/>",
                 coordX,coordY);
@@ -1156,6 +1160,15 @@ public class Proyecto2 {
         System.out.println("<g>");
         System.out.println(cuadrado);
         System.out.println(cuadradoTexto);
+
+        if(esArreglo){
+            String indiceArreglo = String.format("<text x=\"%1$s\" y=\"%2$s\" font-family=\"Verdana\" font-size=\"6\" fill=\"black\">%3$s</text>",
+                    x_text,coordY-5,contadorArreglo);
+            System.out.println(indiceArreglo);
+        }
+
+
+
         System.out.println("</g>");
     }
 

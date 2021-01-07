@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+   <marker id="startarrow15" markerWidth="10" markerHeight="7"
+   refX="10" refY="3.5" orient="auto">
+     <polygon points="10 0, 10 7, 0 3.5" fill="black" />
+   </marker>
+   <marker id="endarrow15" markerWidth="10" markerHeight="7"
+   refX="0" refY="3.5" orient="auto" markerUnits="strokeWidth">
+       <polygon points="0 0, 10 3.5, 0 7" fill="black" />
+   </marker>
+ </defs>
+<line x1="800" y1="169" x2="820" y2="169" stroke="#000" stroke-width="2"
+ marker-end="url(#endarrow15)" marker-start="url(#startarrow15)" />
+<g>
+<rect x="970" y="150" height="40" width="40" style="stroke:#000000; fill: #66000000"/>
+<text x="987" y="173" font-family="Verdana" font-size="10" fill="black">8ZZ</text>
+</g>
+</svg>
