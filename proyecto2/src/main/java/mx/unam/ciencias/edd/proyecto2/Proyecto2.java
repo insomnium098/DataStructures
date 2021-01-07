@@ -4,26 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 
 
 /**
  * Proyecto 2.
  */
 public class Proyecto2 {
-    private static String cadena;
-
-
-    /* Imprime el uso del programa y lo termina. */
-
-    /*
-
-    private static void uso() {
-        System.err.println("Uso: java -jar practica7.jar N");
-        System.exit(1);
-    }
-
-     */
 
     public static void main(String[] args) {
 
@@ -190,11 +176,11 @@ public class Proyecto2 {
 
 
             default:
-                System.out.println("La estructura ingresada no es reconocida");
+                System.out.println("ERROR:La estructura ingresada no es reconocida");
                 System.exit(1);
         }
 
-        
+
     }
 
     /*
