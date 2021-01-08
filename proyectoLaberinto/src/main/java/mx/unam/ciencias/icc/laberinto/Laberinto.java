@@ -13,6 +13,9 @@ import java.io.*;
  */
 public class Laberinto {
 
+    public static Integer origen;
+    public static Integer destino;
+
     public static void main(String[] args) {
         ///El primer argumento es el nombre del archivo
         String nombreArchivo = args[0];
@@ -29,16 +32,60 @@ public class Laberinto {
 
         ///
 
-        ////Obtenemos un array de dos dimensiones del laberinto
+        ////Obtenemos un array con integers de dos dimensiones del laberinto
         Integer [][] arrayLaberinto = laberintoArray(laberintoOriginal);
-
         imprimeLaberintoNumerico(arrayLaberinto);
+
+
+        ////Obtenemos un array con chars de dos dimensiones del laberinto
+        char [][] charLaberinto = laberintoChar(laberintoOriginal);
+        //imprimeLaberintoNumerico(charLaberinto);
+
+
+        /////Creamos el grafo con ambas arrays
+        //Obtenemos el numero de columnas y rows
+        Integer nRow = arrayLaberinto[0].length;
+        Integer nCols = arrayLaberinto.length;
+        Integer nElementos = nRow * nCols;
+
+
+        /*
+
+        System.out.println("El numero de elementos es:");
+        System.out.println(nElementos);
+
+         */
+
+        //Creamos el grafo
+        Grafo grafo = new Grafo(nElementos);
+
+
+
+
+        ////Procesamos los laberintos para crear los edges del grafo
+        construyeEdges(grafo, arrayLaberinto, charLaberinto);
+
+
+        grafo.bfs(3,1);
+
+        System.out.println("El Origen es:");
+        System.out.println(origen);
+
+        System.out.println("El Destino es:");
+        System.out.println(destino);
+
+
+
+
+
+
 
 
         ///Procesamos todos los caracteres del laberinto para homogeneizar
 
 
-        ////Llenamos el laberino con numeros, que representaran a cada char
+
+
 
 
 
@@ -72,7 +119,175 @@ public class Laberinto {
     }
 
     /*
-    Metodo que recibe el laberinto original y crea un array de dos dimensiones a partir de el
+    Metodo que recibe dos chars, devuelve TRUE si ambos son espacio o si uno de ellos es
+    E ó S y el otro un espacio
+     */
+
+    public static boolean estanConectados(char a, char b){
+
+        if(a == ' ' && b == ' '){
+            return true;
+        }
+
+        if(a == 'E' && b == ' ' || a == ' ' && b == 'E'){
+            return true;
+        }
+
+        if(a == 'S' && b == ' ' || a == ' ' && b == 'S'){
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    /*
+    Metodo que recibe un grafo, el laberinto numerico, un laberinto en char y crea los edges
+     */
+
+
+    public static void construyeEdges(Grafo grafo, Integer [][] arrayLaberinto,
+                                      char [][] charLaberinto){
+
+        Integer nCols = arrayLaberinto[0].length;
+        Integer nRows = arrayLaberinto.length;
+
+        ///Primero se recorrerá el array con un anterior y siguiente por rows
+        Integer anteriorNum = null;
+        Integer siguienteNum = null;
+        char anteriorChar;
+        char siguienteChar;
+
+
+        for(int rows = 0; rows < nRows; rows ++){
+            for (int columnas = 0; columnas < nCols; columnas ++){
+                ///Definir anterior y siguiente para ambos arrays
+                anteriorNum = arrayLaberinto[rows][columnas];
+                anteriorChar = charLaberinto[rows][columnas];
+
+                if(columnas + 1 == nCols ){
+                    if(rows + 1 == nRows){
+                        break;
+                    } else {
+                        siguienteNum = arrayLaberinto[rows+1][0];
+                        siguienteChar = charLaberinto[rows+1][0];
+
+                    }
+
+                } else {
+                    siguienteNum = arrayLaberinto[rows][columnas+1];
+                    siguienteChar = charLaberinto[rows][columnas+1];
+                }
+
+
+                ///Revisar si son el origen y el destino para guardar su
+                //localizacion
+                if(anteriorChar == 'E' || siguienteChar == 'E' ){
+                    origen = anteriorNum;
+                }
+
+                if(anteriorChar == 'S' || siguienteChar == 'S' ){
+                    destino = anteriorNum;
+                }
+
+
+
+
+                ///Revisar si estan conectados en el charLaberinto
+
+                if(estanConectados(anteriorChar,siguienteChar)){
+                    /*
+                    System.out.println("El anterior numerico es");
+                    System.out.println(anteriorNum);
+                    System.out.println("El siguiente numerico es");
+                    System.out.println(siguienteNum);
+
+                    System.out.println("El anterior char es");
+                    System.out.println(anteriorChar);
+                    System.out.println("El siguiente char es");
+                    System.out.println(siguienteChar);
+
+                     */
+
+                    ///Conectar los numericos
+                    grafo.conecta(anteriorNum,siguienteNum);
+                }
+
+
+
+            }
+
+        }
+
+
+
+
+
+        /*
+
+
+
+
+
+        grafo.conecta(0,1);
+        grafo.conecta(0,2);
+        grafo.conecta(1,2);
+        grafo.conecta(2,3);
+        grafo.conecta(1,4);
+
+        grafo.imprimeGrafo();
+
+         */
+
+        //grafo.imprimeGrafo();
+
+
+
+
+    }
+
+
+
+
+
+    /*
+    Metodo que recibe el laberinto original y crea un array de chars de dos dimensiones
+     */
+
+    public static char [] [] laberintoChar (LinkedList<String> laberinto){
+        ///Primero determinamos la longitud del laberinto
+        ///El numero de "columnas" será la longitud de cada string
+        Integer nColumnas = laberinto.get(0).length();
+        ///Las rows serán el numero de strings en la lista que contiene al laberinto
+        Integer nRows = laberinto.size();
+
+        char [][] laberintoChar = new char [nRows] [nColumnas];
+
+        ///Debemos convertir cada string de la lista en chars y agregarlas al laberinto
+        int contador = 0;
+
+        for(String s : laberinto){
+            char [] character = s.toCharArray();
+            for (int columns = 0; columns < nColumnas; columns++){
+                laberintoChar[contador][columns] = character[columns];
+            }
+            contador ++;
+        }
+
+
+
+
+
+        return laberintoChar;
+
+
+
+    }
+
+    /*
+    Metodo que recibe el laberinto original y crea un array numerico de dos dimensiones a partir de el
      */
 
 
@@ -108,11 +323,10 @@ public class Laberinto {
     Metodo que imprime un laberinto numerico
      */
 
-    public static void imprimeLaberintoNumerico (Integer [][] board){
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                //board[row][col] = row * col;
-                System.out.print(board[row][col] + "\t");
+    public static void imprimeLaberintoNumerico (Integer [][] laberinto){
+        for (int row = 0; row < laberinto.length; row++) {
+            for (int col = 0; col < laberinto[row].length; col++) {
+                System.out.print(laberinto[row][col] + "\t");
             }
             System.out.println();
         }

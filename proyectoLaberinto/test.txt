@@ -12,3 +12,303 @@ xxxxxxxxxxxxxxxxxxxx
 80	81	82	83	84	85	86	87	88	89	90	91	92	93	94	95	96	97	98	99	
 100	101	102	103	104	105	106	107	108	109	110	111	112	113	114	115	116	117	118	119	
 120	121	122	123	124	125	126	127	128	129	130	131	132	133	134	135	136	137	138	139	
+El anterior numerico es
+30
+El siguiente numerico es
+31
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+31
+El siguiente numerico es
+32
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+32
+El siguiente numerico es
+33
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+33
+El siguiente numerico es
+34
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+34
+El siguiente numerico es
+35
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+35
+El siguiente numerico es
+36
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+36
+El siguiente numerico es
+37
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+37
+El siguiente numerico es
+38
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+38
+El siguiente numerico es
+39
+El anterior char es
+ 
+El siguiente char es
+S
+El anterior numerico es
+64
+El siguiente numerico es
+65
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+65
+El siguiente numerico es
+66
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+66
+El siguiente numerico es
+67
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+67
+El siguiente numerico es
+68
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+68
+El siguiente numerico es
+69
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+69
+El siguiente numerico es
+70
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+100
+El siguiente numerico es
+101
+El anterior char es
+E
+El siguiente char es
+ 
+El anterior numerico es
+101
+El siguiente numerico es
+102
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+102
+El siguiente numerico es
+103
+El anterior char es
+ 
+El siguiente char es
+ 
+El anterior numerico es
+103
+El siguiente numerico es
+104
+El anterior char es
+ 
+El siguiente char es
+ 
+140
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[31]
+[30, 32]
+[31, 33]
+[32, 34]
+[33, 35]
+[34, 36]
+[35, 37]
+[36, 38]
+[37, 39]
+[38]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[65]
+[64, 66]
+[65, 67]
+[66, 68]
+[67, 69]
+[68, 70]
+[69]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[101]
+[100, 102]
+[101, 103]
+[102, 104]
+[103]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+3 
+La ruta final es
+3
+El Origen es:
+100
+El Destino es:
+39
