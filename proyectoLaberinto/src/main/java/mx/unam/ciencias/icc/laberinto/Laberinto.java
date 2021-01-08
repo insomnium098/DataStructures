@@ -173,7 +173,6 @@ public class Laberinto {
                     } else {
                         siguienteNum = arrayLaberinto[rows+1][0];
                         siguienteChar = charLaberinto[rows+1][0];
-
                     }
 
                 } else {
@@ -219,6 +218,83 @@ public class Laberinto {
 
             }
 
+
+
+
+            //////Despues recorrer los arrays por columnas
+            for(int columnas1 = 0; columnas1 < nCols; columnas1 ++){
+                for (int rows1 = 0; rows1 < nRows; rows1 ++){
+                    //arrayLaberinto[rows1][columnas1]
+                    //System.out.println(arrayLaberinto[rows1][columnas1]);
+                    ///Definir anterior y siguiente para ambos arrays
+
+                    anteriorNum = arrayLaberinto[rows1][columnas1];
+                    anteriorChar = charLaberinto[rows1][columnas1];
+                    if(rows1 + 1 == nRows){
+                        continue;
+
+                    }
+
+                    siguienteNum = arrayLaberinto[rows1+1][columnas1];
+                    siguienteChar = charLaberinto[rows1+1][columnas1];
+
+                    if(estanConectados(anteriorChar,siguienteChar)){
+
+                        System.out.println("El anterior numerico es");
+                        System.out.println(anteriorNum);
+                        System.out.println("El siguiente numerico es");
+                        System.out.println(siguienteNum);
+
+                        System.out.println("El anterior char es");
+                        System.out.println(anteriorChar);
+                        System.out.println("El siguiente char es");
+                        System.out.println(siguienteChar);
+                        ///Conectar los numericos
+                        grafo.conecta(anteriorNum,siguienteNum);
+                    }
+
+
+
+
+                    /*
+
+                    System.out.println("El anterior numerico es");
+                    System.out.println(anteriorNum);
+                    System.out.println("El siguiente numerico es");
+                    System.out.println(siguienteNum);
+
+                    System.out.println("El anterior char es");
+                    System.out.println(anteriorChar);
+                    System.out.println("El siguiente char es");
+                    System.out.println(siguienteChar);
+
+                     */
+
+
+
+                    /*
+
+
+
+
+                    System.out.println(anteriorNum);
+                    System.out.println(arrayLaberinto[rows1+1][columnas1]);
+
+                     */
+
+
+
+
+                }
+
+            }
+
+
+
+            ///////
+
+
+
         }
 
 
@@ -241,7 +317,7 @@ public class Laberinto {
 
          */
 
-        //grafo.imprimeGrafo();
+        grafo.imprimeGrafo();
 
 
 
