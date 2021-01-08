@@ -317,7 +317,7 @@ public class Laberinto {
 
     }
 
-    
+
 
     /*
     Metodo que lee el laberinto y devuelve una lista doblemente ligada con cada renglon del archivo

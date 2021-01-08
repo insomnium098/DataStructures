@@ -50,7 +50,7 @@ public class Grafo {
         Integer nodosAnteriores [] = new Integer[Nodos];
 
 
-        ////Se hacen todos los nodos no visitados, los predecesores nulos (-1) y las distancias como infinito
+        ////Se hacen todos los nodos no visitados, los nodos anteriores nulos (-1) y las distancias como infinito
         for (int i = 0; i < Nodos; i++){
             nodosVisitados[i] = false;
             distancias[i] = Double.POSITIVE_INFINITY;
