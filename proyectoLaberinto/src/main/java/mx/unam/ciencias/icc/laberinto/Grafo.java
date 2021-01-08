@@ -38,7 +38,7 @@ public class Grafo {
         listaEdges[b].add(a);
     }
 
-    
+
     ////El recorrido de la grafica se hará por BFS y se calculará la trayectoria minima
 
     public LinkedList<Integer> bfsTrayectoria (Integer nodoOrigen, Integer nodoDestino){
