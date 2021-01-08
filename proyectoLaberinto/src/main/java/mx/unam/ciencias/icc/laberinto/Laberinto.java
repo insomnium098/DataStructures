@@ -26,16 +26,20 @@ public class Laberinto {
 
         LinkedList<String> laberintoOriginal = leeLaberinto(nombreArchivo);
 
+        /*
+
 
         for (String s : laberintoOriginal){
             System.out.println(s);
         }
 
+         */
+
         ///
 
         ////Obtenemos un array con integers de dos dimensiones del laberinto
         Integer [][] arrayLaberinto = laberintoArray(laberintoOriginal);
-        imprimeLaberintoNumerico(arrayLaberinto);
+        //imprimeLaberintoNumerico(arrayLaberinto);
 
 
         ////Obtenemos un array con chars de dos dimensiones del laberinto
@@ -66,10 +70,28 @@ public class Laberinto {
         ////Procesamos los laberintos para crear los edges del grafo
         construyeEdges(grafo, arrayLaberinto, charLaberinto);
 
+        ///Si no existe el nodo de entrada o el de salida, imprimimos el laberinto y terminamos
+
+        /*
+
+        if(origen == null || destino == null){
+            LinkedList<Integer> trayectoriaVacia = new LinkedList<>();
+            graficaLaberinto(trayectoriaVacia, charLaberinto);
+            System.exit(1);
+        }
+
+         */
+
 
         ///Calculamos la trayectoria
 
-        LinkedList<Integer> trayectoria = grafo.bfs(origen,destino);
+        LinkedList<Integer> trayectoria = grafo.bfsTrayectoria(origen,destino);
+
+        System.out.println("La trayectoria es;");
+
+        for(Integer i : trayectoria){
+            System.out.println(i);
+        }
 
 
 
@@ -86,24 +108,6 @@ public class Laberinto {
 
         System.out.println("El Destino es:");
         System.out.println(destino);
-
-
-        /*
-
-        System.out.println("test");
-
-        Grafo grafo = new Grafo(5);
-        grafo.conecta(0,1);
-        grafo.conecta(0,2);
-        grafo.conecta(1,2);
-        grafo.conecta(2,3);
-        grafo.conecta(1,4);
-
-        grafo.imprimeGrafo();
-
-        grafo.bfs(3,1);
-
-         */
 
 
     }
@@ -142,24 +146,6 @@ public class Laberinto {
             System.out.println();
 
         }
-
-
-
-
-
-
-
-
-        /*
-
-        System.out.println("La trayectoria modificada es");
-
-        for(Integer i : trayectoria){
-            System.out.println(i);
-        }
-
-         */
-
 
 
 
@@ -230,12 +216,20 @@ public class Laberinto {
 
                 ///Revisar si son el origen y el destino para guardar su
                 //localizacion
-                if(anteriorChar == 'E' || siguienteChar == 'E' ){
+                if(anteriorChar == 'E'){
                     origen = anteriorNum;
                 }
 
-                if(anteriorChar == 'S' || siguienteChar == 'S' ){
+                if(siguienteChar == 'E'){
+                    origen = siguienteNum;
+                }
+
+                if(anteriorChar == 'S'){
                     destino = anteriorNum;
+                }
+
+                if(siguienteChar == 'S'){
+                    destino = siguienteNum;
                 }
 
 

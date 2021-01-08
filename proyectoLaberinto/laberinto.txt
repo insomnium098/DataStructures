@@ -1,7 +1,7 @@
-xxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxx         S
-xxxxxxxxxx xxxxxxxxx
-xxxx       xxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
-E    xxxxxxxxxxxxxxx
+xxXxxxxxxxxxxxxxxxxx
+x   xxxxxx         x
+x   xxxxxx xxxxxxxxx
+xx         xxxxxxxxx
+xx   x x.      xxxxx
+E    x   xxxx      S
 xxxxxxxxxxxxxxxxxxxx
