@@ -41,7 +41,7 @@ public class Grafo {
 
     ////El recorrido de la grafica se hará por BFS
 
-    public void bfs (Integer nodoOrigen, Integer nodoDestino){
+    public LinkedList<Integer> bfs (Integer nodoOrigen, Integer nodoDestino){
         ///Hacemos una lista para agregar a los nodos que ya han sido visitados
         LinkedList<Integer> visitados = new LinkedList<>();
 
@@ -56,7 +56,7 @@ public class Grafo {
             ///Procesamos el nodo
 
             nodoOrigen = cola.poll();
-            System.out.println(nodoOrigen + " ");
+            //System.out.println(nodoOrigen + " ");
 
             ///Obtenemos los vecinos del nodo y los procesamos
             for (int nodo : listaEdges[nodoOrigen]) {
@@ -74,12 +74,27 @@ public class Grafo {
 
         }
 
+
+
+        ////Revisamos si la trayectoria contiene al origen y al destino,
+        ///Si no los tiene la vaciamos
+
+        if(!visitados.contains(nodoOrigen) || !visitados.contains(nodoDestino)){
+            visitados.clear();
+        }
+
+        return visitados;
+
         ///Imprimimos la ruta
+
+        /*
 
         System.out.println("La ruta final es");
         for (Integer i  : visitados){
             System.out.println(i);
         }
+
+         */
 
     }
 

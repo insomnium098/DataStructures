@@ -16,6 +16,7 @@ public class Laberinto {
     public static Integer origen;
     public static Integer destino;
 
+
     public static void main(String[] args) {
         ///El primer argumento es el nombre del archivo
         String nombreArchivo = args[0];
@@ -66,36 +67,25 @@ public class Laberinto {
         construyeEdges(grafo, arrayLaberinto, charLaberinto);
 
 
-        grafo.bfs(3,1);
+        ///Calculamos la trayectoria
+
+        LinkedList<Integer> trayectoria = grafo.bfs(origen,destino);
+
+
+
+        ////Ya con la trayectoria, procesamos los laberintos para dibujar la trayectoria e imprimirla
+        graficaLaberinto(trayectoria,charLaberinto);
+
+
+
+
+        //grafo.bfs(origen,destino);
 
         System.out.println("El Origen es:");
         System.out.println(origen);
 
         System.out.println("El Destino es:");
         System.out.println(destino);
-
-
-
-
-
-
-
-
-        ///Procesamos todos los caracteres del laberinto para homogeneizar
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /*
@@ -114,6 +104,63 @@ public class Laberinto {
         grafo.bfs(3,1);
 
          */
+
+
+    }
+
+    /*
+    Metodo que recibe la trayectoria, ambos laberintos y grafica el laberinto con su trayectoria
+     */
+
+    public static void graficaLaberinto(LinkedList<Integer> trayectoria, char [][] charLaberinto) {
+
+        ////Removemos de la lista al origen y destino para no sobreescribir su character
+        trayectoria.remove(origen);
+        trayectoria.remove(destino);
+
+
+        ///Vamos a recorrer el laberinto con un contador, y si el valor del contador está
+        // en la trayectoria vamos a imprimir un asterisco
+
+        Integer nCols = charLaberinto[0].length;
+        Integer nRows = charLaberinto.length;
+
+
+        Integer contador = 0;
+
+        for(int rows = 0; rows < nRows; rows ++){
+            for (int columnas = 0; columnas < nCols; columnas ++){
+                if(trayectoria.contains(contador)){
+                    System.out.print('*');
+                } else {
+                    System.out.print(charLaberinto[rows][columnas]);
+
+                }
+
+                contador ++;
+            }
+            System.out.println();
+
+        }
+
+
+
+
+
+
+
+
+        /*
+
+        System.out.println("La trayectoria modificada es");
+
+        for(Integer i : trayectoria){
+            System.out.println(i);
+        }
+
+         */
+
+
 
 
     }
@@ -197,18 +244,6 @@ public class Laberinto {
                 ///Revisar si estan conectados en el charLaberinto
 
                 if(estanConectados(anteriorChar,siguienteChar)){
-                    /*
-                    System.out.println("El anterior numerico es");
-                    System.out.println(anteriorNum);
-                    System.out.println("El siguiente numerico es");
-                    System.out.println(siguienteNum);
-
-                    System.out.println("El anterior char es");
-                    System.out.println(anteriorChar);
-                    System.out.println("El siguiente char es");
-                    System.out.println(siguienteChar);
-
-                     */
 
                     ///Conectar los numericos
                     grafo.conecta(anteriorNum,siguienteNum);
@@ -224,8 +259,6 @@ public class Laberinto {
             //////Despues recorrer los arrays por columnas
             for(int columnas1 = 0; columnas1 < nCols; columnas1 ++){
                 for (int rows1 = 0; rows1 < nRows; rows1 ++){
-                    //arrayLaberinto[rows1][columnas1]
-                    //System.out.println(arrayLaberinto[rows1][columnas1]);
                     ///Definir anterior y siguiente para ambos arrays
 
                     anteriorNum = arrayLaberinto[rows1][columnas1];
@@ -240,50 +273,9 @@ public class Laberinto {
 
                     if(estanConectados(anteriorChar,siguienteChar)){
 
-                        System.out.println("El anterior numerico es");
-                        System.out.println(anteriorNum);
-                        System.out.println("El siguiente numerico es");
-                        System.out.println(siguienteNum);
-
-                        System.out.println("El anterior char es");
-                        System.out.println(anteriorChar);
-                        System.out.println("El siguiente char es");
-                        System.out.println(siguienteChar);
                         ///Conectar los numericos
                         grafo.conecta(anteriorNum,siguienteNum);
                     }
-
-
-
-
-                    /*
-
-                    System.out.println("El anterior numerico es");
-                    System.out.println(anteriorNum);
-                    System.out.println("El siguiente numerico es");
-                    System.out.println(siguienteNum);
-
-                    System.out.println("El anterior char es");
-                    System.out.println(anteriorChar);
-                    System.out.println("El siguiente char es");
-                    System.out.println(siguienteChar);
-
-                     */
-
-
-
-                    /*
-
-
-
-
-                    System.out.println(anteriorNum);
-                    System.out.println(arrayLaberinto[rows1+1][columnas1]);
-
-                     */
-
-
-
 
                 }
 
@@ -291,22 +283,12 @@ public class Laberinto {
 
 
 
-            ///////
-
-
 
         }
 
 
 
-
-
         /*
-
-
-
-
-
         grafo.conecta(0,1);
         grafo.conecta(0,2);
         grafo.conecta(1,2);
@@ -314,10 +296,8 @@ public class Laberinto {
         grafo.conecta(1,4);
 
         grafo.imprimeGrafo();
-
          */
-
-        grafo.imprimeGrafo();
+        //grafo.imprimeGrafo();
 
 
 
