@@ -74,20 +74,6 @@ public class Laberinto {
         graficaLaberinto(trayectoria,charLaberinto);
 
 
-
-
-        //grafo.bfs(origen,destino);
-        /*
-
-        System.out.println("El Origen es:");
-        System.out.println(origen);
-
-        System.out.println("El Destino es:");
-        System.out.println(destino);
-
-         */
-
-
     }
 
     /*
@@ -331,22 +317,7 @@ public class Laberinto {
 
     }
 
-    /*
-    Metodo que imprime un laberinto numerico
-     */
-
-    public static void imprimeLaberintoNumerico (Integer [][] laberinto){
-        for (int row = 0; row < laberinto.length; row++) {
-            for (int col = 0; col < laberinto[row].length; col++) {
-                System.out.print(laberinto[row][col] + "\t");
-            }
-            System.out.println();
-        }
-
-    }
-
-
-
+    
 
     /*
     Metodo que lee el laberinto y devuelve una lista doblemente ligada con cada renglon del archivo
