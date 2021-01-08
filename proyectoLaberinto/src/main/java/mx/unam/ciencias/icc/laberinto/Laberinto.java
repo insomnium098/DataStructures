@@ -5,7 +5,7 @@ import java.io.*;
 
 
 /**
- * Laberinto para Extraordinario de ICC
+ * Laberinto para Examen de ICC
  */
 public class Laberinto {
 
