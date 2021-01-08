@@ -16,7 +16,11 @@ public class Cliente
     {
         try
         {
+            System.out.println("Bienvenido al cliente del char \n" +
+                    "Cual será tu nickname?");
             Scanner scanner = new Scanner(System.in);
+            String nickname = scanner.nextLine();
+            System.out.println("Tu nickname será: " + nickname);
 
             // obtenemos la ip del localhost
             InetAddress ip = InetAddress.getByName("localhost");
@@ -28,33 +32,31 @@ public class Cliente
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
+            ///Si hay conexion se envia el nickname al servidor
+            ///Primero enviamos el nickname al servidor
+            output.writeUTF(nickname);
+
             // Creamos un loop para intercambiar mensajes con el servidor
             while (true)
             {
+
+
                 System.out.println(input.readUTF());
                 String mensajeEnviar = scanner.nextLine();
                 output.writeUTF(mensajeEnviar);
 
-                // Si el cliente manda salir se corta el loop y se termina el cliente
-                if(mensajeEnviar.equals("Exit"))
-                {
-                    System.out.println("Cerrando la conexion con el chat : " + socket);
-                    socket.close();
-                    System.out.println("La conexion se cerro, terminando chat");
-                    break;
-                }
+
 
                 // Imprimir el mensaje recibido por el servidor
                 String mensajeRecibido = input.readUTF();
                 System.out.println(mensajeRecibido);
+
+
             }
 
-            // Cerrando las conexiones para poder seguir recibiendo y enviando nuevos mensajes
-            scanner.close();
-            input.close();
-            output.close();
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println("No se pudo conectar el servidor, saliendo");
+            System.exit(1);
         }
     }
 }

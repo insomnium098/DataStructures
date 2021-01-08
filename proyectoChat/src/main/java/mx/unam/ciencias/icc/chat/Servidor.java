@@ -40,7 +40,7 @@ public class Servidor
                 ////Asignar un hilo nuevo a cada cliente
                 System.out.println("Se asignara un nuevo thread para este cliente");
 
-                Thread hiloNuevo = new manejaCliente(socketCliente, input, output);
+                Thread hiloNuevo = new manejaCliente(socketCliente, input, output,null);
 
                 // Iniciamos el hilo
                 hiloNuevo.start();
@@ -57,15 +57,15 @@ public class Servidor
 // Clase para manejar a los clientes del chat
 class manejaCliente extends Thread
 {
-    String fordate = "FORDATE";
-    String fortime =  "FORTIME";
+
     final DataInputStream input;
     final DataOutputStream output;
     final Socket socket;
+    String mensajeDeServidor;
 
 
     // Construir el manejador del cliente
-    public manejaCliente(Socket socket, DataInputStream input, DataOutputStream output)
+    public manejaCliente(Socket socket, DataInputStream input, DataOutputStream output, String mensajeDeServidor )
     {
         this.socket = socket;
         this.input = input;
@@ -81,23 +81,24 @@ class manejaCliente extends Thread
 
         ///Inicializamos los mensajes que reciben y que salen del manejador
         String mensajeRecibido;
-        String mensajeEnviar;
+        //String mensajeEnviar;
         String nickName = "";
         boolean tieneNickname = false;
-        while (true)
+        boolean conexionActiva = true;
+        while (conexionActiva)
         {
             try {
 
                 if(!tieneNickname){
-                    // Escribimos el mensaje que recibira la primera conexion
-                    output.writeUTF("Bienvenido al Chat \n"+ "Escribe Salir para salir \n"+
-                            "Cual será tu nickname?");
 
                     // Recibimos la respuesta del cliente
                     mensajeRecibido = input.readUTF();
                     nickName = mensajeRecibido;
                     tieneNickname = true;
-                    output.writeUTF("Perfecto, tu nickname es: \n"+ nickName);
+                    // Escribimos el mensaje que recibira la primera conexion
+                    output.writeUTF("Bienvenido al Chat \n"+ "Tu nickname es: " +nickName);
+                    //output.writeUTF("Perfecto, tu nickname es: \n"+ nickName);
+                    System.out.println("El nickname del cliente es: " + nickName);
 
                 }
 
@@ -106,42 +107,25 @@ class manejaCliente extends Thread
 
                 mensajeRecibido = input.readUTF();
 
+                ///Si el mensaje del servidor es distinto de nulo, se imprime y despues se vuelve nulo
 
-
-
-
-                ///Caso donde el cliente se quiera desconectar
-
-                if(mensajeRecibido.equals("Salir"))
-                {
-                    System.out.println("El cliente " + this.socket + " se saldrá");
-                    System.out.println("Cerrando su conexion");
-                    this.socket.close();
-                    System.out.println("Conexion cerrada");
-                    break;
+                if (mensajeDeServidor != null){
+                    output.writeUTF("Servidor dice: "+ mensajeDeServidor);
+                    mensajeDeServidor = null;
                 }
 
-                // Casos dependiendo de lo que se reciba en el mensaje del cliente
-                switch (mensajeRecibido) {
 
-                    default:
-                        output.writeUTF(nickName + ": " + mensajeRecibido);
-                        break;
-                }
+
+                //output.writeUTF(nickName + ":2 " + mensajeRecibido);
+
+
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("El cliente " + nickName + " se desconecto");
+                conexionActiva = false;
             }
         }
 
-        try
-        {
-            // cerrando la conexion para seguir recibiendo mensajes
-            this.output.close();
-            this.output.close();
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
     }
 }
 
