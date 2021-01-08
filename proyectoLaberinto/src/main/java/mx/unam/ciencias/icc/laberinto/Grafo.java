@@ -38,74 +38,23 @@ public class Grafo {
         listaEdges[b].add(a);
     }
 
-
-    ////El recorrido de la grafica se hará por BFS
-
-    public LinkedList<Integer> bfs (Integer nodoOrigen, Integer nodoDestino){
-        ///Hacemos una lista para agregar a los nodos que ya han sido visitados
-        LinkedList<Integer> visitados = new LinkedList<>();
-
-        ///Hacemos una cola para recorrer por BFS
-        Queue<Integer> cola = new PriorityQueue<>();
-
-        ///Añadimos el nodo origen a la lista de visitados y a la cola
-        visitados.add(nodoOrigen);
-        cola.add(nodoOrigen);
-
-        while(!cola.isEmpty()){
-            ///Procesamos el nodo
-
-            nodoOrigen = cola.poll();
-            //System.out.println(nodoOrigen + " ");
-
-            ///Obtenemos los vecinos del nodo y los procesamos
-            for (int nodo : listaEdges[nodoOrigen]) {
-
-                ///Revisamos si ya es el nodo destino
-                if(nodo == nodoDestino)
-                    break;
-
-                ///Revisamos si ya ha sido visitado
-                if (!visitados.contains(nodo)) {
-                    visitados.add(nodo);
-                    cola.add(nodo);
-                }
-            }
-
-        }
-
-
-
-        ////Revisamos si la trayectoria contiene al origen y al destino,
-        ///Si no tiene a alguno de los dos la vaciamos
-
-
-
-
-        if(!visitados.contains(nodoOrigen)){
-            visitados.clear();
-        }
-
-
-        return visitados;
-
-    }
-    ////El recorrido de la grafica se hará por BFS con trayectori minima
+    
+    ////El recorrido de la grafica se hará por BFS y se calculará la trayectoria minima
 
     public LinkedList<Integer> bfsTrayectoria (Integer nodoOrigen, Integer nodoDestino){
         ///Hacemos una array boolean para agregar a los nodos que ya han sido visitados
         //LinkedList<Integer> visitados = new LinkedList<>();
         boolean nodosVisitados[] = new boolean[Nodos];
-        ///Array para guardar las distancias y los predecesores del camino
-        Integer distancias [] = new Integer[Nodos];
-        Integer predecesores [] = new Integer[Nodos];
+        ///Array para guardar las distancias y los nodos anteriores del camino
+        Double distancias [] = new Double[Nodos];
+        Integer nodosAnteriores [] = new Integer[Nodos];
 
 
         ////Se hacen todos los nodos no visitados, los predecesores nulos (-1) y las distancias como infinito
         for (int i = 0; i < Nodos; i++){
             nodosVisitados[i] = false;
-            distancias[i] = Integer.MAX_VALUE;
-            predecesores[i] = -1;
+            distancias[i] = Double.POSITIVE_INFINITY;
+            nodosAnteriores[i] = -1;
         }
 
 
@@ -118,7 +67,7 @@ public class Grafo {
         ///Añadimos el nodo origen a la cola y añadimos la distancia a si mismo como 0
         cola.add(nodoOrigen);
         nodosVisitados[nodoOrigen] = true;
-        distancias[nodoOrigen] = 0;
+        distancias[nodoOrigen] = 0.0;
 
         int nodoAux;
 
@@ -131,7 +80,7 @@ public class Grafo {
                     nodosVisitados[nodo] = true;
                     ///Actualizamos las distancias
                     distancias[nodo] = distancias[nodoAux] + 1;
-                    predecesores[nodo] = nodoAux;
+                    nodosAnteriores[nodo] = nodoAux;
                     ///Lo añadimos a la cola
                     cola.add(nodo);
 
@@ -144,7 +93,7 @@ public class Grafo {
         LinkedList<Integer> trayectoria = new LinkedList<>();
 
         ///Si la distancia del destino es infinito, son inconexas, devolver lista vacia
-        if(distancias[nodoDestino] == Integer.MAX_VALUE){
+        if(distancias[nodoDestino] == Double.POSITIVE_INFINITY){
             return trayectoria;
         }
 
@@ -156,22 +105,11 @@ public class Grafo {
         ///Iniciando desde el nodo destino
         trayectoria.add(nodoAux);
 
-        while (predecesores[nodoAux] != -1){
-            trayectoria.add(predecesores[nodoAux]);
-            nodoAux = predecesores[nodoAux];
+        while (nodosAnteriores[nodoAux] != -1){
+            trayectoria.add(nodosAnteriores[nodoAux]);
+            nodoAux = nodosAnteriores[nodoAux];
         }
 
-        ////Revisamos si la trayectoria contiene al origen y al destino,
-        ///Si no tiene a alguno de los dos la vaciamos
-
-
-        /*
-
-        if(!visitados.contains(nodoOrigen)){
-            visitados.clear();
-        }
-
-         */
 
 
         return trayectoria;

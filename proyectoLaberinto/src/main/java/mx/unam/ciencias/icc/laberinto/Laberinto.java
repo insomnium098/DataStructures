@@ -54,13 +54,6 @@ public class Laberinto {
         Integer nElementos = nRow * nCols;
 
 
-        /*
-
-        System.out.println("El numero de elementos es:");
-        System.out.println(nElementos);
-
-         */
-
         //Creamos el grafo
         Grafo grafo = new Grafo(nElementos);
 
@@ -72,7 +65,7 @@ public class Laberinto {
 
         ///Si no existe el nodo de entrada o el de salida, imprimimos el laberinto y terminamos
 
-        /*
+
 
         if(origen == null || destino == null){
             LinkedList<Integer> trayectoriaVacia = new LinkedList<>();
@@ -80,18 +73,12 @@ public class Laberinto {
             System.exit(1);
         }
 
-         */
+
 
 
         ///Calculamos la trayectoria
 
         LinkedList<Integer> trayectoria = grafo.bfsTrayectoria(origen,destino);
-
-        System.out.println("La trayectoria es;");
-
-        for(Integer i : trayectoria){
-            System.out.println(i);
-        }
 
 
 
