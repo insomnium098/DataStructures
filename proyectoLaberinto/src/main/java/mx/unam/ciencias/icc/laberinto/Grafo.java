@@ -57,10 +57,6 @@ public class Grafo {
             nodosAnteriores[i] = -1;
         }
 
-
-
-
-
         ///Hacemos una cola para recorrer por BFS
         Queue<Integer> cola = new PriorityQueue<>();
 
@@ -91,14 +87,10 @@ public class Grafo {
 
 
         LinkedList<Integer> trayectoria = new LinkedList<>();
-
         ///Si la distancia del destino es infinito, son inconexas, devolver lista vacia
         if(distancias[nodoDestino] == Double.POSITIVE_INFINITY){
             return trayectoria;
         }
-
-
-
         /// En caso contrario, Reconstruimos la distancia minima
         nodoAux = nodoDestino;
 
@@ -110,10 +102,7 @@ public class Grafo {
             nodoAux = nodosAnteriores[nodoAux];
         }
 
-
-
         return trayectoria;
-
     }
 
 

@@ -27,12 +27,10 @@ public class Laberinto {
 
         ////Obtenemos un array con integers de dos dimensiones del laberinto
         Integer [][] arrayLaberinto = laberintoArray(laberintoOriginal);
-        //imprimeLaberintoNumerico(arrayLaberinto);
 
 
         ////Obtenemos un array con chars de dos dimensiones del laberinto
         char [][] charLaberinto = laberintoChar(laberintoOriginal);
-        //imprimeLaberintoNumerico(charLaberinto);
 
 
         /////Creamos el grafo con ambas arrays
@@ -70,9 +68,8 @@ public class Laberinto {
 
 
 
-        ////Ya con la trayectoria, procesamos los laberintos para dibujar la trayectoria e imprimirla
+        ////Ya con la trayectoria, procesamos el laberinto para dibujar la trayectoria e imprimirla
         graficaLaberinto(trayectoria,charLaberinto);
-
 
     }
 
@@ -254,7 +251,7 @@ public class Laberinto {
     Metodo que recibe el laberinto original y crea un array de chars de dos dimensiones
      */
 
-    public static char [] [] laberintoChar (LinkedList<String> laberinto){
+    public static char [][] laberintoChar (LinkedList<String> laberinto){
         ///Primero determinamos la longitud del laberinto
         ///El numero de "columnas" será la longitud de cada string
         Integer nColumnas = laberinto.get(0).length();
@@ -274,14 +271,7 @@ public class Laberinto {
             contador ++;
         }
 
-
-
-
-
         return laberintoChar;
-
-
-
     }
 
     /*
