@@ -14,6 +14,7 @@ public class ServidorThread extends Thread {
     private DataInputStream input;
     private DataOutputStream output;
     private Mensajes mensajes;
+    private List<MensajeCliente> listaMensajeCliente;
 
 
 
@@ -37,7 +38,7 @@ public class ServidorThread extends Thread {
     public void run(){
         while (true){
             Socket socketCliente = null;
-            System.out.println("TEST");
+            //System.out.println("TEST");
 
             try {
 
@@ -65,8 +66,7 @@ public class ServidorThread extends Thread {
                 System.out.println("Se asignara un nuevo thread para este cliente");
 
                 manejaCliente Cliente = new manejaCliente(socketCliente, input, output,nickName);
-                ///Registramos el cliente en los mensajes que van del servidor al cliente
-                mensajes.registerObserver(Cliente);
+
 
                 Thread hiloNuevo = Cliente;
 
@@ -74,16 +74,23 @@ public class ServidorThread extends Thread {
                 // Iniciamos el hilo
                 hiloNuevo.start();
 
+                ///Registramos el cliente en los mensajes que van del servidor al cliente
+                mensajes.registerObserver(Cliente);
+
 
                 ////Obtenemos el mensajeCliente del cliente que acabamos de inicializar
                 MensajeCliente mensajeDelCliente = Cliente.getMensajeCliente();
+
+                //La añadimos a la lista de MensajeCliente
+                //listaMensajeCliente.add(mensajeDelCliente);
 
                 ///tENEMOS QUE HACERNOS OBSERVADORES DE ESTE MENSAJEDELCLIENTE,
                 //Para que el servidor registre los mensajes del cliente y los replique a los demas clientes
                 ///Los observadores de mensajeDelCliente replicaran sus mensajes
                 //mensajeDelCliente.
 
-
+                ///Tal vez debemos de hacer una lista de mensajeDelCliente y añadir a cada cliente,
+                ///Despues hacer un objeto que observe esa lista y que se la mande al servidor en main
 
 
                 ///Añadimos al cliente a la lista de clientes
@@ -96,9 +103,9 @@ public class ServidorThread extends Thread {
 
 
 
-                ///Imprimimos un par de mensajes
+                ///Imprimimos un par de mensajes de Bienvenida
                 ///Este mensaje se imprime en el servidor
-                mensajes.añadeMensaje("Primer mensaje del servidor");
+                mensajes.añadeMensaje("Servidor: Hola " + nickName +" Bienvenido al chat");
 
 
 
@@ -107,6 +114,7 @@ public class ServidorThread extends Thread {
 
             } catch (Exception e){
                 System.out.println("Error en servidor");
+                e.printStackTrace();
             }
 
         }

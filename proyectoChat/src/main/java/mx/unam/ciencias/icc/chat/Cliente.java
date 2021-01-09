@@ -32,24 +32,32 @@ public class Cliente {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
 
-
-
             ///Si hay conexion se envia el nickname al servidor
             ///Primero enviamos el nickname al servidor
             output.writeUTF(nickname);
+            ////Creamos el imprimeServidorCliente
+
+            //imprimeDeServidor(input);
+            imprimeServidorCliente imprimeServidor = new imprimeServidorCliente(input);
+            //lo inicializamos
+            imprimeServidor.start();
+
+
+
+
+
+
+
 
             // Creamos un loop para intercambiar mensajes con el servidor
             while (true)
             {
 
-                //imprimeDeServidor(input);
 
 
-                ////Creamos el imprimeServidorCliente
-
-                imprimeServidorCliente imprimeServidor = new imprimeServidorCliente(input);
-                //lo inicializamos
-                imprimeServidor.run();
+                RecibeInputCliente RC = new RecibeInputCliente(output,nickname);
+                RC.run();
+                //output.writeUTF("JALANDO?");
 
 
                 /*

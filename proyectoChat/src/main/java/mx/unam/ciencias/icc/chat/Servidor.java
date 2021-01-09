@@ -34,12 +34,15 @@ public class Servidor extends Observable{
 
 
 
-        System.out.println("Funciona");
+        //System.out.println("Funciona");
         System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
         Scanner scanner = new Scanner(System.in);
 
-        //Obtenemos la lista de mensajes del servidor
+        //Obtenemos la lista de mensajes del servidor, son el origen para enviar a los clientes
         Mensajes mensajes = serv.getMensajes();
+
+
+        //Aqui se envian los mensajes a todos los clientes
 
         while(scanner.hasNextLine()){
             String mensajeEnviarClientes = scanner.nextLine();
@@ -74,9 +77,9 @@ public class Servidor extends Observable{
 // Clase para manejar a los clientes del chat
 class manejaCliente extends Thread implements Observer {
 
-    final DataInputStream input;
-    final DataOutputStream output;
-    final Socket socket;
+    DataInputStream input;
+    DataOutputStream output;
+    Socket socket;
     String mensajeDeServidor;
     String nombreCliente;
     MensajeCliente mensajeCliente;
@@ -99,11 +102,11 @@ class manejaCliente extends Thread implements Observer {
 
     @Override
     public void update(Observable blog, Object blogPostTitle) {
-        System.out.println("SERVIDOR");
+        //System.out.println("SERVIDOR");
         System.out.println( (String) blogPostTitle );
 
         try {
-            output.writeUTF("Este mensaje proviene del servidor");
+            output.writeUTF("Este mensaje proviene del servidor, clase ManejaCliente");
             output.writeUTF(blogPostTitle.toString());
 
         } catch (Exception e){
@@ -134,9 +137,11 @@ class manejaCliente extends Thread implements Observer {
         boolean tieneNickname = false;
         boolean conexionActiva = true;
         //MensajeCliente mensajeCliente = new MensajeCliente();
+        ServidorRecibeInputCliente cliente = new ServidorRecibeInputCliente(input,nombreCliente);
+        cliente.run();
 
-        while (conexionActiva)
-        {
+        while (conexionActiva) {
+            System.out.println("PRIMER PRUEBA DE MANEJACLIENTE");
             try {
 
                 /*
@@ -159,7 +164,10 @@ class manejaCliente extends Thread implements Observer {
                 //output.writeUTF("Ya tienes un nickname:" + nickName);
                 output.writeUTF(" ");
 
-                mensajeRecibido = input.readUTF();
+
+                //Hacer clase para recibir mensajes
+
+                //mensajeRecibido = input.readUTF();
 
 
 
@@ -172,7 +180,8 @@ class manejaCliente extends Thread implements Observer {
                     output.writeUTF("Servidor dice: "+ mensajeDeServidor);
                     mensajeDeServidor = null;
                 }
-                output.writeUTF(nombreCliente + ": " + mensajeRecibido);
+
+                //output.writeUTF(nombreCliente + ": " + mensajeRecibido);
 
 
             } catch (IOException e) {

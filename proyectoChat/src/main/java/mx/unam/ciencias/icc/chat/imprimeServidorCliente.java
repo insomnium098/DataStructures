@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
-public class imprimeServidorCliente {
+public class imprimeServidorCliente extends Thread {
 
     private DataInputStream input;
 
@@ -13,7 +13,7 @@ public class imprimeServidorCliente {
 
     public void run(){
 
-        System.out.println("Iniciando imprimeServidorCliente");
+        //System.out.println("Iniciando imprimeServidorCliente");
 
         while(true){
             //System.out.println("Primer parte");
