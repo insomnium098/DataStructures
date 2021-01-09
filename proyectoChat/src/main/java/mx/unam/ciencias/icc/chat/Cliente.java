@@ -10,12 +10,11 @@ import java.net.*;
  * Cliente para Examen de ICC
  */
 
-public class Cliente
-{
-    public static void main(String[] args) throws IOException
-    {
-        try
-        {
+public class Cliente {
+    public static void main(String[] args) throws IOException {
+        try {
+
+
             System.out.println("Bienvenido al cliente del char \n" +
                     "Cual será tu nickname?");
             Scanner scanner = new Scanner(System.in);
@@ -32,6 +31,9 @@ public class Cliente
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
+
+
+
             ///Si hay conexion se envia el nickname al servidor
             ///Primero enviamos el nickname al servidor
             output.writeUTF(nickname);
@@ -40,19 +42,38 @@ public class Cliente
             while (true)
             {
 
+                //imprimeDeServidor(input);
 
+
+                ////Creamos el imprimeServidorCliente
+
+                imprimeServidorCliente imprimeServidor = new imprimeServidorCliente(input);
+                //lo inicializamos
+                imprimeServidor.run();
+
+
+                /*
                 System.out.println(input.readUTF());
                 String mensajeEnviar = scanner.nextLine();
                 output.writeUTF(mensajeEnviar);
 
+                 */
 
 
 
 
 
                 // Imprimir el mensaje recibido por el servidor
+
+                /*
                 String mensajeRecibido = input.readUTF();
                 System.out.println(mensajeRecibido);
+
+                 */
+
+                //imprimeDeServidor(input);
+
+
 
 
             }
@@ -62,4 +83,21 @@ public class Cliente
             System.exit(1);
         }
     }
+
+    /*
+    Metodo para recibir los mensajes del servidor
+    DEPRECATED
+     */
+
+    public static void imprimeDeServidor(DataInputStream input){
+        // Imprimir el mensaje recibido por el servidor
+        try {
+            String mensajeRecibido = input.readUTF();
+            System.out.println(mensajeRecibido);
+        } catch (Exception e){
+
+        }
+
+    }
 }
+

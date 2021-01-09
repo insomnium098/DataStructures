@@ -1,3 +1,8 @@
 mx/unam/ciencias/icc/chat/Cliente.class
 mx/unam/ciencias/icc/chat/Servidor.class
+mx/unam/ciencias/icc/chat/Mensajes.class
+mx/unam/ciencias/icc/chat/RecibeInputCliente.class
+mx/unam/ciencias/icc/chat/imprimeServidorCliente.class
 mx/unam/ciencias/icc/chat/manejaCliente.class
+mx/unam/ciencias/icc/chat/MensajeCliente.class
+mx/unam/ciencias/icc/chat/ServidorThread.class

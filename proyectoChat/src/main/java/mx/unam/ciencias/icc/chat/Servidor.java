@@ -1,5 +1,6 @@
 package mx.unam.ciencias.icc.chat;
 
+
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -18,99 +19,107 @@ public class Servidor extends Observable{
     ///Hacemos una lista de clientes para mandarles el mensaje
     static LinkedList<manejaCliente> listaClientes = new LinkedList<>();
     //Hacemos una cola para los mensajes
-    static PriorityQueue<String> listaMensajes = new PriorityQueue<>();
+    //private PriorityQueue<String> listaMensajes = new PriorityQueue<>();
+    static List<Observer> subscribers = new ArrayList<>();
+
 
     public static void main(String[] args) throws IOException {
         // Establecemos el socket y el puerto 6666
-        ServerSocket socketServidor = new ServerSocket(6666);
-
-
+        //ServerSocket socketServidor = new ServerSocket(6666);
         ///Ejecutar el servidor en loop infinito
-        
-
-        while (true){
-            /*
 
 
-             */
 
-            //Definimos un socket para el cliente nulo en cada iteracion para poder recibir nuevos clientes
-            Socket socketCliente = null;
-            System.out.println("TEST");
-
-            //try
-            //{
-                // El socket del cliente acepta la conexion
-                socketCliente = socketServidor.accept();
-
-                System.out.println("Un nuevo cliente se ha conectado");
-
-                // Se generan los streams para recibir y enviar mensajes entre servidor y cliente
-                DataInputStream input = new DataInputStream(socketCliente.getInputStream());
-                DataOutputStream output = new DataOutputStream(socketCliente.getOutputStream());
-
-                // Recibimos la respuesta del cliente
-                String nickName = input.readUTF();
-                System.out.println("El nombre del cliente es: " + nickName);
-                ////Asignar un hilo nuevo a cada cliente
-                System.out.println("Se asignara un nuevo thread para este cliente");
-
-                manejaCliente Cliente = new manejaCliente(socketCliente, input, output,null,nickName);
-
-                Thread hiloNuevo = Cliente;
-
-                //Thread hiloNuevo = new manejaCliente(socketCliente, input, output,null);
-                // Iniciamos el hilo
-                hiloNuevo.start();
+        ServidorThread serv = new ServidorThread(6666);
 
 
-                ///Añadimos al cliente a la lista de clientes
-                listaClientes.add(Cliente);
 
-                /*
-                Recorremos la lista
-                 */
+        System.out.println("Funciona");
+        System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
+        Scanner scanner = new Scanner(System.in);
 
+        //Obtenemos la lista de mensajes del servidor
+        Mensajes mensajes = serv.getMensajes();
 
-                if (!listaMensajes.isEmpty()){
-                    while(!listaMensajes.isEmpty()){
-                        String mensaje = listaMensajes.poll();
-                        System.out.println(mensaje);
-                    }
-                }
-            //}
-            //catch (Exception e){
-            //    socketCliente.close();
-            //    e.printStackTrace();
-            }
+        while(scanner.hasNextLine()){
+            String mensajeEnviarClientes = scanner.nextLine();
+            mensajes.añadeMensaje(mensajeEnviarClientes);
+
         }
+
+
+        /*
+
+            Scanner scanner = new Scanner(System.in);
+            String mensajeEnviar = scanner.nextLine();
+            for (manejaCliente cliente : serv.listaClientes){
+                System.out.println(cliente.getNombre());
+            }
+
+         */
+
+
+
+
+
+
+
+
+
+        }
+
     }
 //}
 
 // Clase para manejar a los clientes del chat
-class manejaCliente extends Thread
-{
+class manejaCliente extends Thread implements Observer {
 
     final DataInputStream input;
     final DataOutputStream output;
     final Socket socket;
     String mensajeDeServidor;
     String nombreCliente;
+    MensajeCliente mensajeCliente;
 
 
     // Construir el manejador del cliente
-    public manejaCliente(Socket socket, DataInputStream input, DataOutputStream output, String mensajeDeServidor,
+    public manejaCliente(Socket socket, DataInputStream input, DataOutputStream output,
                          String nombreCliente)
     {
         this.socket = socket;
         this.input = input;
         this.output = output;
         this.nombreCliente = nombreCliente;
+        this.mensajeCliente = new MensajeCliente();
     }
 
     public String getNombre(){
         return this.nombreCliente;
     }
+
+    @Override
+    public void update(Observable blog, Object blogPostTitle) {
+        System.out.println("SERVIDOR");
+        System.out.println( (String) blogPostTitle );
+
+        try {
+            output.writeUTF("Este mensaje proviene del servidor");
+            output.writeUTF(blogPostTitle.toString());
+
+        } catch (Exception e){
+            System.out.println("No se pudo imprimir el mensaje que proviene del servidor");
+        }
+
+    }
+
+    ///Metodo publico para devolver el mensajeCliente
+    public MensajeCliente getMensajeCliente(){
+        return this.mensajeCliente;
+    }
+
+
+
+
 
     /*
     Metodo para iniciar el manejadorCliente
@@ -124,6 +133,8 @@ class manejaCliente extends Thread
         //String nickName = "";
         boolean tieneNickname = false;
         boolean conexionActiva = true;
+        //MensajeCliente mensajeCliente = new MensajeCliente();
+
         while (conexionActiva)
         {
             try {
@@ -150,7 +161,10 @@ class manejaCliente extends Thread
 
                 mensajeRecibido = input.readUTF();
 
-                Servidor.listaMensajes.add(mensajeRecibido);
+
+
+
+                //Servidor.listaMensajes.add(mensajeRecibido);
 
                 ///Si el mensaje del servidor es distinto de nulo, se imprime y despues se vuelve nulo
 
@@ -158,10 +172,7 @@ class manejaCliente extends Thread
                     output.writeUTF("Servidor dice: "+ mensajeDeServidor);
                     mensajeDeServidor = null;
                 }
-                //output.writeUTF(nickName + ":2 " + mensajeRecibido);
-
-                output.writeUTF("----");
-                output.writeUTF("----");
+                output.writeUTF(nombreCliente + ": " + mensajeRecibido);
 
 
             } catch (IOException e) {
