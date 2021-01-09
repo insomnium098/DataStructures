@@ -47,6 +47,9 @@ public class Cliente
 
 
 
+
+
+
                 // Imprimir el mensaje recibido por el servidor
                 String mensajeRecibido = input.readUTF();
                 System.out.println(mensajeRecibido);
