@@ -44,45 +44,12 @@ public class Cliente {
 
 
 
-
-
-
-
-
             // Creamos un loop para intercambiar mensajes con el servidor
             while (true)
             {
 
-
-
                 RecibeInputCliente RC = new RecibeInputCliente(output,nickname);
                 RC.run();
-                //output.writeUTF("JALANDO?");
-
-
-                /*
-                System.out.println(input.readUTF());
-                String mensajeEnviar = scanner.nextLine();
-                output.writeUTF(mensajeEnviar);
-
-                 */
-
-
-
-
-
-                // Imprimir el mensaje recibido por el servidor
-
-                /*
-                String mensajeRecibido = input.readUTF();
-                System.out.println(mensajeRecibido);
-
-                 */
-
-                //imprimeDeServidor(input);
-
-
-
 
             }
 

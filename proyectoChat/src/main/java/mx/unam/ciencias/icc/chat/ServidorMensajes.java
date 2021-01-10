@@ -28,7 +28,8 @@ public class ServidorMensajes implements Observer {
     }
 
     public void run(){
-        System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
+        System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar\n" +
+                        "a todos los clientes conectados");
         Scanner scanner = new Scanner(System.in);
         mensajesAclientes = servidor.getMensajes();
 

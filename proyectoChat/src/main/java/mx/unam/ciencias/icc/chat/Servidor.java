@@ -46,10 +46,6 @@ public class Servidor {
         mensajeDEclientes.addObserver(sm);
 
         sm.run();
-
-
-
-
         }
 
 
