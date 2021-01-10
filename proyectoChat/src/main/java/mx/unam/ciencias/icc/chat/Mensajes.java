@@ -2,24 +2,24 @@ package mx.unam.ciencias.icc.chat;
 import java.util.*;
 
 public class Mensajes extends Observable{
-    private List<Observer> subscribers = new ArrayList<>();
+    private List<Observer> subscriptores = new ArrayList<>();
 
     public void añadeMensaje (String mensaje){
         notifyObservers(mensaje);
     }
 
     public void notifyObservers(String mensaje){
-        for (Observer subscriber : subscribers){
+        for (Observer subscriber : subscriptores){
             subscriber.update(this,mensaje);
         }
     }
 
     public void registerObserver (Observer newSubscriber){
-        this.subscribers.add(newSubscriber);
+        this.subscriptores.add(newSubscriber);
     }
 
     public void removeObserver (Observer previousSubscriber){
-        this.subscribers.add(previousSubscriber);
+        this.subscriptores.add(previousSubscriber);
     }
 
 

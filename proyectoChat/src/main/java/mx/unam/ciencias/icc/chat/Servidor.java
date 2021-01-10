@@ -129,11 +129,10 @@ class manejaCliente extends Thread implements Observer {
 
     @Override
     public void update(Observable blog, Object blogPostTitle) {
-        //System.out.println("SERVIDOR");
         System.out.println( (String) blogPostTitle );
 
         try {
-            output.writeUTF("Este mensaje proviene del servidor, clase ManejaCliente");
+            //output.writeUTF("Este mensaje proviene del servidor, clase ManejaCliente");
             output.writeUTF(blogPostTitle.toString());
 
         } catch (Exception e){
@@ -158,65 +157,9 @@ class manejaCliente extends Thread implements Observer {
     public void run()
     {
         ///Inicializamos los mensajes que reciben y que salen del manejador
-        String mensajeRecibido;
-        //String mensajeEnviar;
-        //String nickName = "";
-        boolean tieneNickname = false;
-        boolean conexionActiva = true;
-        //MensajeCliente mensajeCliente = new MensajeCliente();
+
         ServidorRecibeInputCliente cliente = new ServidorRecibeInputCliente(input,nombreCliente, mensajeDECliente);
         cliente.run();
-
-        while (conexionActiva) {
-            System.out.println("PRIMER PRUEBA DE MANEJACLIENTE");
-            try {
-
-                /*
-
-                if(!tieneNickname){
-
-                    // Recibimos la respuesta del cliente
-                    mensajeRecibido = input.readUTF();
-                    nickName = mensajeRecibido;
-                    tieneNickname = true;
-                    // Escribimos el mensaje que recibira la primera conexion
-                    output.writeUTF("Bienvenido al Chat \n"+ "Tu nickname es: " +nickName);
-                    //output.writeUTF("Perfecto, tu nickname es: \n"+ nickName);
-                    System.out.println("El nickname del cliente es: " + nickName);
-
-                }
-
-                 */
-
-                //output.writeUTF("Ya tienes un nickname:" + nickName);
-                output.writeUTF(" ");
-
-
-                //Hacer clase para recibir mensajes
-
-                //mensajeRecibido = input.readUTF();
-
-
-
-
-                //Servidor.listaMensajes.add(mensajeRecibido);
-
-                ///Si el mensaje del servidor es distinto de nulo, se imprime y despues se vuelve nulo
-
-                if (mensajeDeServidor != null){
-                    output.writeUTF("Servidor dice: "+ mensajeDeServidor);
-                    mensajeDeServidor = null;
-                }
-
-                //output.writeUTF(nombreCliente + ": " + mensajeRecibido);
-
-
-            } catch (IOException e) {
-                //e.printStackTrace();
-                System.out.println("El cliente " + nombreCliente + " se desconecto");
-                conexionActiva = false;
-            }
-        }
 
     }
 

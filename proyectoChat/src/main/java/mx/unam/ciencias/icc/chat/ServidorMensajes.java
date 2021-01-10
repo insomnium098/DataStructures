@@ -43,10 +43,10 @@ public class ServidorMensajes implements Observer {
     }
 
     @Override
-    public void update(Observable blog, Object blogPostTitle) {
-        mensajesAclientes.añadeMensaje(blogPostTitle.toString());
+    public void update(Observable observable, Object mensajeOBS) {
+        mensajesAclientes.añadeMensaje(mensajeOBS.toString());
         System.out.println("FUNCIONA");
-        System.out.println(blogPostTitle.toString());
+        System.out.println(mensajeOBS.toString());
     }
 
 
