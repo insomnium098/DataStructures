@@ -38,13 +38,9 @@ public class Servidor {
         ///Definir los MENSAJES DE CLIENTES
         MensajeCliente mensajeDEclientes = new MensajeCliente();
 
-       // ServidorThread serv = new ServidorThread(6666);
-
-
 
         //System.out.println("Funciona");
         //System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
-        Scanner scanner = new Scanner(System.in);
         //Obtenemos la lista de mensajes del servidor, son el origen para enviar a los clientes
         //Mensajes mensajes = serv.getMensajes();
 
@@ -64,39 +60,9 @@ public class Servidor {
 
 
 
-
-
-        //Aqui se envian los mensajes a todos los clientes
-
-
-        /*
-
-
-
-
-
-        while(scanner.hasNextLine()){
-            String mensajeEnviarClientes = scanner.nextLine();
-            mensajes.añadeMensaje(mensajeEnviarClientes);
-
-        }
-
-         */
-
-
-
-
-
-
         }
 
 
-        /*
-        public void update(Observable blog, Object blogPostTitle, Mensajes mensajes){
-            mensajes.añadeMensaje(blogPostTitle.toString());
-        }
-
-         */
 
     }
 //}
@@ -107,7 +73,6 @@ class manejaCliente extends Thread implements Observer {
     DataInputStream input;
     DataOutputStream output;
     Socket socket;
-    String mensajeDeServidor;
     String nombreCliente;
     MensajeCliente mensajeDECliente;
 
@@ -128,12 +93,12 @@ class manejaCliente extends Thread implements Observer {
     }
 
     @Override
-    public void update(Observable blog, Object blogPostTitle) {
-        System.out.println( (String) blogPostTitle );
+    public void update(Observable obs, Object mensajes) {
+        System.out.println( mensajes.toString());
 
         try {
             //output.writeUTF("Este mensaje proviene del servidor, clase ManejaCliente");
-            output.writeUTF(blogPostTitle.toString());
+            output.writeUTF(mensajes.toString());
 
         } catch (Exception e){
             System.out.println("No se pudo imprimir el mensaje que proviene del servidor");
