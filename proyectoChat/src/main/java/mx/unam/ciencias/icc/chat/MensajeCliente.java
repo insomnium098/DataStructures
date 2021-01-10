@@ -3,24 +3,24 @@ import java.util.*;
 
 public class MensajeCliente extends Observable {
 
-    private List<Observer> subscribers = new ArrayList<>();
+    private List<Observer> subscriptores = new ArrayList<>();
 
     public void añadeMensaje (String mensaje){
-        notifyObservers(mensaje);
+        notificaObservadores(mensaje);
     }
 
-    public void notifyObservers(String mensaje){
-        for (Observer subscriber : subscribers){
-            subscriber.update(this,mensaje);
+    public void notificaObservadores(String mensaje){
+        for (Observer subscriptor : subscriptores){
+            subscriptor.update(this,mensaje);
         }
     }
 
-    public void registerObserver (Observer newSubscriber){
-        this.subscribers.add(newSubscriber);
+    public void registrarObservador (Observer nuevoSubscriptor){
+        this.subscriptores.add(nuevoSubscriptor);
     }
 
-    public void removeObserver (Observer previousSubscriber){
-        this.subscribers.add(previousSubscriber);
+    public void removerObservador (Observer viejoSubscriptor){
+        this.subscriptores.add(viejoSubscriptor);
     }
 
 
