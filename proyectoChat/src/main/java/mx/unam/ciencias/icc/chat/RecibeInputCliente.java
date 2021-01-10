@@ -15,18 +15,15 @@ public class RecibeInputCliente {
 
 
     public void run(){
-        //System.out.println("Iniciando RecibeInputCliente");
 
         Scanner scanner = new Scanner(System.in);
         while(true){
-             //System.out.println("Primer parte");
             try {
                 String mensajeEnviar = scanner.nextLine();
                 mensajeEnviar = nickname + ": " + mensajeEnviar;
                 output.writeUTF(mensajeEnviar);
 
             } catch (Exception e){
-                //System.out.println("Nada enviado");
 
             }
 

@@ -6,6 +6,5 @@ mx/unam/ciencias/icc/chat/RecibeInputCliente.class
 mx/unam/ciencias/icc/chat/imprimeServidorCliente.class
 mx/unam/ciencias/icc/chat/manejaCliente.class
 mx/unam/ciencias/icc/chat/MensajeCliente.class
-mx/unam/ciencias/icc/chat/ObservableMensajesClientes.class
 mx/unam/ciencias/icc/chat/ServidorThread.class
 mx/unam/ciencias/icc/chat/ServidorMensajes.class

@@ -13,16 +13,14 @@ public class imprimeServidorCliente extends Thread {
 
     public void run(){
 
-        //System.out.println("Iniciando imprimeServidorCliente");
 
         while(true){
-            //System.out.println("Primer parte");
             try {
                 String mensajeRecibido = input.readUTF();
                 System.out.println(mensajeRecibido);
 
             } catch (Exception e){
-                //System.out.println("Nada recibido");
+                //System.out.println("No se pudo imprimir el mensaje");
 
             }
 

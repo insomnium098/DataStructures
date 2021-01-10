@@ -15,16 +15,6 @@ import java.net.*;
 // Server class
 public class Servidor {
 
-
-    static String mensajeDeCliente;
-    ///Hacemos una lista de clientes para mandarles el mensaje
-    static LinkedList<manejaCliente> listaClientes = new LinkedList<>();
-    //Hacemos una cola para los mensajes
-    //private PriorityQueue<String> listaMensajes = new PriorityQueue<>();
-    static List<Observer> subscribers = new ArrayList<>();
-
-    static PriorityQueue<String> listaMensajes = new PriorityQueue<>();
-
     static ServidorMensajes sm;
 
 

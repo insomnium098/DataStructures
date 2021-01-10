@@ -5,21 +5,21 @@ public class Mensajes extends Observable{
     private List<Observer> subscriptores = new ArrayList<>();
 
     public void añadeMensaje (String mensaje){
-        notifyObservers(mensaje);
+        notificaObservadores(mensaje);
     }
 
-    public void notifyObservers(String mensaje){
+    public void notificaObservadores(String mensaje){
         for (Observer subscriber : subscriptores){
             subscriber.update(this,mensaje);
         }
     }
 
-    public void registerObserver (Observer newSubscriber){
-        this.subscriptores.add(newSubscriber);
+    public void registraObservadores (Observer nuevoSubscriptor){
+        this.subscriptores.add(nuevoSubscriptor);
     }
 
-    public void removeObserver (Observer previousSubscriber){
-        this.subscriptores.add(previousSubscriber);
+    public void removeObserver (Observer subscriptor){
+        this.subscriptores.add(subscriptor);
     }
 
 
