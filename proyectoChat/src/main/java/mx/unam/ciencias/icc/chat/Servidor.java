@@ -1,6 +1,7 @@
 package mx.unam.ciencias.icc.chat;
 
 
+
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -12,7 +13,7 @@ import java.net.*;
 
 
 // Server class
-public class Servidor extends Observable{
+public class Servidor {
 
 
     static String mensajeDeCliente;
@@ -22,6 +23,10 @@ public class Servidor extends Observable{
     //private PriorityQueue<String> listaMensajes = new PriorityQueue<>();
     static List<Observer> subscribers = new ArrayList<>();
 
+    static PriorityQueue<String> listaMensajes = new PriorityQueue<>();
+
+    static ServidorMensajes sm;
+
 
     public static void main(String[] args) throws IOException {
         // Establecemos el socket y el puerto 6666
@@ -30,34 +35,51 @@ public class Servidor extends Observable{
 
 
 
-        ServidorThread serv = new ServidorThread(6666);
+        ///Definir los MENSAJES DE CLIENTES
+        MensajeCliente mensajeDEclientes = new MensajeCliente();
+
+       // ServidorThread serv = new ServidorThread(6666);
 
 
 
         //System.out.println("Funciona");
-        System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
+        //System.out.println("Bienvenido al servidor del chat, ingresa mensaje a enviar");
         Scanner scanner = new Scanner(System.in);
-
         //Obtenemos la lista de mensajes del servidor, son el origen para enviar a los clientes
-        Mensajes mensajes = serv.getMensajes();
+        //Mensajes mensajes = serv.getMensajes();
+
+
+        //Crear servidor mensajes
+
+        //ServidorMensajes sm = new ServidorMensajes(mensajes, serv);
+        //ServidorMensajes sm = new ServidorMensajes(mensajeDEclientes,6666);
+        sm = new ServidorMensajes(mensajeDEclientes,6667);
+
+
+        ///Registramos al servidor como mensajesdeclientes
+        mensajeDEclientes.addObserver(sm);
+
+        sm.run();
+
+
+
+
 
 
         //Aqui se envian los mensajes a todos los clientes
+
+
+        /*
+
+
+
+
 
         while(scanner.hasNextLine()){
             String mensajeEnviarClientes = scanner.nextLine();
             mensajes.añadeMensaje(mensajeEnviarClientes);
 
         }
-
-
-        /*
-
-            Scanner scanner = new Scanner(System.in);
-            String mensajeEnviar = scanner.nextLine();
-            for (manejaCliente cliente : serv.listaClientes){
-                System.out.println(cliente.getNombre());
-            }
 
          */
 
@@ -66,10 +88,15 @@ public class Servidor extends Observable{
 
 
 
-
-
-
         }
+
+
+        /*
+        public void update(Observable blog, Object blogPostTitle, Mensajes mensajes){
+            mensajes.añadeMensaje(blogPostTitle.toString());
+        }
+
+         */
 
     }
 //}
@@ -82,18 +109,18 @@ class manejaCliente extends Thread implements Observer {
     Socket socket;
     String mensajeDeServidor;
     String nombreCliente;
-    MensajeCliente mensajeCliente;
+    MensajeCliente mensajeDECliente;
 
 
     // Construir el manejador del cliente
     public manejaCliente(Socket socket, DataInputStream input, DataOutputStream output,
-                         String nombreCliente)
+                         String nombreCliente, MensajeCliente mensajeDECliente)
     {
         this.socket = socket;
         this.input = input;
         this.output = output;
         this.nombreCliente = nombreCliente;
-        this.mensajeCliente = new MensajeCliente();
+        this.mensajeDECliente = mensajeDECliente;
     }
 
     public String getNombre(){
@@ -117,7 +144,7 @@ class manejaCliente extends Thread implements Observer {
 
     ///Metodo publico para devolver el mensajeCliente
     public MensajeCliente getMensajeCliente(){
-        return this.mensajeCliente;
+        return this.mensajeDECliente;
     }
 
 
@@ -137,7 +164,7 @@ class manejaCliente extends Thread implements Observer {
         boolean tieneNickname = false;
         boolean conexionActiva = true;
         //MensajeCliente mensajeCliente = new MensajeCliente();
-        ServidorRecibeInputCliente cliente = new ServidorRecibeInputCliente(input,nombreCliente);
+        ServidorRecibeInputCliente cliente = new ServidorRecibeInputCliente(input,nombreCliente, mensajeDECliente);
         cliente.run();
 
         while (conexionActiva) {

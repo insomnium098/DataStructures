@@ -13,18 +13,20 @@ public class ServidorThread extends Thread {
     public List<manejaCliente> listaClientes;
     private DataInputStream input;
     private DataOutputStream output;
-    private Mensajes mensajes;
+    public static Mensajes mensajes;
     private List<MensajeCliente> listaMensajeCliente;
+    private MensajeCliente mensajeDECliente;
 
 
 
-    public ServidorThread(int puerto){
+    public ServidorThread(int puerto, MensajeCliente mensajeDECliente){
 
         try {
             this.socketServidor = new ServerSocket(puerto);
             System.out.println("Inicializando servidor del chat");
             listaClientes = Collections.synchronizedList(new ArrayList<manejaCliente>());
             mensajes = new Mensajes();
+            //mensajeDECliente = new MensajeCliente();
             this.start();
 
         } catch (Exception e){
@@ -65,7 +67,7 @@ public class ServidorThread extends Thread {
                 ////Asignar un hilo nuevo a cada cliente
                 System.out.println("Se asignara un nuevo thread para este cliente");
 
-                manejaCliente Cliente = new manejaCliente(socketCliente, input, output,nickName);
+                manejaCliente Cliente = new manejaCliente(socketCliente, input, output,nickName, mensajeDECliente);
 
 
                 Thread hiloNuevo = Cliente;
@@ -97,11 +99,6 @@ public class ServidorThread extends Thread {
                 listaClientes.add(Cliente);
 
                 ///
-
-
-
-
-
 
                 ///Imprimimos un par de mensajes de Bienvenida
                 ///Este mensaje se imprime en el servidor

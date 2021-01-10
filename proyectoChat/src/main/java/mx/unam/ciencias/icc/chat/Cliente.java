@@ -25,7 +25,7 @@ public class Cliente {
             InetAddress ip = InetAddress.getByName("localhost");
 
             // establecemos la conexion con el puerto 6666
-            Socket socket = new Socket(ip, 6666);
+            Socket socket = new Socket(ip, 6667);
 
             // Creamos el stream para el input y output
             DataInputStream input = new DataInputStream(socket.getInputStream());
