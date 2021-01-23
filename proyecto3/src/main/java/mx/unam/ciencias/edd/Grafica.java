@@ -46,15 +46,15 @@ public class Grafica<T> implements Coleccion<T> {
         public double distancia;
         /* El índice del vértice. */
         public int indice;
-        /* La lista de vecinos del vértice. */
-        public Lista<Vecino> vecinos;
+        /* El diccionario de vecinos del vértice. */
+        public Diccionario<T, Vecino> vecinos;
 
         /* Crea un nuevo vértice a partir de un elemento. */
         public Vertice(T elemento) {
             // Aquí va su código.
             this.elemento = elemento;
             color = Color.NINGUNO;
-            this.vecinos = new Lista<>();
+            this.vecinos = new Diccionario<>();
         }
 
         /* Regresa el elemento del vértice. */
@@ -66,7 +66,7 @@ public class Grafica<T> implements Coleccion<T> {
         /* Regresa el grado del vértice. */
         @Override public int getGrado() {
             // Aquí va su código.
-            return vecinos.getLongitud();
+            return vecinos.getElementos();
         }
 
         /* Regresa el color del vértice. */
@@ -159,7 +159,7 @@ public class Grafica<T> implements Coleccion<T> {
     }
 
     /* Vértices. */
-    private Lista<Vertice> vertices;
+    private Diccionario<T, Vertice> vertices;
     /* Número de aristas. */
     private int aristas;
 
@@ -168,7 +168,8 @@ public class Grafica<T> implements Coleccion<T> {
      */
     public Grafica() {
         // Aquí va su código.
-        this.vertices = new Lista<>();
+        this.vertices = new Diccionario<>();
+        this.aristas = 0;
     }
 
     /**
@@ -178,7 +179,7 @@ public class Grafica<T> implements Coleccion<T> {
      */
     @Override public int getElementos() {
         // Aquí va su código.
-        return vertices.getLongitud();
+        return vertices.getElementos();
     }
 
     /**
@@ -203,7 +204,7 @@ public class Grafica<T> implements Coleccion<T> {
         }
 
         Vertice vertice = new Vertice(elemento);
-        vertices.agregaFinal(vertice);
+        vertices.agrega(elemento, vertice);
     }
 
     /**
@@ -251,8 +252,8 @@ public class Grafica<T> implements Coleccion<T> {
         Vertice vertA = (Vertice) vertice(a);
         Vertice vertB = (Vertice) vertice(b);
 
-        vertA.vecinos.agregaFinal( new Vecino(vertB,peso));
-        vertB.vecinos.agregaFinal( new Vecino(vertA,peso));
+        vertA.vecinos.agrega (b ,new Vecino(vertB,peso));
+        vertB.vecinos.agrega (a ,new Vecino(vertA,peso));
 
         this.aristas ++;
 
@@ -301,8 +302,8 @@ public class Grafica<T> implements Coleccion<T> {
 
         ///Los eliminamos
 
-        vertA.vecinos.elimina(vecinoB);
-        vertB.vecinos.elimina(vecinoA);
+        vertA.vecinos.elimina(b);
+        vertB.vecinos.elimina(a);
 
         this.aristas --;
 
@@ -356,7 +357,7 @@ public class Grafica<T> implements Coleccion<T> {
         for (Vecino vecino : v1.vecinos){
             for(Vecino vecino2 : vecino.vecino.vecinos){
                 if (vecino2.vecino == v1){
-                    vecino.vecino.vecinos.elimina(vecino2);
+                    vecino.vecino.vecinos.elimina(elemento);
                     this.aristas --;
 
                 }
@@ -365,7 +366,7 @@ public class Grafica<T> implements Coleccion<T> {
         }
 
 
-        this.vertices.elimina(v1);
+        this.vertices.elimina(elemento);
 
     }
 
@@ -547,11 +548,18 @@ public class Grafica<T> implements Coleccion<T> {
      */
     public boolean esConexa() {
         // Aquí va su código.
-        if(vertices.getLongitud() == 0 || vertices.getLongitud() == 1){
+        if(vertices.getElementos() == 0 || vertices.getElementos() == 1){
             return true;
         }
         Cola<Vertice> cola = new Cola<>();
-        Vertice ver_primero = vertices.getPrimero();
+        Vertice ver_primero = null;
+
+        for (Vertice vertice : this.vertices){
+            if(vertice != null){
+                ver_primero = vertice;
+                break;
+            }
+        }
 
         for (VerticeGrafica<T> ver : vertices){
             setColor(ver,Color.ROJO);
@@ -746,7 +754,7 @@ public class Grafica<T> implements Coleccion<T> {
             return false;
         }
 
-        if(grafica.vertices.getLongitud() != this.vertices.getLongitud()){
+        if(grafica.vertices.getElementos() != this.vertices.getElementos()){
             return false;
         }
 
@@ -917,7 +925,7 @@ public class Grafica<T> implements Coleccion<T> {
         vertOrigen.distancia = 0;
 
         //Creamos el monticulo de Dijkstra
-        MonticuloArreglo<Vertice> monticulo = new MonticuloArreglo<Vertice>(this.vertices);
+        MonticuloArreglo<Vertice> monticulo = new MonticuloArreglo<Vertice>(vertices, vertices.getElementos());
 
         while(!monticulo.esVacia()){
             auxiliar = monticulo.elimina();

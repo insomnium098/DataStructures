@@ -105,7 +105,7 @@ public class Proyecto3 {
 
         dictest.agrega("ListaHola",lista1);
         dictest.agrega("NombresDeArchivos",archivos);
-        
+
         Iterator<String> itLllaves = dictest.iteradorLlaves();
         while(itLllaves.hasNext()){
             System.out.println(itLllaves.next());

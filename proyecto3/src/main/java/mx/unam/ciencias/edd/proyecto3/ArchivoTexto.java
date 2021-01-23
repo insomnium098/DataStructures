@@ -78,13 +78,14 @@ public class ArchivoTexto {
 
 
         imprimeDiccionario();
+        imprimeConteo();
 
         
 
     }
 
     /*
-    Metodo para imprimir el diccionario conteopalabras
+    Metodo para imprimir el diccionario conteopalabras  con to String
      */
 
     public void imprimeDiccionario(){
@@ -111,6 +112,26 @@ public class ArchivoTexto {
 
 
 
+    }
+
+    /*
+    Metodo para imprimir el numero de apariciones de cada palabra
+     */
+
+    public void imprimeConteo(){
+        String palabras = conteoPalabras.toString();
+        palabras = palabras.replaceAll("\\{", "Lista de apariciones de las palabras:");
+        palabras = palabras.replaceAll("\\}", "");
+        //palabras = palabras.replaceAll(":", "apareció:");
+        //palabras = palabras.replaceAll(",", "veces,");
+        palabras = palabras.replaceAll(" '", "");
+        palabras = palabras.replaceAll("'", " ");
+
+
+
+        System.out.println(palabras);
+
+        
     }
 
 
