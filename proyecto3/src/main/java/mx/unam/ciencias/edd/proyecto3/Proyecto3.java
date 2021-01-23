@@ -135,80 +135,33 @@ public class Proyecto3 {
 
         /*
         Recorremos la lista de archivos, generamos archivosTexto y los agregamos al diccionario
-        Aqui se puede hacer la union entre los archivos para el index
+        Este diccionaro contiene a todos los archivos
+
+        Tambien creamos un diccionario con el nombre de los archivos y un conjunto de sus palabras mayores de 7
+
          */
 
-        Grafica<String> graficaIndex = new Grafica<>();
-        int contador = 0;
-
-        String anterior = null;
-        String actual = null;
-        Lista<String> listaAnterior = null;
-        Lista<String> listaActual = null;
-
-        for (String s : archivos){
-            //Caso base
-            if (contador == 0){
-                graficaIndex.agrega(s);
-                ArchivoTexto aux = new ArchivoTexto(s);
-                dicc.agrega(s,aux);
-                listaAnterior = aux.getPalabrasLista();
-                anterior = s;
-            } else {
-                actual = s;
-                graficaIndex.agrega(actual);
-                ArchivoTexto aux = new ArchivoTexto(actual);
-                dicc.agrega(actual,aux);
-                listaActual = aux.getPalabrasLista();
-                //Hacemos los conjuntos
-                Conjunto<String> conjuntoAnterior = new Conjunto<>();
-                System.out.println("Los elementos");
-                for (String elemento : listaAnterior){
-                    conjuntoAnterior.agrega(elemento);
-                    System.out.println(elemento);
-                }
-
-                Conjunto<String> conjuntoActual = new Conjunto<>();
-                for (String elemento : listaActual){
-                    conjuntoActual.agrega(elemento);
-                }
-
-                ///Hacemos la interseccion
-                Conjunto<String> interseccion = conjuntoAnterior.interseccion(conjuntoActual);
-
-                ///Si tienen al menos un elemento los unimos en el grafo
-                if(!interseccion.esVacia()){
-                    graficaIndex.conecta(anterior,actual);
-                }
-
-                ///Hacemos el actual como el anterior
-                anterior = actual;
+        Diccionario<String, Conjunto<String>> diccionarioPalabras7 = new Diccionario<>();
 
 
-
-            }
-
-            contador = contador + 1;
-
-
-
-        }
-
-        System.out.println("El grafo union:");
-
-        System.out.println(graficaIndex.toString());
-
-
-
-
-        /*
         for (String s : archivos){
             ArchivoTexto aux = new ArchivoTexto(s);
             dicc.agrega(s,aux);
             Lista<String> ls = aux.getPalabrasLista();
+            Conjunto<String> cs = new Conjunto<>();
+            for (String palabra : ls){
+                cs.agrega(palabra);
+            }
+            diccionarioPalabras7.agrega(s,cs);
             System.out.println("Palabras con longitud igual o mayor que 7");
             System.out.println(ls.toString());
         }
+
+        ConjuntoArchivosTexto Index = new ConjuntoArchivosTexto(diccionarioPalabras7);
+        Index.imprimeGrafo();
+
+
+        /*
 
         Conjunto<String> conjuntoA = new Conjunto<>();
         Conjunto<String> conjuntoB = new Conjunto<>();

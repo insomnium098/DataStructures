@@ -149,8 +149,8 @@ public class ArchivoTexto {
             this.conjunto.agrega(llaves.next());
         }
 
-        System.out.println("El conjunto:");
-        System.out.println(this.conjunto.toString());
+        //System.out.println("El conjunto:");
+        //System.out.println(this.conjunto.toString());
 
     }
 
