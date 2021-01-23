@@ -10,12 +10,17 @@ public class ArchivoTexto {
     private Diccionario<String, Integer> conteoPalabras;
     private Diccionario<String,Integer> listaPalabrasTop5;
     private String lineaElementos;
+    private Conjunto<String> conjunto;
+    private String[] elementosArray;
 
-    public ArchivoTexto(String nombreArchivo){
+    public ArchivoTexto(String nombreArchivo) throws IOException {
         this.nombreArchivo = nombreArchivo;
         this.conteoPalabras = new Diccionario<>();
         this.listaPalabrasTop5 = new Diccionario<>();
         this.lineaElementos = null;
+        this.conjunto = new Conjunto<>();
+        this.procesaArchivo();
+        this.creaConjunto();
     }
 
     /*
@@ -60,6 +65,7 @@ public class ArchivoTexto {
 
         //Hacer array con las palabras
         String[] elementos_split = lineafinal.split("\\s+");
+        this.elementosArray = elementos_split;
 
         //Despues las agregamos al diccionario conteoPalabras
 
@@ -77,8 +83,8 @@ public class ArchivoTexto {
         }
 
 
-        imprimeDiccionario();
-        imprimeConteo();
+        //imprimeDiccionario();
+        //imprimeConteo();
 
         
 
@@ -133,6 +139,48 @@ public class ArchivoTexto {
 
         
     }
+
+    private void creaConjunto() {
+        //Conjunto<String> conjunto1 = new Conjunto<>();
+
+        //Agregamos las llaves al conjunto
+        Iterator<String> llaves = conteoPalabras.iteradorLlaves();
+        while (llaves.hasNext()) {
+            this.conjunto.agrega(llaves.next());
+        }
+
+        System.out.println("El conjunto:");
+        System.out.println(this.conjunto.toString());
+
+    }
+
+    /*
+    Metodo que devuelve el conjunto
+     */
+
+    public Conjunto<String> getConjunto(){
+        return this.conjunto;
+    }
+
+    /*
+    Metodo que devuelve las palabras con más de 7 caracteres en una Lista
+     */
+
+    public Lista<String> getPalabrasLista(){
+
+        Lista<String> palabras = new Lista<>();
+
+        for (String s : this.elementosArray){
+            if (s.length() >= 7){
+                palabras.agrega(s);
+            }
+        }
+
+        return palabras;
+
+
+    }
+
 
 
 

@@ -2,6 +2,7 @@ mx/unam/ciencias/edd/Diccionario$IteradorLlaves.class
 mx/unam/ciencias/edd/proyecto3/Proyecto3.class
 mx/unam/ciencias/edd/ArbolAVL.class
 mx/unam/ciencias/edd/Grafica.class
+mx/unam/ciencias/edd/proyecto3/ConjuntoArchivosTexto.class
 mx/unam/ciencias/edd/ArbolBinarioOrdenado.class
 mx/unam/ciencias/edd/Dispersores.class
 mx/unam/ciencias/edd/AccionVerticeGrafica.class
@@ -47,5 +48,6 @@ mx/unam/ciencias/edd/ComparableIndexable.class
 mx/unam/ciencias/edd/Dispersor.class
 mx/unam/ciencias/edd/AccionVerticeArbolBinario.class
 mx/unam/ciencias/edd/ValorIndexable.class
+mx/unam/ciencias/edd/Conjunto.class
 mx/unam/ciencias/edd/MeteSaca.class
 mx/unam/ciencias/edd/Lista.class

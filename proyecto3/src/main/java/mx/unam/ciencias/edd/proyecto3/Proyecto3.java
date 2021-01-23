@@ -96,6 +96,8 @@ public class Proyecto3 {
          */
 
         ///Hacer diccionario con llave que sea un string
+
+        /*
         Diccionario<String, Lista<String>> dictest = new Diccionario<>(10);
         Lista<String> lista1 = new Lista<>();
         lista1.agrega("Hola1");
@@ -122,9 +124,115 @@ public class Proyecto3 {
             System.out.println(aa.toString());
         }
 
+         */
 
-        ArchivoTexto test = new ArchivoTexto(archivos.getPrimero());
-        test.procesaArchivo();
+        /*
+        Hacer un diccionario cuyas llaves sean String y los nombres de los archivos y como
+        valores serán objetos de la clase ArchivoTexto
+         */
+
+        Diccionario<String,ArchivoTexto> dicc = new Diccionario<>();
+
+        /*
+        Recorremos la lista de archivos, generamos archivosTexto y los agregamos al diccionario
+        Aqui se puede hacer la union entre los archivos para el index
+         */
+
+        Grafica<String> graficaIndex = new Grafica<>();
+        int contador = 0;
+
+        String anterior = null;
+        String actual = null;
+        Lista<String> listaAnterior = null;
+        Lista<String> listaActual = null;
+
+        for (String s : archivos){
+            //Caso base
+            if (contador == 0){
+                graficaIndex.agrega(s);
+                ArchivoTexto aux = new ArchivoTexto(s);
+                dicc.agrega(s,aux);
+                listaAnterior = aux.getPalabrasLista();
+                anterior = s;
+            } else {
+                actual = s;
+                graficaIndex.agrega(actual);
+                ArchivoTexto aux = new ArchivoTexto(actual);
+                dicc.agrega(actual,aux);
+                listaActual = aux.getPalabrasLista();
+                //Hacemos los conjuntos
+                Conjunto<String> conjuntoAnterior = new Conjunto<>();
+                System.out.println("Los elementos");
+                for (String elemento : listaAnterior){
+                    conjuntoAnterior.agrega(elemento);
+                    System.out.println(elemento);
+                }
+
+                Conjunto<String> conjuntoActual = new Conjunto<>();
+                for (String elemento : listaActual){
+                    conjuntoActual.agrega(elemento);
+                }
+
+                ///Hacemos la interseccion
+                Conjunto<String> interseccion = conjuntoAnterior.interseccion(conjuntoActual);
+
+                ///Si tienen al menos un elemento los unimos en el grafo
+                if(!interseccion.esVacia()){
+                    graficaIndex.conecta(anterior,actual);
+                }
+
+                ///Hacemos el actual como el anterior
+                anterior = actual;
+
+
+
+            }
+
+            contador = contador + 1;
+
+
+
+        }
+
+        System.out.println("El grafo union:");
+
+        System.out.println(graficaIndex.toString());
+
+
+
+
+        /*
+        for (String s : archivos){
+            ArchivoTexto aux = new ArchivoTexto(s);
+            dicc.agrega(s,aux);
+            Lista<String> ls = aux.getPalabrasLista();
+            System.out.println("Palabras con longitud igual o mayor que 7");
+            System.out.println(ls.toString());
+        }
+
+        Conjunto<String> conjuntoA = new Conjunto<>();
+        Conjunto<String> conjuntoB = new Conjunto<>();
+
+        conjuntoA.agrega("A");
+        conjuntoA.agrega("B");
+        conjuntoA.agrega("C");
+
+        conjuntoB.agrega("A");
+        conjuntoB.agrega("B");
+        conjuntoB.agrega("X");
+
+        Conjunto<String> union = conjuntoA.interseccion(conjuntoB);
+        System.out.println("La union es:");
+        System.out.println(union.toString());
+
+         */
+
+
+
+
+
+        //ArchivoTexto test = new ArchivoTexto(archivos.getPrimero());
+        //test.procesaArchivo();
 
         /*
         Iterator<String> itLllaves2 = dictest.iteradorLlaves();
