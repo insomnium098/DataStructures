@@ -1,7 +1,2 @@
-xxXxx^xxxxxxxxxxxxxx
-x                  x
-X   xxxxxx xxxxxSx x
-xx  x      xxxxxxx x
-xx   x x.      xxx x
-x    x   xxxx      x
-xxxExxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxx
+

@@ -1,6 +1,8 @@
 package mx.unam.ciencias.edd.proyecto3;
 
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Iterator;
 import java.util.Random;
 import mx.unam.ciencias.edd.*;
 
@@ -9,25 +11,56 @@ import mx.unam.ciencias.edd.*;
  */
 public class Proyecto3 {
 
+    public static Boolean hayCarpeta = false;
+    public static String carpeta = null;
+
 
 
     /* Imprime el uso del programa y lo termina. */
 
-    
+
     private static void uso() {
-        System.err.println("Usofdsfdsfdf");
+        System.err.println("Debes de ingresar al menos un archivo");
         System.exit(1);
     }
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        if (args.length == 0)
+            uso();
+
+
+
+        int i = 0;
+
+
+        ///La lista de archivos va a contener los nombres de los archivos
 
         Lista<String> archivos = new Lista<>();
-        for (int i = 0; i < args.length; i ++){
+
+        while (i < args.length){
+            String s = args[i];
+
+            if (s.equals("-o")){
+                carpeta = args[i+1];
+                hayCarpeta = true;
+                i+=2;
+                System.out.println("Hay carpeta");
+                continue;
+            }
             archivos.agrega(args[i]);
+            i++;
         }
-        int n = archivos.getLongitud();
+
+        if(hayCarpeta){
+            System.out.println("La carpeta es:");
+            System.out.println(carpeta);
+        }
+
+
+
 
         for (String s : archivos){
             System.out.println(s);
@@ -35,80 +68,95 @@ public class Proyecto3 {
 
 
         /*
-        if (args.length != 1)
-            uso();
 
-        int N = -1;
-        try {
-            N = Integer.parseInt(args[0]);
-        } catch (NumberFormatException nfe) {
-            uso();
+        Diccionario<Lista<String>, String> dictest = new Diccionario<>(10);
+        Lista<String> lista1 = new Lista<>();
+        lista1.agrega("Hola1");
+        lista1.agrega("Hola2");
+        lista1.agrega("Hola3");
+        lista1.agrega("Hola4");
+
+        dictest.agrega(lista1,"Lista1");
+        dictest.agrega(archivos,"Archivos");
+
+        if(dictest.contiene(lista1)){
+            System.out.println("SI LA CONTIENE");
+
+
+        Iterator<Lista<String>> itLlaves = dictest.iteradorLlaves();
+        while(itLlaves.hasNext()){
+            Lista<String> lis = itLlaves.next();
+            //System.out.println(lis.toString());
+            for (String a : lis){
+                System.out.println(a);
+            }
+        }
         }
 
-        if (N < 1)
-            uso();
+         */
 
-        Random random = new Random();
-        long tiempoInicial, tiempoTotal;
-        NumberFormat nf = NumberFormat.getIntegerInstance();
+        ///Hacer diccionario con llave que sea un string
+        Diccionario<String, Lista<String>> dictest = new Diccionario<>(10);
+        Lista<String> lista1 = new Lista<>();
+        lista1.agrega("Hola1");
+        lista1.agrega("Hola2");
+        lista1.agrega("Hola3");
+        lista1.agrega("Hola4");
 
-        String[] arreglo = new String[N];
-        for (int i = 0; i < N; i++)
-            arreglo[i] = String.valueOf(random.nextInt(N));
+        dictest.agrega("ListaHola",lista1);
+        dictest.agrega("NombresDeArchivos",archivos);
 
-        ArbolBinarioOrdenado<String> abo = new ArbolBinarioOrdenado<String>();
-        tiempoInicial = System.nanoTime();
-        for (int i = 0; i < N; i++)
-            abo.agrega(arreglo[i]);
-        tiempoTotal = System.nanoTime() - tiempoInicial;
-        System.out.printf("%2.9f segundos en llenar un árbol " +
-                          "binario ordenado con %s elementos.\n",
-                          (tiempoTotal/1000000000.0), nf.format(N));
+        Iterator<String> itLllaves = dictest.iteradorLlaves();
+        while(itLllaves.hasNext()){
+            System.out.println(itLllaves.next());
+        }
 
-        ArbolRojinegro<String> arn = new ArbolRojinegro<String>();
-        tiempoInicial = System.nanoTime();
-        for (int i = 0; i < N; i++)
-            arn.agrega(arreglo[i]);
-        tiempoTotal = System.nanoTime() - tiempoInicial;
-        System.out.printf("%2.9f segundos en llenar un árbol " +
-                          "rojinegro con %s elementos.\n",
-                          (tiempoTotal/1000000000.0), nf.format(N));
+        if(dictest.contiene("ListaHola")){
+            Lista<String> listtest = dictest.get("ListaHola");
+            listtest.agrega("HolaMIIIIL");
+            dictest.agrega("ListaHola",listtest);
+        }
 
-        ArbolAVL<String> avl = new ArbolAVL<String>();
-        tiempoInicial = System.nanoTime();
-        for (int i = 0; i < N; i++)
-            avl.agrega(arreglo[i]);
-        tiempoTotal = System.nanoTime() - tiempoInicial;
-        System.out.printf("%2.9f segundos en llenar un árbol " +
-                          "AVL con %s elementos.\n",
-                          (tiempoTotal/1000000000.0), nf.format(N));
 
-        Diccionario<String, String> diccJava =
-            new Diccionario<String, String>(N);
-        tiempoInicial = System.nanoTime();
-        for (int i = 0; i < N; i++)
-            diccJava.agrega(arreglo[i], arreglo[i]);
-        tiempoTotal = System.nanoTime() - tiempoInicial;
-        System.out.printf("%2.9f segundos en llenar un diccionario " +
-                          "con %s elementos (dispersor Java).\n",
-                          (tiempoTotal/1000000000.0), nf.format(N));
-        System.out.printf("\t%d colisiones, %d colisión máxima\n",
-                          diccJava.colisiones(), diccJava.colisionMaxima());
+        for (Lista<String> aa : dictest){
+            System.out.println(aa.toString());
+        }
 
-        AlgoritmoDispersor a = AlgoritmoDispersor.BJ_STRING;
-        Dispersor<String> bj = FabricaDispersores.dispersorCadena(a);
-        Diccionario<String, String> diccBJ =
-            new Diccionario<String, String>(N, bj);
-        tiempoInicial = System.nanoTime();
-        for (int i = 0; i < N; i++)
-            diccBJ.agrega(arreglo[i], arreglo[i]);
-        tiempoTotal = System.nanoTime() - tiempoInicial;
-        System.out.printf("%2.9f segundos en llenar un diccionario " +
-                          "con %s elementos (dispersor Bob Jenkins).\n",
-                          (tiempoTotal/1000000000.0), nf.format(N));
-        System.out.printf("\t%d colisiones, %d colisión máxima\n",
-                          diccBJ.colisiones(), diccBJ.colisionMaxima());
 
+        ArchivoTexto test = new ArchivoTexto(archivos.getPrimero());
+        test.procesaArchivo();
+
+        /*
+        Iterator<String> itLllaves2 = dictest.iteradorLlaves();
+        while(itLllaves2.hasNext()){
+            System.out.println(itLllaves2.next());
+        }
+
+         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+        for (String s : dictest){
+            System.out.println(s);
+        }
+
+         */
+
+
+
+
+        /*
         a = AlgoritmoDispersor.DJB_STRING;
         Dispersor<String> djb = FabricaDispersores.dispersorCadena(a);
         Diccionario<String, String> diccDJB =
@@ -139,4 +187,15 @@ public class Proyecto3 {
 
          */
     }
+
+
+    /*
+    Metodo que recibe el nombre de un archivo, lo lee, procesa y devuelve un diccionario con las palabras
+     */
+
+    public static Diccionario<String, String> procesaArchivo (String nombreArchivo){
+        return null;
+    }
+
+
 }
