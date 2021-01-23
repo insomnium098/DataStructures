@@ -2,18 +2,19 @@ package mx.unam.ciencias.edd.proyecto3;
 import mx.unam.ciencias.edd.*;
 
 import java.io.*;
+import java.util.Iterator;
 
 public class ArchivoTexto {
 
     private String nombreArchivo;
-    private Diccionario<String, Lista<String>> conteoPalabras;
+    private Diccionario<String, Integer> conteoPalabras;
     private Diccionario<String,Integer> listaPalabrasTop5;
     private String lineaElementos;
 
     public ArchivoTexto(String nombreArchivo){
         this.nombreArchivo = nombreArchivo;
-        this.conteoPalabras = null;
-        this.listaPalabrasTop5 = null;
+        this.conteoPalabras = new Diccionario<>();
+        this.listaPalabrasTop5 = new Diccionario<>();
         this.lineaElementos = null;
     }
 
@@ -60,11 +61,55 @@ public class ArchivoTexto {
         //Hacer array con las palabras
         String[] elementos_split = lineafinal.split("\\s+");
 
+        //Despues las agregamos al diccionario conteoPalabras
+
         for (String s : elementos_split){
-            System.out.println(s);
+            //Primero revisamos si el elemento ya existe en el diccionario
+            if (!conteoPalabras.contiene(s)){
+                //Lo agregamos y lo inicializamos en 1
+                conteoPalabras.agrega(s,1);
+            } else {
+                //En caso contrario obtenemos su valor, le sumamos 1 y lo volvemos a agregar
+                Integer valor = conteoPalabras.get(s);
+                valor += 1;
+                conteoPalabras.agrega(s,valor);
+            }
         }
 
+
+        imprimeDiccionario();
+
         
+
+    }
+
+    /*
+    Metodo para imprimir el diccionario conteopalabras
+     */
+
+    public void imprimeDiccionario(){
+
+
+        /*
+
+        System.out.println("Las llaves");
+        Iterator<String> llaves = conteoPalabras.iteradorLlaves();
+        while(llaves.hasNext()){
+            System.out.println(llaves.next());
+        }
+
+
+        System.out.println("Los valores:");
+        for (Integer s : conteoPalabras){
+            System.out.println(s);
+        }
+        
+         */
+
+
+        System.out.println(conteoPalabras.toString());
+
+
 
     }
 

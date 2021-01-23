@@ -499,6 +499,8 @@ public class Diccionario<K, V> implements Iterable<V> {
      */
     @Override public String toString() {
         // Aquí va su código.
+
+
         if (elementos == 0){
             return "{}";
         }
@@ -510,7 +512,7 @@ public class Diccionario<K, V> implements Iterable<V> {
         for (Lista<Entrada> entrada : entradas) {
             if (entrada != null) {
                 for (Entrada e : entrada)
-                    s.append(String.format("'%d': '%d', ", e.llave, e.valor));
+                    s.append(String.format("'%s': '%s', ", e.llave, e.valor));
             }
         }
 
