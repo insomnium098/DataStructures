@@ -66,11 +66,11 @@
   </properties>
   <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testElimina" time="0.008"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testGetColor" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testToString" time="0.015"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testGiraDerecha" time="0"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testToString" time="0.016"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testGiraDerecha" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testAgrega" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testEquals" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testEquals" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testGiraIzquierda" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testConstructorColeccion" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testConstructorColeccion" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestArbolRojinegro" name="testConstructor" time="0"/>
 </testsuite>

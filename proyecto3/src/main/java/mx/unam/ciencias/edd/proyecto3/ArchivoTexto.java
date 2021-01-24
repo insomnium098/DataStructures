@@ -12,12 +12,14 @@ public class ArchivoTexto {
     private String lineaElementos;
     private Conjunto<String> conjunto;
     private String[] elementosArray;
+    private Integer palabrasTotales;
 
     public ArchivoTexto(String nombreArchivo) throws IOException {
         this.nombreArchivo = nombreArchivo;
         this.conteoPalabras = new Diccionario<>();
         this.listaPalabrasTop5 = new Diccionario<>();
         this.lineaElementos = null;
+        this.palabrasTotales = null;
         this.conjunto = new Conjunto<>();
         this.procesaArchivo();
         this.creaConjunto();
@@ -68,6 +70,7 @@ public class ArchivoTexto {
         this.elementosArray = elementos_split;
 
         //Despues las agregamos al diccionario conteoPalabras
+        int contadorPalabras = 0;
 
         for (String s : elementos_split){
             //Primero revisamos si el elemento ya existe en el diccionario
@@ -80,8 +83,11 @@ public class ArchivoTexto {
                 valor += 1;
                 conteoPalabras.agrega(s,valor);
             }
+
+            contadorPalabras +=1;
         }
 
+        this.palabrasTotales = contadorPalabras;
 
         //imprimeDiccionario();
         //imprimeConteo();
@@ -121,21 +127,21 @@ public class ArchivoTexto {
     }
 
     /*
-    Metodo para imprimir el numero de apariciones de cada palabra
+    Metodo para generar el numero de apariciones de cada palabra
      */
 
-    public void imprimeConteo(){
+    public String imprimeConteo(){
         String palabras = conteoPalabras.toString();
-        palabras = palabras.replaceAll("\\{", "Lista de apariciones de las palabras:");
+        palabras = palabras.replaceAll("\\{", "Palabras: ");
         palabras = palabras.replaceAll("\\}", "");
         //palabras = palabras.replaceAll(":", "apareció:");
-        //palabras = palabras.replaceAll(",", "veces,");
+        palabras = palabras.replaceAll(",", ", ");
         palabras = palabras.replaceAll(" '", "");
         palabras = palabras.replaceAll("'", " ");
 
 
-
-        System.out.println(palabras);
+        //System.out.println(palabras);
+        return palabras;
 
         
     }
@@ -181,7 +187,20 @@ public class ArchivoTexto {
 
     }
 
+    /*
+    Metodo que devuelve el diccionario conteoPalabras, donde el string llave es la palabra
+    y el int valor es el numero de apariciones
+     */
 
+    public Diccionario<String, Integer> getConteoPalabras() {
+        return conteoPalabras;
+    }
 
+    public Integer getPalabrasTotales() {
+        return palabrasTotales;
+    }
 
+    public String getNombreArchivo(){
+        return this.nombreArchivo;
+    }
 }

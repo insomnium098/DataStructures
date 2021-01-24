@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.Random;
 import mx.unam.ciencias.edd.*;
+import java.io.File;
 
 /**
  * Proyecto 3.
@@ -47,7 +48,6 @@ public class Proyecto3 {
                 carpeta = args[i+1];
                 hayCarpeta = true;
                 i+=2;
-                System.out.println("Hay carpeta");
                 continue;
             }
             archivos.agrega(args[i]);
@@ -55,15 +55,32 @@ public class Proyecto3 {
         }
 
         if(hayCarpeta){
-            System.out.println("La carpeta es:");
-            System.out.println(carpeta);
+            //System.out.println("La carpeta es:");
+            //System.out.println(carpeta);
+            boolean carpetaCreada = false;
+            File file = new File(carpeta);
+
+            ///Revisamos si la carpeta existe
+            if (!file.exists()){
+                carpetaCreada = file.mkdir();
+                if(!carpetaCreada){
+                    System.out.println("La carpeta no pudo ser creada, no existe o no tienes los permisos necesarios");
+                    System.exit(1);
+                }
+            }
+
+
+
+        } else {
+            System.out.println("No se especificó una carpeta, saliendo.");
+            System.exit(1);
         }
 
 
 
 
         for (String s : archivos){
-            System.out.println(s);
+            //System.out.println(s);
         }
 
 
@@ -133,6 +150,13 @@ public class Proyecto3 {
 
         Diccionario<String,ArchivoTexto> dicc = new Diccionario<>();
 
+
+
+
+
+
+
+
         /*
         Recorremos la lista de archivos, generamos archivosTexto y los agregamos al diccionario
         Este diccionaro contiene a todos los archivos
@@ -153,12 +177,29 @@ public class Proyecto3 {
                 cs.agrega(palabra);
             }
             diccionarioPalabras7.agrega(s,cs);
-            System.out.println("Palabras con longitud igual o mayor que 7");
-            System.out.println(ls.toString());
+            //System.out.println("Palabras con longitud igual o mayor que 7");
+            //System.out.println(ls.toString());
         }
 
+
+        //Recorremos el diccionario para imprimir el conteo de palabras
+
+        for (ArchivoTexto archivo: dicc){
+            //archivo.imprimeConteo();
+            Diccionario<String, Integer> conteo = archivo.getConteoPalabras();
+            System.out.println(archivo.getPalabrasTotales());
+
+        }
+
+
+        ////dicc contiene los ArchivosTexto, sobre estos hay que generar el HTML
+        GeneraHTML archivosHMTL = new GeneraHTML(dicc, carpeta);
+        archivosHMTL.imprime();
+
+
+
         ConjuntoArchivosTexto Index = new ConjuntoArchivosTexto(diccionarioPalabras7);
-        Index.imprimeGrafo();
+        //Index.imprimeGrafo();
 
 
         /*
