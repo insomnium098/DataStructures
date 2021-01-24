@@ -175,7 +175,6 @@ public class GeneraHTML {
 
         //Obtenemos el numero de palabras totales
         Integer numPalabras = archivo.getPalabrasTotales();
-        //System.out.println("Palabras totales: "+ numPalabras);
 
 
         Diccionario<String,Integer> topPalabras = archivo.getListaPalabrasTop5();
@@ -304,7 +303,6 @@ public class GeneraHTML {
 
         } else {
             linea = String.format("<line x1='%1$s%%' y1='%2$s%%' x2='%3$s%%' y2='%4$s%%' stroke='black' stroke-width='3' />",
-                    //coordXPadre -0.4 , coordYPadre - 0.4, coordXVertice + 0.4, coordYVertice + 0.4);
                     coordXPadre  , coordYPadre , coordXVertice , coordYVertice);
 
         }
@@ -359,15 +357,11 @@ public class GeneraHTML {
             //System.out.println(i);
         }
 
-        //System.out.println("El arbol : ");
-        //System.out.println(arbol.toString());
-        //VerticeArbolBinario<Integer> vert = arbol.raiz();
-        //arbol.getColor(vert);
 
         arbolSVG += graficaArbolRojinegroBFS(arbol);
 
 
-        String header = headerSVG(500, 500);
+        String header = headerSVG(1000, 1000);
         String cola = colaSVG();
 
 
@@ -400,15 +394,13 @@ public class GeneraHTML {
             //System.out.println(i);
         }
 
-        System.out.println("El arbol : ");
-        System.out.println(arbol.toString());
-        //VerticeArbolBinario<Integer> vert = arbol.raiz();
-        //arbol.getColor(vert);
+        //System.out.println("El arbol : ");
+        //System.out.println(arbol.toString());
 
         arbolSVG += graficaArbolAVLBFS(arbol);
 
 
-        String header = headerSVG(500, 500);
+        String header = headerSVG(1000, 1000);
         String cola = colaSVG();
 
 
@@ -463,37 +455,11 @@ public class GeneraHTML {
 
             String color = "white";
 
-
-            //ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
-            //color = arbol.getColor(vertice).toString();
-
             String elementoString = vertice.toString();
-            String parseElemento = vertice.get().toString();//nombreRojinegro(elementoString);
+            String parseElemento = vertice.get().toString();
 
             nombreElemento = Integer.parseInt(parseElemento);
 
-
-            /*
-
-            if(tipoArbol.equals("ArbolRojinegro")){
-                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
-                color = vert.color.toString();
-                nombreElemento = Integer.parseInt(vert.elemento.toString());
-
-            } else if (tipoArbol.equals("ArbolAVL")){
-                color = "white";
-                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
-                nombreElemento = Integer.parseInt(vert.elemento.toString());
-
-
-            } else {
-
-                color = "white";
-                nombreElemento = Integer.parseInt(vertice.toString());
-
-            }
-
-             */
 
             ///Primero verificar si la profundidad cambio
 
@@ -532,26 +498,19 @@ public class GeneraHTML {
                 nombresElementos.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                coordenadasElementos.agrega(Double.valueOf(50));
+                coordenadasElementos.agrega(50.0);
 
                 ///Despues llenamos los arrays de PADRES
                 nombresPadres.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                coordenadasPadres.agrega(Double.valueOf(50));
+                coordenadasPadres.agrega(50.0);
 
 
 
-                arbolSVG.append(circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color,true));
-                arbolSVG.append(balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo"));
+                arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(balanceSVG(50.0,contadorY,getBalanceAVL(vertice),"Izquierdo"));
 
-                /*
-
-                if(tipoArbol.equals("ArbolAVL")){
-                    balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo");
-                }
-
-                 */
 
 
             } else {
@@ -565,34 +524,12 @@ public class GeneraHTML {
                 ///Este string tendra los corchetes con el color y el valor del padre que debe ser parseado
                 String stringNombrePadre = vert.toString();
 
-                String nombrePadreParsed = vert.get().toString();//nombreRojinegro(stringNombrePadre);
+                String nombrePadreParsed = vert.get().toString();
                 nombrePadre = Integer.parseInt(nombrePadreParsed);
 
-                /*
 
-
-                if (tipoArbol.equals("ArbolRojinegro")) {
-                    ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
-
-                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
-
-                } else if (tipoArbol.equals("ArbolAVL")){
-                    ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
-                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
-
-
-                } else {
-                    nombrePadre = Integer.parseInt(vertice.padre().toString());
-
-                }
-
-                 */
-
-
-                //int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
                 int index_padre = nombresPadres.indiceDe(stringNombrePadre);
                 //Se extraen sus coordenadas
-                //double coordPadre = arrayCoordenadasPadres[index_padre];
                 double coordPadre = coordenadasPadres.get(index_padre);
 
                 double coordElemento;
@@ -618,21 +555,6 @@ public class GeneraHTML {
                     arbolSVG.append(balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Derecho"));
                 }
 
-                /*
-
-                if(tipoArbol.equals("ArbolAVL")){
-
-                    if(esIzquierdo(vertice)){
-                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Izquierdo");
-                    } else {
-                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Derecho");
-                    }
-
-                }
-
-                 */
-
-
 
             }
 
@@ -644,12 +566,10 @@ public class GeneraHTML {
             //////AQUI TERMINA EL PROCESO
 
             if(vertice.hayIzquierdo()){
-                //cola.mete((ArbolBinario.Vertice) vertice.izquierdo());
                 cola.mete(vertice.izquierdo());
             }
 
             if(vertice.hayDerecho()){
-                //cola.mete((ArbolBinario.Vertice) vertice.derecho());
                 cola.mete(vertice.derecho());
             }
 
@@ -753,38 +673,13 @@ public class GeneraHTML {
 
             String color;
 
-            //ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
             color = arbol.getColor(vertice).toString();
             String elementoString = vertice.toString();
             String parseElemento = nombreRojinegro(elementoString);
 
             nombreElemento = Integer.parseInt(parseElemento);
 
-
-            /*
-
-            if(tipoArbol.equals("ArbolRojinegro")){
-                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
-                color = vert.color.toString();
-                nombreElemento = Integer.parseInt(vert.elemento.toString());
-
-            } else if (tipoArbol.equals("ArbolAVL")){
-                color = "white";
-                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
-                nombreElemento = Integer.parseInt(vert.elemento.toString());
-
-
-            } else {
-
-                color = "white";
-                nombreElemento = Integer.parseInt(vertice.toString());
-
-            }
-
-             */
-
             ///Primero verificar si la profundidad cambio
-
 
             //Si cambio reiniciamos hacemos los arrays de elementos como los padres
             ///Y reiniciamos los de elementos
@@ -820,26 +715,18 @@ public class GeneraHTML {
                 nombresElementos.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                coordenadasElementos.agrega(Double.valueOf(50));
+                coordenadasElementos.agrega(50.0);
 
                 ///Despues llenamos los arrays de PADRES
                 nombresPadres.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
-                coordenadasPadres.agrega(Double.valueOf(50));
+                coordenadasPadres.agrega(50.0);
 
 
 
-                arbolSVG.append(circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
 
-
-                /*
-
-                if(tipoArbol.equals("ArbolAVL")){
-                    balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo");
-                }
-
-                 */
 
 
             } else {
@@ -856,25 +743,6 @@ public class GeneraHTML {
                 String nombrePadreParsed = nombreRojinegro(stringNombrePadre);
                 nombrePadre = Integer.parseInt(nombrePadreParsed);
 
-                /*
-
-
-                if (tipoArbol.equals("ArbolRojinegro")) {
-                    ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
-
-                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
-
-                } else if (tipoArbol.equals("ArbolAVL")){
-                    ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
-                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
-
-
-                } else {
-                    nombrePadre = Integer.parseInt(vertice.padre().toString());
-
-                }
-
-                 */
 
 
                 //int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
@@ -900,21 +768,6 @@ public class GeneraHTML {
 
                 arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
 
-                /*
-
-                if(tipoArbol.equals("ArbolAVL")){
-
-                    if(esIzquierdo(vertice)){
-                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Izquierdo");
-                    } else {
-                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Derecho");
-                    }
-
-                }
-
-                 */
-
-
 
             }
 
@@ -926,12 +779,10 @@ public class GeneraHTML {
             //////AQUI TERMINA EL PROCESO
 
             if(vertice.hayIzquierdo()){
-                //cola.mete((ArbolBinario.Vertice) vertice.izquierdo());
                 cola.mete(vertice.izquierdo());
             }
 
             if(vertice.hayDerecho()){
-                //cola.mete((ArbolBinario.Vertice) vertice.derecho());
                 cola.mete(vertice.derecho());
             }
 
@@ -1007,16 +858,6 @@ public class GeneraHTML {
 
 
 
-
-        /*
-
-        System.out.println("<g>");
-        System.out.println(circulo);
-        System.out.println(circuloTexto);
-        System.out.println("</g>");
-
-         */
-
         return circulo+circuloTexto;
     }
 
@@ -1033,17 +874,6 @@ public class GeneraHTML {
         } else {
             return false;
         }
-
-
-
-        /*
-        if(vertice == vertice.padre.izquierdo){
-            return true;
-        } else {
-            return false;
-        }
-
-         */
 
     }
 
