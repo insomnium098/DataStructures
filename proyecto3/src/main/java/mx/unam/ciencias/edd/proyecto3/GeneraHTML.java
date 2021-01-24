@@ -406,10 +406,10 @@ public class GeneraHTML {
 
 
         //////V2 HACER LISTAS PARA LOS PADRES Y LOS ELEMENTOS
-        Lista<Integer> nombresPadres = new Lista<>();
+        Lista<String> nombresPadres = new Lista<>();
         Lista<Double> coordenadasPadres = new Lista<>();
 
-        Lista<Integer> nombresElementos = new Lista<>();
+        Lista<String> nombresElementos = new Lista<>();
         Lista<Double> coordenadasElementos = new Lista<>();
 
 
@@ -417,10 +417,6 @@ public class GeneraHTML {
         /////////RECORRER POR BFS
 
         VerticeArbolBinario<Integer> raiz = arbol.raiz();
-        //arbol.getColor(vert);
-
-
-
 
         Cola<VerticeArbolBinario<Integer>> cola = new Cola<>();
 
@@ -438,8 +434,8 @@ public class GeneraHTML {
 
             //ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
             color = arbol.getColor(vertice).toString();
-            String parseElemento = vertice.toString();
-            parseElemento = nombreRojinegro(parseElemento);
+            String elementoString = vertice.toString();
+            String parseElemento = nombreRojinegro(elementoString);
 
             nombreElemento = Integer.parseInt(parseElemento);
 
@@ -477,7 +473,7 @@ public class GeneraHTML {
                 contadorY = contadorY + 70;
 
                 nombresPadres.limpia();
-                for(Integer a : nombresElementos){
+                for(String a : nombresElementos){
                     nombresPadres.agrega(a);
                 }
 
@@ -500,13 +496,13 @@ public class GeneraHTML {
             if (!vertice.hayPadre()){
                 ///Despues llenamos los arrays de ELEMENTOS
 
-                nombresElementos.agrega(nombreElemento);
+                nombresElementos.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
                 coordenadasElementos.agrega(Double.valueOf(50));
 
                 ///Despues llenamos los arrays de PADRES
-                nombresPadres.agrega(nombreElemento);
+                nombresPadres.agrega(elementoString);
 
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
                 coordenadasPadres.agrega(Double.valueOf(50));
@@ -532,10 +528,11 @@ public class GeneraHTML {
 
 
                 VerticeArbolBinario<Integer> vert = vertice.padre();
+                ///Este string tendra los corchetes con el color y el valor del padre que debe ser parseado
                 String stringNombrePadre = vert.toString();
-                stringNombrePadre = nombreRojinegro(stringNombrePadre);
 
-                nombrePadre = Integer.parseInt(stringNombrePadre);
+                String nombrePadreParsed = nombreRojinegro(stringNombrePadre);
+                nombrePadre = Integer.parseInt(nombrePadreParsed);
 
                 /*
 
@@ -559,7 +556,7 @@ public class GeneraHTML {
 
 
                 //int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
-                int index_padre = nombresPadres.indiceDe(nombrePadre);
+                int index_padre = nombresPadres.indiceDe(stringNombrePadre);
                 //Se extraen sus coordenadas
                 //double coordPadre = arrayCoordenadasPadres[index_padre];
                 double coordPadre = coordenadasPadres.get(index_padre);
@@ -573,7 +570,7 @@ public class GeneraHTML {
                     coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
                 }
 
-                nombresElementos.agrega(Integer.parseInt(nombreElemento.toString()));
+                nombresElementos.agrega(elementoString);
                 coordenadasElementos.agrega(coordElemento);
 
 
