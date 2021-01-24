@@ -192,13 +192,19 @@ public class Proyecto3 {
         }
 
 
+        //Aqui se imprimen los archivos HTML
         ////dicc contiene los ArchivosTexto, sobre estos hay que generar el HTML
         GeneraHTML archivosHMTL = new GeneraHTML(dicc, carpeta);
         archivosHMTL.imprime();
 
 
 
+        ///Aqui se imprime el indice
+
         ConjuntoArchivosTexto Index = new ConjuntoArchivosTexto(diccionarioPalabras7);
+        Grafica<String> grafica = Index.getGrafica();
+        archivosHMTL.GeneraIndice(grafica);
+
         //Index.imprimeGrafo();
 
 

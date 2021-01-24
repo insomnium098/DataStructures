@@ -43,25 +43,25 @@ public class GeneraHTML {
 
             ///Grafica de pastel
             //fw.write("<p>This is a paragraph.</p>");
-            fw.write("<h1>Pastel</h1>");
+            fw.write("<h1>Gráfica de Pastel</h1>");
             String pastel = this.generaPastel(archivo);
             fw.write(pastel);
             fw.write("\n");
 
             //Grafica de Barras
-            fw.write("<h1>Barras</h1>");
+            fw.write("<h1>Gráfica de Barras</h1>");
             String barras = this.generaBarras(archivo);
             fw.write(barras);
             fw.write("\n");
 
             ///Arbol Rojinegro
-            fw.write("<h1>Arbol rojinegro</h1>");
+            fw.write("<h1>Árbol RojiNegro</h1>");
             String arbolRojinegro = this.generaArbolRojinegro(archivo);
             fw.write(arbolRojinegro);
             fw.write("\n");
 
             ///Arbol AVL
-            fw.write("<h1>Arbol AVL</h1>");
+            fw.write("<h1>Árbol AVL</h1>");
             String arbolAVL = this.generaArbolAVL(archivo);
             fw.write(arbolAVL);
             fw.write("\n");
@@ -81,6 +81,228 @@ public class GeneraHTML {
 
 
 
+
+
+
+    }
+
+    public void GeneraIndice(Grafica<String> grafica) throws IOException{
+        String nombreArchivo ="index.html";
+
+        FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
+        String header = headerHTML();
+        fw.write("\n");
+        fw.write("<h1>Indice</h1>");
+        fw.write("\n");
+        fw.write("<h2>Archivos analizados</h2>");
+        fw.write("\n");
+
+        for (ArchivoTexto archivo : diccionario){
+            String nombre = archivo.getNombreArchivo();
+            String nombreHTML = nombre + ".html";
+            Integer palabrasTotales = archivo.getPalabrasTotales();
+            String parrafo = generaParrafo(nombre, nombreHTML, palabrasTotales);
+            fw.write("\n");
+            fw.write(parrafo);
+        }
+
+        fw.write("<h2>Grafo</h2>");
+        fw.write("\n");
+        fw.write("<p>El grafo representa con nodos a los archivos analizados y las aristas si hay " +
+                "palabras de al menos 7 caracteres en común entre los nodos</p>");
+        fw.write("\n");
+        String grafo = generaGrafica(grafica);
+        fw.write(grafo);
+        fw.write("\n");
+
+
+
+
+
+        String cola = colaHTML();
+        fw.close();
+
+    }
+
+    /*
+    Metodo que genera el string representando a la grafica
+     */
+
+    public String generaGrafica (Grafica<String> grafica){
+
+        StringBuilder graficaSVG = new StringBuilder("");
+
+        ///Hacemos listas para guardar los elementos y sus coordenadas X y Y
+        ////Estas coordenadas estaran fuera del loop
+        Lista<String> nombreElemento = new Lista<>();
+        Lista<Double> listacoordX = new Lista<>();
+        Lista<Double> listacoordY = new Lista<>();
+
+
+        ////Obtenemos el numero de elementos para graficarlos en el circulo
+        ///Establecemos el centro 700 y 300 en normal
+        double xCentro = 50.0;
+        double yCentro = 50.0;
+
+        int nElementos = grafica.getElementos();
+        int radio = 35;
+        int contador = 1;
+
+        Double coordXelem;
+        double coordYelem;
+
+        Double coordXPadre;
+        Double coordYPadre;
+
+
+        Lista<String> listaElementos = new Lista<>();
+
+        //Primero graficamos todos los nodos de la grafica y los agregamos a una lista
+        //Hacemos una lista para guardar las lineas ya hechas
+
+
+        Lista<String> listaLineas = new Lista<>();
+
+
+
+
+        for (String i : grafica){
+            listaElementos.agrega(i);
+            String s = i;
+            coordXelem = xCentro + radio * Math.cos(2*Math.PI * contador / nElementos);
+            coordYelem = yCentro + radio * Math.sin(2*Math.PI * contador / nElementos);
+
+            ///Despues agregamos el elemento y sus coordenadas a las listas
+            nombreElemento.agrega(s);
+            listacoordX.agrega(coordXelem);
+            listacoordY.agrega(coordYelem);
+            contador ++;
+
+        }
+
+
+
+        for (String i : grafica){
+
+
+            for (String b : listaElementos){
+
+                ///Vemos si estan conectados
+                if(!grafica.sonVecinos(i,b)){
+                    continue;
+                }
+
+
+                ///Hacer un string con los elementos y su conexion
+                String texto = i.toString() + "_" + b.toString();
+                String textor = b.toString() + "_" + i.toString();
+
+
+                ///Vemos si las lineas entre los elementos ya existen en listaLineas,
+                //Si ya existen continuamos el loop
+                if(listaLineas.contiene(texto) || listaLineas.contiene(textor)) {
+                    continue;
+                }
+
+                listaLineas.agrega(texto);
+                listaLineas.agrega(textor);
+
+
+                //Si estan conectados se obtienen los indices y se hace la linea
+                int indicePadre = nombreElemento.indiceDe(i.toString());
+                coordXPadre = listacoordX.get(indicePadre);
+                coordYPadre = listacoordY.get(indicePadre);
+
+                int indice = nombreElemento.indiceDe(b.toString());
+                ///Obtenemos sus coordenadas X y Y
+                coordXelem = listacoordX.get(indice);
+                coordYelem = listacoordY.get(indice);
+
+
+                ///Graficamos las lineas entre el elemento y su padre
+                graficaSVG.append(lineaSVG(coordXPadre,coordYPadre,coordXelem,coordYelem,false));
+                graficaSVG.append(circuloSVG(coordXelem,coordYelem,b.toString(),"NEGRO",false));
+
+            }
+            int indiceP = nombreElemento.indiceDe(i.toString());
+            double coordXP = listacoordX.get(indiceP);
+            double coordYP= listacoordY.get(indiceP);
+            graficaSVG.append(circuloSVG(coordXP,coordYP,i.toString(),"NEGRO",false));
+
+
+
+        }
+
+
+        ///Finalmente graficamos los elementos inconexos en lista
+
+        /*
+        contador = 1;
+        double yInicial = 90;
+        double xInicial = 2;
+
+        double separacionX = 5;
+        double separacionY= 3;
+
+        double yContador = yInicial;
+        double xContador= xInicial;
+
+        for (String i : lista){
+            //Si el elemento ya existe en la grafica continuamos
+            if(grafica.contiene(i) || listaElementos.contiene(i)){
+                continue;
+            }
+
+            ///Si el contador es modulo 20 se reinicia el Xcontador y se actualiza el Y contador
+            if((contador % 20)==0){
+                xContador = xInicial;
+                yContador = yInicial + separacionY;
+                contador = 1;
+            }
+
+            listaElementos.agrega(i);
+            String s = i.toString();
+            coordXelem = xContador + (separacionX*contador);
+            coordYelem = yContador;
+
+            ///Despues agregamos el elemento y sus coordenadas a las listas
+            nombreElemento.agrega(s);
+            listacoordX.agrega(coordXelem);
+            listacoordY.agrega(coordYelem);
+            graficaSVG.append(circuloSVG(coordXelem,coordYelem,s,"NEGRO",false));
+
+            contador ++;
+
+
+        }
+
+         */
+
+
+        String header = headerSVG(500,500);
+        String cola = colaSVG();
+
+
+        return header + graficaSVG.toString() + cola;
+
+
+
+
+    }
+
+
+    /*
+    Metodo que genera el string con los archivos analizados y el numero de palabras que contienen
+     */
+
+    public String generaParrafo(String nombreArchivo, String nombreHTML, Integer palabrasTotales){
+
+
+
+        String linea = String.format("<li ><a  href= %1$s style='color:green;'>%2$s </a> tiene %3$s palabras </li>",
+                nombreHTML, carpeta+"/"+nombreArchivo,palabrasTotales);
+
+        return linea;
 
 
 
@@ -254,10 +476,9 @@ public class GeneraHTML {
     Metodo que genera el header del HTML
      */
     public String headerHTML(){
-        String header = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<body>";
-        return header;
     }
 
 
@@ -266,9 +487,8 @@ public class GeneraHTML {
      */
 
     public String colaHTML(){
-        String cola = "</body>\n" +
+        return "</body>\n" +
                 "</html>";
-        return cola;
     }
 
 
@@ -364,10 +584,7 @@ public class GeneraHTML {
         String header = headerSVG(1000, 1000);
         String cola = colaSVG();
 
-
         return header + arbolSVG + cola;
-
-
 
 
 
@@ -852,7 +1069,7 @@ public class GeneraHTML {
 
 
             circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s%%'\n" +
-                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
+                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,"orange");
 
         }
 
