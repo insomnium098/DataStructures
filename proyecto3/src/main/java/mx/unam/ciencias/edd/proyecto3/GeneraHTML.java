@@ -106,7 +106,11 @@ public class GeneraHTML {
         }
 
         Integer numOtros = numPalabras - numTop5;
-        topPalabras.agrega("Otros",numOtros);
+
+        if(numOtros > 0){
+            topPalabras.agrega("Otros",numOtros);
+        }
+
 
 
         Iterator<String> itLlaves = topPalabras.iteradorLlaves();
@@ -116,21 +120,14 @@ public class GeneraHTML {
         //StringBuilder linea = new StringBuilder("<line x1='50%' y1='50%' x2='50%' y2='10%' stroke='black' stroke-width='3'f/>");
         StringBuilder linea = new StringBuilder("");
 
-
-        //Double xContador = 0.0;
-        //Double yContador = 0.0;
         Double valorContador = 0.0;
 
         double trozos = 2 * Math.PI / numPalabras;
         while (itLlaves.hasNext()){
             String llave = itLlaves.next();
+
             Integer valor = topPalabras.get(llave);
-            //System.out.println(llave+" "+valor);
             //Calculamos las coordenadas X y Y de la linea, dependiendo del valor y el numPalabras
-
-
-            //Double porcentaje = (double) (valor / numPalabras);
-
             valorContador += valor;
 
             double angulo = trozos * (valorContador);
@@ -140,9 +137,13 @@ public class GeneraHTML {
             //xContador+=coordXelem;
             //yContador+=coordYelem;
 
+            String textoPie = llave + " "+ valor.toString();
+
 
             String lineaAux = lineaSVG(50.0, 50.0,coordXelem,coordYelem,false);
+            String textoAux = TextoPieSVG(coordXelem, coordYelem,textoPie);
             linea.append(lineaAux);
+            linea.append(textoAux);
 
         }
 
@@ -231,7 +232,16 @@ public class GeneraHTML {
 
         }
 
+        return linea;
+    }
 
+    private String TextoPieSVG(Double coordXVertice,Double coordYVertice,String texto){
+
+        String linea;
+
+
+        linea = String.format("<text fill='lawngreen' font-family='sans-serif' font-size='20' x='%1$s%%' y='%2$s%%'\n" +
+                "          text-anchor='middle'>%3$s</text>", coordXVertice , coordYVertice, texto);
 
         return linea;
     }
