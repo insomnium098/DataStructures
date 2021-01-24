@@ -55,8 +55,6 @@ public class Proyecto3 {
         }
 
         if(hayCarpeta){
-            //System.out.println("La carpeta es:");
-            //System.out.println(carpeta);
             boolean carpetaCreada = false;
             File file = new File(carpeta);
 
@@ -65,6 +63,7 @@ public class Proyecto3 {
                 carpetaCreada = file.mkdir();
                 if(!carpetaCreada){
                     System.out.println("La carpeta no pudo ser creada, no existe o no tienes los permisos necesarios");
+                    System.out.println("Saliendo del programa");
                     System.exit(1);
                 }
             }
@@ -78,10 +77,6 @@ public class Proyecto3 {
 
 
 
-
-        for (String s : archivos){
-            //System.out.println(s);
-        }
 
 
         /*
@@ -184,6 +179,8 @@ public class Proyecto3 {
 
         //Recorremos el diccionario para imprimir el conteo de palabras
 
+        /*
+
         for (ArchivoTexto archivo: dicc){
             //archivo.imprimeConteo();
             Diccionario<String, Integer> conteo = archivo.getConteoPalabras();
@@ -191,11 +188,13 @@ public class Proyecto3 {
 
         }
 
+         */
+
 
         //Aqui se imprimen los archivos HTML
         ////dicc contiene los ArchivosTexto, sobre estos hay que generar el HTML
         GeneraHTML archivosHMTL = new GeneraHTML(dicc, carpeta);
-        archivosHMTL.imprime();
+        //archivosHMTL.imprime();
 
 
 

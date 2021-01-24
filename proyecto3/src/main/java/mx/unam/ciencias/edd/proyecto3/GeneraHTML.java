@@ -234,51 +234,6 @@ public class GeneraHTML {
         }
 
 
-        ///Finalmente graficamos los elementos inconexos en lista
-
-        /*
-        contador = 1;
-        double yInicial = 90;
-        double xInicial = 2;
-
-        double separacionX = 5;
-        double separacionY= 3;
-
-        double yContador = yInicial;
-        double xContador= xInicial;
-
-        for (String i : lista){
-            //Si el elemento ya existe en la grafica continuamos
-            if(grafica.contiene(i) || listaElementos.contiene(i)){
-                continue;
-            }
-
-            ///Si el contador es modulo 20 se reinicia el Xcontador y se actualiza el Y contador
-            if((contador % 20)==0){
-                xContador = xInicial;
-                yContador = yInicial + separacionY;
-                contador = 1;
-            }
-
-            listaElementos.agrega(i);
-            String s = i.toString();
-            coordXelem = xContador + (separacionX*contador);
-            coordYelem = yContador;
-
-            ///Despues agregamos el elemento y sus coordenadas a las listas
-            nombreElemento.agrega(s);
-            listacoordX.agrega(coordXelem);
-            listacoordY.agrega(coordYelem);
-            graficaSVG.append(circuloSVG(coordXelem,coordYelem,s,"NEGRO",false));
-
-            contador ++;
-
-
-        }
-
-         */
-
-
         String header = headerSVG(500,500);
         String cola = colaSVG();
 
@@ -581,7 +536,7 @@ public class GeneraHTML {
         arbolSVG += graficaArbolRojinegroBFS(arbol);
 
 
-        String header = headerSVG(1000, 1000);
+        String header = headerSVG(500, 1000);
         String cola = colaSVG();
 
         return header + arbolSVG + cola;
@@ -617,7 +572,7 @@ public class GeneraHTML {
         arbolSVG += graficaArbolAVLBFS(arbol);
 
 
-        String header = headerSVG(1000, 1000);
+        String header = headerSVG(500, 1000);
         String cola = colaSVG();
 
 
@@ -826,8 +781,6 @@ public class GeneraHTML {
 
     public static String getBalanceAVL(VerticeArbolBinario<Integer> vertice){
         String balance;
-        //ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL) vertice;
-
         balance = vertice.toString();
         int espacio = balance.indexOf(" ");
 

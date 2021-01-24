@@ -41,62 +41,68 @@ public class ArchivoTexto {
         BufferedReader br;
         String lineafinal;
 
-        br = new BufferedReader(new FileReader(nombreArchivo));
-        while ((linea = br.readLine()) != null){
-            result.append(" ");
-            result.append(linea);
-        }
-
-        lineafinal = result.toString();
-        lineafinal = lineafinal.trim();
-        lineafinal = lineafinal.replaceAll("[\\n]", " ");
-        lineafinal = lineafinal.replaceAll("\\s+", " ");
-        //Quitar puntos, comas, signos de exclamación y admiración
-        lineafinal = lineafinal.replaceAll("\\.", "");
-        lineafinal = lineafinal.replaceAll(",", "");
-        lineafinal = lineafinal.replaceAll("¿", "");
-        lineafinal = lineafinal.replaceAll("\\?", "");
-        lineafinal = lineafinal.replaceAll("!", "");
-        lineafinal = lineafinal.replaceAll("¡", "");
-        ///Remover acentos y cambiar a lowercase
-        lineafinal =lineafinal.replace('á','a');
-        lineafinal =lineafinal.replace('é','e');
-        lineafinal =lineafinal.replace('í','i');
-        lineafinal =lineafinal.replace('ó','o');
-        lineafinal =lineafinal.replace('ú','u');
-        lineafinal =lineafinal.replace('ñ','n');
-        lineafinal= lineafinal.toLowerCase();
-        this.lineaElementos = lineafinal; 
-        //System.out.println(lineafinal);
-
-        //Hacer array con las palabras
-        String[] elementos_split = lineafinal.split("\\s+");
-        this.elementosArray = elementos_split;
-
-        //Despues las agregamos al diccionario conteoPalabras
-        int contadorPalabras = 0;
-
-        for (String s : elementos_split){
-            //Primero revisamos si el elemento ya existe en el diccionario
-            if (!conteoPalabras.contiene(s)){
-                //Lo agregamos y lo inicializamos en 1
-                conteoPalabras.agrega(s,1);
-            } else {
-                //En caso contrario obtenemos su valor, le sumamos 1 y lo volvemos a agregar
-                Integer valor = conteoPalabras.get(s);
-                valor += 1;
-                conteoPalabras.agrega(s,valor);
+        try {
+            br = new BufferedReader(new FileReader(nombreArchivo));
+            while ((linea = br.readLine()) != null){
+                result.append(" ");
+                result.append(linea);
             }
 
-            contadorPalabras +=1;
+            lineafinal = result.toString();
+            lineafinal = lineafinal.trim();
+            lineafinal = lineafinal.replaceAll("[\\n]", " ");
+            lineafinal = lineafinal.replaceAll("\\s+", " ");
+            //Quitar puntos, comas, signos de exclamación y admiración
+            lineafinal = lineafinal.replaceAll("\\.", "");
+            lineafinal = lineafinal.replaceAll(",", "");
+            lineafinal = lineafinal.replaceAll("¿", "");
+            lineafinal = lineafinal.replaceAll("\\?", "");
+            lineafinal = lineafinal.replaceAll("!", "");
+            lineafinal = lineafinal.replaceAll("¡", "");
+            ///Remover acentos y cambiar a lowercase
+            lineafinal =lineafinal.replace('á','a');
+            lineafinal =lineafinal.replace('é','e');
+            lineafinal =lineafinal.replace('í','i');
+            lineafinal =lineafinal.replace('ó','o');
+            lineafinal =lineafinal.replace('ú','u');
+            lineafinal =lineafinal.replace('ñ','n');
+            lineafinal= lineafinal.toLowerCase();
+            this.lineaElementos = lineafinal;
+            //System.out.println(lineafinal);
+
+            //Hacer array con las palabras
+            String[] elementos_split = lineafinal.split("\\s+");
+            this.elementosArray = elementos_split;
+
+            //Despues las agregamos al diccionario conteoPalabras
+            int contadorPalabras = 0;
+
+            for (String s : elementos_split){
+                //Primero revisamos si el elemento ya existe en el diccionario
+                if (!conteoPalabras.contiene(s)){
+                    //Lo agregamos y lo inicializamos en 1
+                    conteoPalabras.agrega(s,1);
+                } else {
+                    //En caso contrario obtenemos su valor, le sumamos 1 y lo volvemos a agregar
+                    Integer valor = conteoPalabras.get(s);
+                    valor += 1;
+                    conteoPalabras.agrega(s,valor);
+                }
+
+                contadorPalabras +=1;
+            }
+
+            this.palabrasTotales = contadorPalabras;
+
+        } catch (Exception e){
+            System.out.println("No se pudo leer el archivo: " + nombreArchivo);
+            System.out.println("No tienes los permisos para leer el archivo ó este no existe");
+            System.out.println("Saliendo del programa");
+            System.exit(1);
         }
 
-        this.palabrasTotales = contadorPalabras;
 
-        //imprimeDiccionario();
-        //imprimeConteo();
 
-        
 
     }
 
@@ -138,7 +144,7 @@ public class ArchivoTexto {
         String palabras = conteoPalabras.toString();
         palabras = palabras.replaceAll("\\{", "Palabras: ");
         palabras = palabras.replaceAll("\\}", "");
-        //palabras = palabras.replaceAll(":", "apareció:");
+        palabras = palabras.replaceAll(":", ": ");
         palabras = palabras.replaceAll(",", ", ");
         palabras = palabras.replaceAll(" '", "");
         palabras = palabras.replaceAll("'", " ");
