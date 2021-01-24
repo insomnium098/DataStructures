@@ -10,6 +10,8 @@ import java.util.Iterator;
 public class GeneraHTML {
     private Diccionario<String,ArchivoTexto> diccionario;
     private String carpeta;
+    private Integer numPalabras;
+    private Diccionario<String,Integer> topPalabras;
 
     public GeneraHTML (Diccionario<String,ArchivoTexto> diccionario, String carpeta) throws IOException {
         this.diccionario = diccionario;
@@ -45,6 +47,12 @@ public class GeneraHTML {
             fw.write(pastel);
             fw.write("\n");
 
+            //Grafica de Barras
+            fw.write("<h1>Barras</h1>");
+            String barras = this.generaBarras(archivo);
+            fw.write(barras);
+            fw.write("\n");
+
 
             ///COLA
             fw.write("\n");
@@ -65,22 +73,81 @@ public class GeneraHTML {
     }
 
     /*
+    Metodo que genera una String con la gráfica de barras
+     */
+
+    public String generaBarras (ArchivoTexto archivo){
+        String header = headerSVG(500,500);
+        /*
+        Procesamos el top 5 de palabras para hacer las lineas y el texto
+         */
+
+        //Obtenemos el numero de palabras totales
+        Integer numPalabras = archivo.getPalabrasTotales();
+        //System.out.println("Palabras totales: "+ numPalabras);
+
+
+        Diccionario<String,Integer> topPalabras = archivo.getListaPalabrasTop5();
+
+        //Agregarle a topPalabras el grupo de OTROS y de paso obtener el maximo valor
+        Integer maximo = 0;
+
+        Integer numTop5 = 0;
+        for (Integer in : topPalabras){
+            numTop5+= in;
+            if (maximo < in){
+                maximo = in;
+            }
+        }
+
+        Integer numOtros = numPalabras - numTop5;
+
+        if(numOtros > 0){
+            topPalabras.agrega("Otros",numOtros);
+        }
+
+        ///Calculamos el width de cada barra en porcentaje
+        Integer NumBarras = topPalabras.getElementos();
+        Integer widthBarras = 100/NumBarras;
+
+
+        //Inicializamos la linea con los cuadrado
+        StringBuilder linea = new StringBuilder("");
+
+        //Inicializamos el contador que tendra las coordX
+        Double contX = 0.0;
+        //Double contY = 100.0;
+
+        Iterator<String> itLlaves = topPalabras.iteradorLlaves();
+
+        while (itLlaves.hasNext()){
+            String llave = itLlaves.next();
+            Integer valor = topPalabras.get(llave);
+            Double altura = (double)(valor * 100) / maximo;
+            altura -=2;
+            String texto = llave + ": " + valor;
+
+            String cuadrado = cuadradoSVG(contX,100.00-altura, altura,texto);
+            contX += widthBarras;
+            linea.append(cuadrado);
+
+        }
+
+
+
+
+        String cola = colaSVG();
+
+
+        return header+linea+cola;
+
+    }
+
+    /*
     Metodo que genera un String con la gráfica de pastel
      */
 
     public String generaPastel(ArchivoTexto archivo){
-
-        /*
-        String inicio = "<p>";
-        String end = "</p>";
-        Diccionario<String, Integer> dicTop5 = archivo.getListaPalabrasTop5();
-        String s = dicTop5.toString();
-
-        String res = inicio + s + end;
-        return res;
-
-         */
-
 
         /*
         Inicializamos el circulo
@@ -94,7 +161,7 @@ public class GeneraHTML {
 
         //Obtenemos el numero de palabras totales
         Integer numPalabras = archivo.getPalabrasTotales();
-        System.out.println("Palabras totales: "+ numPalabras);
+        //System.out.println("Palabras totales: "+ numPalabras);
 
 
         Diccionario<String,Integer> topPalabras = archivo.getListaPalabrasTop5();
@@ -116,8 +183,6 @@ public class GeneraHTML {
         Iterator<String> itLlaves = topPalabras.iteradorLlaves();
 
         //Inicializamos la primer linea que estará en medio
-
-        //StringBuilder linea = new StringBuilder("<line x1='50%' y1='50%' x2='50%' y2='10%' stroke='black' stroke-width='3'f/>");
         StringBuilder linea = new StringBuilder("");
 
         Double valorContador = 0.0;
@@ -152,17 +217,10 @@ public class GeneraHTML {
 
         }
 
-
-
-
-
-
-
         String cola = colaSVG();
 
         return header+circulo+linea+cola;
     }
-
 
     /*
     Metodo que genera un String con el conteo de palabras en HTML
@@ -249,6 +307,25 @@ public class GeneraHTML {
                 "          text-anchor='middle'>%3$s</text>", coordXVertice , coordYVertice, texto);
 
         return linea;
+    }
+
+    private String cuadradoSVG(Double coordX, Double coordY, Double altura,String texto){
+
+        String cuadrado = String.format("<rect x=\"%1$s%%\" y=\"%2$s%%\" height=\"%3$s%%\" width=\"40\" style=\"stroke:#000000; fill: #34eb95\"/>",
+                coordX,coordY, altura);
+
+        Double x_text = coordX;
+        Double y_text = coordY -0.1;
+
+
+        String cuadradoTexto = String.format("<text x=\"%1$s%%\" y=\"%2$s%%\" font-family=\"Verdana\" font-size=\"10\" font-weight=\"bold\" fill=\"black\">%3$s</text>",
+                x_text,y_text,texto);
+
+
+        String res = cuadrado + cuadradoTexto;
+
+        return res;
+
     }
 
 }
