@@ -134,14 +134,19 @@ public class GeneraHTML {
             Double coordXelem = 50.0 + 30.0 * Math.cos(angulo);
             Double coordYelem = 50.0 + 30.0 * Math.sin(angulo);
 
-            //xContador+=coordXelem;
-            //yContador+=coordYelem;
+            //El angulo del texto será el angulo de la linea - 2
+
+            double anguloTexto = trozos * (valorContador - 0.5);
+            Double coordXtexto = 50.0 + 30.0 * Math.cos(anguloTexto);
+            Double coordYtexto = 50.0 + 30.0 * Math.sin(anguloTexto);
+
+
 
             String textoPie = llave + " "+ valor.toString();
 
 
             String lineaAux = lineaSVG(50.0, 50.0,coordXelem,coordYelem,false);
-            String textoAux = TextoPieSVG(coordXelem, coordYelem,textoPie);
+            String textoAux = TextoPieSVG(coordXtexto, coordYtexto,textoPie);
             linea.append(lineaAux);
             linea.append(textoAux);
 

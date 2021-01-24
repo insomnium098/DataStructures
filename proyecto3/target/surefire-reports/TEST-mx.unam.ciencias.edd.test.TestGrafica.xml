@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="29" failures="0" name="mx.unam.ciencias.edd.test.TestGrafica" time="1.415" errors="0" skipped="0">
+<testsuite tests="29" failures="0" name="mx.unam.ciencias.edd.test.TestGrafica" time="2.205" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
@@ -64,33 +64,33 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testElimina" time="0.178"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEsVacio" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDesconecta" time="0.018"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testBfs" time="0.023"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDfs" time="0.163"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeGetColor" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeGetGrado" time="0.022"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testToString" time="0.124"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeVecinos" time="0.019"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testElimina" time="0.149"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEsVacio" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDesconecta" time="0.081"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testBfs" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDfs" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeGetColor" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeGetGrado" time="0.016"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testToString" time="0.122"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeVecinos" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVerticeGet" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testGetPeso" time="0.016"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testGetAristas" time="0.068"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testTrayectoriaMinima" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSonVecinos" time="0.046"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVertice" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testContiene" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testConecta" time="0.008"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testConectaConPeso" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDijkstra" time="0.474"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testGetPeso" time="0.005"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testGetAristas" time="0.027"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testTrayectoriaMinima" time="0.007"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSonVecinos" time="0.054"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testVertice" time="0.036"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testContiene" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testConecta" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testConectaConPeso" time="0.042"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testDijkstra" time="1.441"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testGetElementos" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testParaCadaVertice" time="0.042"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testParaCadaVertice" time="0.03"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testAgrega" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEquals" time="0.043"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testLimpia" time="0.004"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSetPeso" time="0.128"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEsConexa" time="0.029"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEquals" time="0.029"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testLimpia" time="0.041"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSetPeso" time="0.094"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testEsConexa" time="0.014"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testIterator" time="0.001"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testConstructor" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSetColor" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestGrafica" name="testSetColor" time="0.002"/>
 </testsuite>
