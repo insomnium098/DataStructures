@@ -1,6 +1,7 @@
 package mx.unam.ciencias.edd.proyecto3;
 
-import mx.unam.ciencias.edd.Diccionario;
+import mx.unam.ciencias.edd.*;
+import mx.unam.ciencias.edd.VerticeArbolBinario;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,8 +9,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class GeneraHTML {
-    private Diccionario<String,ArchivoTexto> diccionario;
-    private String carpeta;
+    private final Diccionario<String,ArchivoTexto> diccionario;
+    private final String carpeta;
     private Integer numPalabras;
     private Diccionario<String,Integer> topPalabras;
 
@@ -52,6 +53,13 @@ public class GeneraHTML {
             String barras = this.generaBarras(archivo);
             fw.write(barras);
             fw.write("\n");
+
+            ///Arbol Rojinegro
+            fw.write("<h1>Arbol rojinegro</h1>");
+            String arbolRojinegro = this.generaArbolRojinegro(archivo);
+            fw.write(arbolRojinegro);
+            fw.write("\n");
+
 
 
             ///COLA
@@ -322,10 +330,436 @@ public class GeneraHTML {
                 x_text,y_text,texto);
 
 
-        String res = cuadrado + cuadradoTexto;
-
-        return res;
+        return cuadrado + cuadradoTexto;
 
     }
+
+
+    /*
+    Metodo que genera el String para representar a un arbol
+     */
+
+    private String generaArbolRojinegro(ArchivoTexto archivo){
+        Diccionario<String, Integer> diccionarioTop15 = archivo.getListaPalabrasTop15();
+        Iterator<String> itllaves = diccionarioTop15.iteradorLlaves();
+        System.out.println("IteradorLlaves");
+        while (itllaves.hasNext()){
+            System.out.println(itllaves.next());
+        }
+
+        String arbolSVG = "";
+
+        ArbolRojinegro<Integer> arbol = new ArbolRojinegro<>();
+
+
+        System.out.println("Iterador valores agregados:");
+        for (Integer i : diccionarioTop15){
+            arbol.agrega(i);
+            System.out.println(i);
+        }
+
+        System.out.println("El arbol : ");
+        System.out.println(arbol.toString());
+        //VerticeArbolBinario<Integer> vert = arbol.raiz();
+        //arbol.getColor(vert);
+
+        arbolSVG += graficaArbolRojinegroBFS(arbol);
+
+
+        String header = headerSVG(500, 500);
+        String cola = colaSVG();
+
+
+        return header + arbolSVG + cola;
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+    Metodo Que grafica un arbolbinario basado en BFS por vertices
+
+     */
+
+    public String graficaArbolRojinegroBFS (ArbolRojinegro<Integer> arbol){
+
+        StringBuilder arbolSVG = new StringBuilder("");
+
+
+        Double y_Circulo_inicial = 40.0;
+
+
+        //Inicializamos profundidad y el contador de Y
+        int profundidad = 0;
+
+        Double contadorY = y_Circulo_inicial;
+
+
+        //////V2 HACER LISTAS PARA LOS PADRES Y LOS ELEMENTOS
+        Lista<Integer> nombresPadres = new Lista<>();
+        Lista<Double> coordenadasPadres = new Lista<>();
+
+        Lista<Integer> nombresElementos = new Lista<>();
+        Lista<Double> coordenadasElementos = new Lista<>();
+
+
+
+        /////////RECORRER POR BFS
+
+        VerticeArbolBinario<Integer> raiz = arbol.raiz();
+        //arbol.getColor(vert);
+
+
+
+
+        Cola<VerticeArbolBinario<Integer>> cola = new Cola<>();
+
+        cola.mete(arbol.raiz());
+        while (!cola.esVacia()) {
+
+
+
+            //ArbolBinario.Vertice vertice = cola.saca();
+            VerticeArbolBinario<Integer> vertice = cola.saca();
+
+            Integer nombreElemento;
+
+            String color;
+
+            //ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
+            color = arbol.getColor(vertice).toString();
+            String parseElemento = vertice.toString();
+            parseElemento = nombreRojinegro(parseElemento);
+
+            nombreElemento = Integer.parseInt(parseElemento);
+
+
+            /*
+
+            if(tipoArbol.equals("ArbolRojinegro")){
+                ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
+                color = vert.color.toString();
+                nombreElemento = Integer.parseInt(vert.elemento.toString());
+
+            } else if (tipoArbol.equals("ArbolAVL")){
+                color = "white";
+                ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
+                nombreElemento = Integer.parseInt(vert.elemento.toString());
+
+
+            } else {
+
+                color = "white";
+                nombreElemento = Integer.parseInt(vertice.toString());
+
+            }
+
+             */
+
+            ///Primero verificar si la profundidad cambio
+
+
+            //Si cambio reiniciamos hacemos los arrays de elementos como los padres
+            ///Y reiniciamos los de elementos
+            if(profundidad != vertice.profundidad()){
+
+                profundidad = vertice.profundidad();
+                contadorY = contadorY + 70;
+
+                nombresPadres.limpia();
+                for(Integer a : nombresElementos){
+                    nombresPadres.agrega(a);
+                }
+
+                coordenadasPadres.limpia();
+                for(Double a : coordenadasElementos){
+                    coordenadasPadres.agrega(a);
+                }
+
+
+                nombresElementos.limpia();
+                coordenadasElementos.limpia();
+
+
+
+            }
+
+
+
+            ////Primer caso donde el elemento es la raiz
+            if (!vertice.hayPadre()){
+                ///Despues llenamos los arrays de ELEMENTOS
+
+                nombresElementos.agrega(nombreElemento);
+
+                ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
+                coordenadasElementos.agrega(Double.valueOf(50));
+
+                ///Despues llenamos los arrays de PADRES
+                nombresPadres.agrega(nombreElemento);
+
+                ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
+                coordenadasPadres.agrega(Double.valueOf(50));
+
+
+
+                arbolSVG.append(circuloSVG(Double.valueOf(50),contadorY,nombreElemento.toString(),color,true));
+
+                /*
+
+                if(tipoArbol.equals("ArbolAVL")){
+                    balanceSVG(Double.valueOf(50),contadorY,getBalanceAVL(vertice),"Izquierdo");
+                }
+
+                 */
+
+
+            } else {
+
+                ///Buscamos las coordenadas del padre
+
+                Integer nombrePadre;
+
+
+                VerticeArbolBinario<Integer> vert = vertice.padre();
+                String stringNombrePadre = vert.toString();
+                stringNombrePadre = nombreRojinegro(stringNombrePadre);
+
+                nombrePadre = Integer.parseInt(stringNombrePadre);
+
+                /*
+
+
+                if (tipoArbol.equals("ArbolRojinegro")) {
+                    ArbolRojinegro.VerticeRojinegro vert = (ArbolRojinegro.VerticeRojinegro)vertice;
+
+                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
+
+                } else if (tipoArbol.equals("ArbolAVL")){
+                    ArbolAVL.VerticeAVL vert = (ArbolAVL.VerticeAVL)vertice;
+                    nombrePadre = Integer.parseInt(vert.padre.elemento.toString());
+
+
+                } else {
+                    nombrePadre = Integer.parseInt(vertice.padre().toString());
+
+                }
+
+                 */
+
+
+                //int index_padre = Arreglos.busquedaBinaria(arrayNombresPadres,nombrePadre);
+                int index_padre = nombresPadres.indiceDe(nombrePadre);
+                //Se extraen sus coordenadas
+                //double coordPadre = arrayCoordenadasPadres[index_padre];
+                double coordPadre = coordenadasPadres.get(index_padre);
+
+                double coordElemento;
+                ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
+                if(esIzquierdo(vertice)){
+                    coordElemento = calculaCoordenadas(coordPadre,"Izquierdo",profundidad);
+
+                } else {
+                    coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
+                }
+
+                nombresElementos.agrega(Integer.parseInt(nombreElemento.toString()));
+                coordenadasElementos.agrega(coordElemento);
+
+
+                arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
+
+                arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
+
+                /*
+
+                if(tipoArbol.equals("ArbolAVL")){
+
+                    if(esIzquierdo(vertice)){
+                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Izquierdo");
+                    } else {
+                        balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Derecho");
+                    }
+
+                }
+
+                 */
+
+
+
+            }
+
+
+
+
+
+
+            //////AQUI TERMINA EL PROCESO
+
+            if(vertice.hayIzquierdo()){
+                //cola.mete((ArbolBinario.Vertice) vertice.izquierdo());
+                cola.mete(vertice.izquierdo());
+            }
+
+            if(vertice.hayDerecho()){
+                //cola.mete((ArbolBinario.Vertice) vertice.derecho());
+                cola.mete(vertice.derecho());
+            }
+
+
+        }
+
+        return arbolSVG.toString();
+
+
+
+    }
+
+    /*
+    Metodo que recibe el  toString de un vertice Rojinegro y devuelve el nombre del elemento
+     */
+
+    private String nombreRojinegro (String nombre){
+
+        nombre = nombre.replaceAll("R","");
+        nombre = nombre.replaceAll("N","");
+        nombre = nombre.replaceAll("\\{","");
+        nombre = nombre.replaceAll("}","");
+
+        return nombre;
+
+
+    }
+
+    /*
+    Metodo que grafica un circulo
+    Las coordenadas X se representaran en porcentaje
+     */
+    public String circuloSVG(Double coordX, Double coordY, String texto, String color, boolean arbol){
+
+        String colorTexto = "black";
+
+
+        if(color.equals("NEGRO")){
+            color = "black";
+            colorTexto = "white";
+        } else if (color.equals("ROJO")){
+            color = "red";
+            colorTexto = "white";
+        } else {
+            color = "white";
+        }
+
+        Double y_text;
+
+        String circulo;
+        String circuloTexto;
+
+        if (arbol ){
+            y_text = coordY + 2;
+            circulo = String.format("<circle cx='%1$s%%' cy='%2$s' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
+                    coordX,coordY, color);
+
+
+            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
+                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
+
+        } else {
+            y_text = coordY + 0.5;
+
+            circulo = String.format("<circle cx='%1$s%%' cy='%2$s%%' r='10' stroke='black' stroke-width='3' fill='%3$s' />",
+                    coordX,coordY, color);
+
+
+            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s%%'\n" +
+                    "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
+
+        }
+
+
+
+
+        /*
+
+        System.out.println("<g>");
+        System.out.println(circulo);
+        System.out.println(circuloTexto);
+        System.out.println("</g>");
+
+         */
+
+        return circulo+circuloTexto;
+    }
+
+            /*
+    Metodo que regresa si un vertice es izquierdo
+     */
+
+    public static boolean esIzquierdo(VerticeArbolBinario<Integer> vertice){
+
+        if(vertice.padre().hayIzquierdo()){
+            VerticeArbolBinario<Integer> izquierdo = vertice.padre().izquierdo();
+            return vertice.equals(izquierdo);
+
+        } else {
+            return false;
+        }
+
+
+
+        /*
+        if(vertice == vertice.padre.izquierdo){
+            return true;
+        } else {
+            return false;
+        }
+
+         */
+
+    }
+
+    /*
+    Metodo que recibe las coordenadas X del vertice padre y el lado del vertice
+    y devuelve las coordenadas del vertice. Las coordenadas estaran dadas en porcentaje.
+    Entre mas profundidad hay, la distancia entre el vertice y el padre se acorta
+     */
+
+    public double calculaCoordenadas (double coordXPadre, String ladoVertice, int profundidad){
+
+        if(profundidad ==1){
+            if(ladoVertice.equals("Izquierdo")){
+                return coordXPadre - 25;
+            } else {
+                return coordXPadre + 25;
+            }
+
+        }
+
+        double max_elementos = Math.pow(2,(double)profundidad);
+        max_elementos = 100/(max_elementos*2);
+
+
+        //double coordenadas = coordXPadre/4;
+
+        if(ladoVertice.equals("Izquierdo")){
+            return coordXPadre - max_elementos;
+        } else {
+            return coordXPadre + max_elementos;
+        }
+
+
+
+    }
+
 
 }

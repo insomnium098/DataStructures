@@ -6,11 +6,12 @@ import java.util.Iterator;
 
 public class ArchivoTexto {
 
-    private String nombreArchivo;
+    private final String nombreArchivo;
     private Diccionario<String, Integer> conteoPalabras;
     private Diccionario<String,Integer> listaPalabrasTop5;
+    private Diccionario<String,Integer> listaPalabrasTop15;
     private String lineaElementos;
-    private Conjunto<String> conjunto;
+    private final Conjunto<String> conjunto;
     private String[] elementosArray;
     private Integer palabrasTotales;
 
@@ -18,12 +19,14 @@ public class ArchivoTexto {
         this.nombreArchivo = nombreArchivo;
         this.conteoPalabras = new Diccionario<>();
         this.listaPalabrasTop5 = new Diccionario<>();
+        this.listaPalabrasTop15 = new Diccionario<>();
         this.lineaElementos = null;
         this.palabrasTotales = null;
         this.conjunto = new Conjunto<>();
         this.procesaArchivo();
         this.creaConjunto();
         this.calculaTop5Palabras();
+        this.calculaTop15Palabras();
     }
 
     /*
@@ -215,18 +218,9 @@ public class ArchivoTexto {
         ///Lo ordenamos
         Arreglos.quickSort(arregloValores);
 
-        //Lo imprimimos
-        /*
-        System.out.println("El arreglo");
-        for (Integer z : arregloValores){
-            System.out.println(z);
-        }
-
-         */
         //Obtenemos los 5 primeros haciendo una lista
 
         Lista<Integer> listaMayoresInt = new Lista<>();
-        Lista<String> listaMayoresPalabras = new Lista<>();
 
         int contadorArray = 1;
         while (contadorArray < arregloValores.length ){
@@ -237,7 +231,6 @@ public class ArchivoTexto {
             contadorArray++;
         }
 
-        //System.out.println("La longitud de la lista es : " + listaMayoresInt.getLongitud());
 
 
         Diccionario<String,Integer> diccionarioTop5 = new Diccionario<>();
@@ -254,9 +247,6 @@ public class ArchivoTexto {
                 listaMayoresInt.elimina(valor);
             }
         }
-
-        //System.out.println("El top 5 es:");
-        //System.out.println(diccionarioTop5);
 
         this.listaPalabrasTop5 = diccionarioTop5;
 
@@ -283,5 +273,71 @@ public class ArchivoTexto {
 
     public String getNombreArchivo(){
         return this.nombreArchivo;
+    }
+
+
+    /*
+    Metodo que calcula el Top15 palabras
+     */
+
+    public void calculaTop15Palabras() {
+        Diccionario<String, Integer> conteo = this.conteoPalabras;
+
+        if(this.conteoPalabras.getElementos() <= 15){
+            this.listaPalabrasTop15 = this.conteoPalabras;
+            return;
+        }
+
+        /*
+        Inicializamos un array con los valores
+         */
+
+        Integer[] arregloValores = new Integer[conteo.getElementos()];
+        //Le agregamos los valores
+        int contador = 0;
+        for (Integer i : conteo){
+            arregloValores[contador] = i;
+            contador++;
+        }
+
+        ///Lo ordenamos
+        Arreglos.quickSort(arregloValores);
+
+        //Obtenemos los 5 primeros haciendo una lista
+
+        Lista<Integer> listaMayoresInt = new Lista<>();
+
+        int contadorArray = 1;
+        while (contadorArray < arregloValores.length ){
+            if (contadorArray > 15){
+                break;
+            }
+            listaMayoresInt.agrega(arregloValores[arregloValores.length-contadorArray]);
+            contadorArray++;
+        }
+
+
+
+        Diccionario<String,Integer> diccionarioTop15 = new Diccionario<>();
+
+
+
+
+        Iterator<String> itLlaves = conteo.iteradorLlaves();
+        while (itLlaves.hasNext()){
+            String llave = itLlaves.next();
+            Integer valor = conteo.get(llave);
+            if(listaMayoresInt.contiene(valor)){
+                diccionarioTop15.agrega(llave, valor);
+                listaMayoresInt.elimina(valor);
+            }
+        }
+
+        this.listaPalabrasTop15 = diccionarioTop15;
+
+    }
+
+    public Diccionario<String, Integer> getListaPalabrasTop15(){
+        return this.listaPalabrasTop15;
     }
 }
