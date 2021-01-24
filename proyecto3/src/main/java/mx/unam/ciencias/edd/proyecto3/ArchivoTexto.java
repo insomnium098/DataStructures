@@ -23,6 +23,7 @@ public class ArchivoTexto {
         this.conjunto = new Conjunto<>();
         this.procesaArchivo();
         this.creaConjunto();
+        this.calculaTop5Palabras();
     }
 
     /*
@@ -186,6 +187,86 @@ public class ArchivoTexto {
 
 
     }
+
+    /*
+    Metodo que calcula el top 5 de palabras
+     */
+
+    public void calculaTop5Palabras() {
+        Diccionario<String, Integer> conteo = this.conteoPalabras;
+
+        if(this.conteoPalabras.getElementos() <= 5){
+            this.listaPalabrasTop5 = this.conteoPalabras;
+            return;
+        }
+
+        /*
+        Inicializamos un array con los valores
+         */
+
+        Integer[] arregloValores = new Integer[conteo.getElementos()];
+        //Le agregamos los valores
+        int contador = 0;
+        for (Integer i : conteo){
+            arregloValores[contador] = i;
+            contador++;
+        }
+
+        ///Lo ordenamos
+        Arreglos.quickSort(arregloValores);
+
+        //Lo imprimimos
+        /*
+        System.out.println("El arreglo");
+        for (Integer z : arregloValores){
+            System.out.println(z);
+        }
+
+         */
+        //Obtenemos los 5 primeros haciendo una lista
+
+        Lista<Integer> listaMayoresInt = new Lista<>();
+        Lista<String> listaMayoresPalabras = new Lista<>();
+
+        int contadorArray = 1;
+        while (contadorArray < arregloValores.length ){
+            if (contadorArray >5){
+                break;
+            }
+            listaMayoresInt.agrega(arregloValores[arregloValores.length-contadorArray]);
+            contadorArray++;
+        }
+
+        //System.out.println("La longitud de la lista es : " + listaMayoresInt.getLongitud());
+
+
+        Diccionario<String,Integer> diccionarioTop5 = new Diccionario<>();
+
+
+
+
+        Iterator<String> itLlaves = conteo.iteradorLlaves();
+        while (itLlaves.hasNext()){
+            String llave = itLlaves.next();
+            Integer valor = conteo.get(llave);
+            if(listaMayoresInt.contiene(valor)){
+                diccionarioTop5.agrega(llave, valor);
+                listaMayoresInt.elimina(valor);
+            }
+        }
+
+        //System.out.println("El top 5 es:");
+        //System.out.println(diccionarioTop5);
+
+        this.listaPalabrasTop5 = diccionarioTop5;
+
+    }
+
+    public Diccionario<String,Integer> getListaPalabrasTop5(){
+        return this.listaPalabrasTop5;
+    }
+
+
 
     /*
     Metodo que devuelve el diccionario conteoPalabras, donde el string llave es la palabra
