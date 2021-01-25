@@ -64,7 +64,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaDJB" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaXOR" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaDJB" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaXOR" time="0"/>
   <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaBJ" time="0.001"/>
 </testsuite>

@@ -29,11 +29,8 @@ public class GeneraHTML {
                 String nombreArchivo = archivo.getNombreArchivo();
                 nombreArchivo +=".html";
 
-                //String rutaArchivo = carpeta+"/"+nombreArchivo;
-
 
                 FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
-                //FileWriter fw = new FileWriter(new File(rutaArchivo));
                 String header = headerHTML();
                 String cola = colaHTML();
 
@@ -46,7 +43,7 @@ public class GeneraHTML {
                 fw.write("\n");
 
                 ///Grafica de pastel
-                //fw.write("<p>This is a paragraph.</p>");
+                //fw.write("<p>Este es un parrafo</p>");
                 fw.write("<h1>Gráfica de Pastel</h1>");
                 String pastel = this.generaPastel(archivo);
                 fw.write(pastel);
@@ -98,7 +95,7 @@ public class GeneraHTML {
 
     }
 
-    public void GeneraIndice(Grafica<String> grafica) throws IOException{
+    public void GeneraIndice(Grafica<String> grafica, Lista<String> palabrasCompartidas) throws IOException{
         try {
             String nombreArchivo ="index.html";
 
@@ -128,9 +125,14 @@ public class GeneraHTML {
             fw.write(grafo);
             fw.write("\n");
 
-
-
-
+            fw.write("<h3>Palabras compartidas entre los archivos:</h2>");
+            fw.write("\n");
+            for (String palabra : palabrasCompartidas){
+                String parrafo = "<p>" + palabra + "</p>";
+                fw.write(parrafo);
+                fw.write("\n");
+            }
+            fw.write("\n");
 
             String cola = colaHTML();
             fw.close();
@@ -139,7 +141,7 @@ public class GeneraHTML {
             System.out.println("La carpeta seleccionada es un archivo o no tienes los permisos");
             System.out.println("Saliendo del programa");
             System.exit(1);
-            
+
         }
 
     }

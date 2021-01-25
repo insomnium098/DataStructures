@@ -5,10 +5,12 @@ import java.util.Iterator;
 public class ConjuntoArchivosTexto {
     private Diccionario<String, Conjunto<String>> diccionario;
     private Grafica<String> grafica;
+    private Lista<String> palabrasCompartidas;
 
     public ConjuntoArchivosTexto(Diccionario<String, Conjunto<String>> diccionario){
         this.diccionario = diccionario;
         this.grafica = new Grafica<>();
+        this.palabrasCompartidas = new Lista<>();
         inicializaGrafo();
         generaGrafo();
     }
@@ -34,6 +36,8 @@ public class ConjuntoArchivosTexto {
      */
     private void generaGrafo(){
         Iterator<String> llaves = diccionario.iteradorLlaves();
+
+
         while(llaves.hasNext()){
             String s = llaves.next();
             //Obtenemos el conjunto de palabras de ese archivo
@@ -45,14 +49,22 @@ public class ConjuntoArchivosTexto {
                 Conjunto<String> conjuntoAux = diccionario.get(elemento2);
                 ///Hacemos la interseccion
                 Conjunto<String> interseccion = conjuntoArchivo.interseccion(conjuntoAux);
+
                 ///Si la interseccion no es vacia conectamos a los elementos
                 if (!interseccion.esVacia()){
+
 
                     //Revisamos si los elementos ya han sido conectados
                     //o si son el mismo elemento, en caso contrario se agregan
                     if(grafica.sonVecinos(s,elemento2) || s.equals(elemento2)){
                         continue;
                     }
+
+                    String e = s +" con " + elemento2 + ": " + interseccion.toString();
+                    e = e.replaceAll("\\{","");
+                    e = e.replaceAll("}","");
+
+                    palabrasCompartidas.agrega(e);
                     grafica.conecta(s,elemento2);
                 }
             }
@@ -60,6 +72,10 @@ public class ConjuntoArchivosTexto {
 
         }
 
+    }
+
+    public Lista<String> getPalabrasCompartidas() {
+        return palabrasCompartidas;
     }
 
     public void imprime(){

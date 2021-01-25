@@ -1,9 +1,6 @@
 package mx.unam.ciencias.edd.proyecto3;
 
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.Iterator;
-import java.util.Random;
 import mx.unam.ciencias.edd.*;
 import java.io.File;
 
@@ -205,7 +202,8 @@ public class Proyecto3 {
 
         ConjuntoArchivosTexto Index = new ConjuntoArchivosTexto(diccionarioPalabras7);
         Grafica<String> grafica = Index.getGrafica();
-        archivosHMTL.GeneraIndice(grafica);
+        Lista<String> palabrasCompartidas = Index.getPalabrasCompartidas();
+        archivosHMTL.GeneraIndice(grafica, palabrasCompartidas);
 
         //Index.imprimeGrafo();
 
