@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class ArchivoTexto {
 
-    private final String nombreArchivo;
+    private String nombreArchivo;
     private Diccionario<String, Integer> conteoPalabras;
     private Diccionario<String,Integer> listaPalabrasTop5;
     private Diccionario<String,Integer> listaPalabrasTop15;
@@ -46,6 +46,12 @@ public class ArchivoTexto {
             while ((linea = br.readLine()) != null){
                 result.append(" ");
                 result.append(linea);
+            }
+
+            //Una vez leido removemos la ruta de su nombre
+            Integer indiceArchivo = nombreArchivo.lastIndexOf("/");
+            if (indiceArchivo != -1){
+                nombreArchivo = nombreArchivo.substring(indiceArchivo + 1);
             }
 
             lineafinal = result.toString();

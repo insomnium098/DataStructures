@@ -28,8 +28,11 @@ public class GeneraHTML {
             String nombreArchivo = archivo.getNombreArchivo();
             nombreArchivo +=".html";
 
+            //String rutaArchivo = carpeta+"/"+nombreArchivo;
+            
 
             FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
+            //FileWriter fw = new FileWriter(new File(rutaArchivo));
             String header = headerHTML();
             String cola = colaHTML();
 
@@ -563,14 +566,14 @@ public class GeneraHTML {
         ArbolAVL<Integer> arbol = new ArbolAVL<>();
 
 
-        System.out.println("Iterador valores agregados:");
+        //System.out.println("Iterador valores agregados:");
         for (Integer i : diccionarioTop15){
             arbol.agrega(i);
-            System.out.println(i);
+          //  System.out.println(i);
         }
 
-        System.out.println("El arbol : ");
-        System.out.println(arbol.toString());
+        //System.out.println("El arbol : ");
+        //System.out.println(arbol.toString());
 
         arbolSVG += graficaArbolAVLBFS(arbol);
 

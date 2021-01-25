@@ -56,6 +56,7 @@ public class Proyecto3 {
 
         if(hayCarpeta){
             boolean carpetaCreada = false;
+            System.out.println("La carpeta es: " + carpeta);
             File file = new File(carpeta);
 
             ///Revisamos si la carpeta existe
