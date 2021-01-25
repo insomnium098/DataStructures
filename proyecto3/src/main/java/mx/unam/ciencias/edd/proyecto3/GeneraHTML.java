@@ -560,15 +560,9 @@ public class GeneraHTML {
 
         ArbolRojinegro<Integer> arbol = new ArbolRojinegro<>();
 
-
-        //System.out.println("Iterador valores agregados:");
         for (Integer i : diccionarioTop15){
             arbol.agrega(i);
-            //System.out.println(i);
         }
-
-        //System.out.println("El arbol rojinegro:");
-        //System.out.println(arbol.toString());
 
 
         arbolSVG += graficaArbolRojinegroBFS(arbol, diccionarioTop15COPIA);
@@ -598,14 +592,10 @@ public class GeneraHTML {
         ArbolAVL<Integer> arbol = new ArbolAVL<>();
 
 
-        //System.out.println("Iterador valores agregados:");
         for (Integer i : diccionarioTop15){
             arbol.agrega(i);
-          //  System.out.println(i);
         }
 
-        //System.out.println("El arbol : ");
-        //System.out.println(arbol.toString());
 
         arbolSVG += graficaArbolAVLBFS(arbol, diccionarioTop15);
 
@@ -671,18 +661,9 @@ public class GeneraHTML {
 
             String color = "white";
 
-            /*
 
-            String elementoString = vertice.toString();
+            String elementoString = hashVertice(vertice);
             String parseElemento = vertice.get().toString();
-
-            nombreElemento = Integer.parseInt(parseElemento);
-
-             */
-
-            String elementoString = hashRojiNegro(vertice);
-            //String parseElemento = nombreRojinegro(elementoString);
-            String parseElemento = vertice.get().toString();//nombreRojinegro(vertice.toString());
 
             nombreElemento = Integer.parseInt(parseElemento);
 
@@ -765,8 +746,6 @@ public class GeneraHTML {
                 llave += ": " + valor.toString();
 
 
-
-                //arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
                 arbolSVG.append(circuloSVG(50.0,contadorY,llave,color,true));
                 arbolSVG.append(balanceSVG(50.0,contadorY,getBalanceAVL(vertice),"Izquierdo"));
 
@@ -781,12 +760,9 @@ public class GeneraHTML {
 
                 VerticeArbolBinario<Integer> vert = vertice.padre();
                 ///Este string tendra los corchetes con el color y el valor del padre que debe ser parseado
-                String stringNombrePadre = hashRojiNegro(vert);
+                String stringNombrePadre = hashVertice(vert);
 
-                //String nombrePadreParsed = nombreRojinegro(stringNombrePadre);
                 String nombrePadreParsed = nombreRojinegro(vert.toString());
-
-                //nombrePadre = Integer.parseInt(nombrePadreParsed);
 
                 ///Hay algunos casos donde en el mismo nivel se encuentran elementos repetidos,
                 // por lo que al buscar el padre es probable obtener un elemento que no es el verdadero padre,
@@ -829,42 +805,6 @@ public class GeneraHTML {
                 }
 
 
-
-
-
-
-                ///OLD CODE
-
-                /*
-                String stringNombrePadre = vert.toString();
-
-                String nombrePadreParsed = vert.get().toString();
-                nombrePadre = Integer.parseInt(nombrePadreParsed);
-
-                 */
-
-                /*
-
-
-                int index_padre = nombresPadres.indiceDe(stringNombrePadre);
-                //Se extraen sus coordenadas
-                double coordPadre = coordenadasPadres.get(index_padre);
-
-                double coordElemento;
-                ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
-                if(esIzquierdo(vertice)){
-                    coordElemento = calculaCoordenadas(coordPadre,"Izquierdo",profundidad);
-
-                } else {
-                    coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
-                }
-
-                 */
-
-
-
-
-
                 ///////
 
                 nombresElementos.agrega(elementoString);
@@ -890,13 +830,8 @@ public class GeneraHTML {
                 llave += ": " + valor.toString();
 
 
-
-
-
-
                 arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
 
-                //arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
                 arbolSVG.append(circuloSVG(coordElemento,contadorY,llave,color,true));
 
                 if(esIzquierdo(vertice)){
@@ -1032,9 +967,7 @@ public class GeneraHTML {
             String color;
 
             color = arbol.getColor(vertice).toString();
-            //String elementoString = vertice.toString();
-            String elementoString = hashRojiNegro(vertice);
-            //String parseElemento = nombreRojinegro(elementoString);
+            String elementoString = hashVertice(vertice);
             String parseElemento = nombreRojinegro(vertice.toString());
 
             nombreElemento = Integer.parseInt(parseElemento);
@@ -1062,10 +995,8 @@ public class GeneraHTML {
 
                 diccionarioPadres.limpia();
 
-                //int contDiccionario = 0;
                 for (VerticeArbolBinario<Integer> ve : diccionarioElementos){
                     diccionarioPadres.agrega(ve);
-                    //contDiccionario++;
                 }
 
 
@@ -1115,11 +1046,6 @@ public class GeneraHTML {
                 }
 
                 llave += ": " + valor.toString();
-
-
-
-
-                //arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
                 arbolSVG.append(circuloSVG(50.0,contadorY,llave,color,true));
 
 
@@ -1134,10 +1060,8 @@ public class GeneraHTML {
                 VerticeArbolBinario<Integer> vert = vertice.padre();
 
                 ///Este string tendra los corchetes con el color y el valor del padre que debe ser parseado
-                //String stringNombrePadre = vert.toString();
-                String stringNombrePadre = hashRojiNegro(vert);
+                String stringNombrePadre = hashVertice(vert);
 
-                //String nombrePadreParsed = nombreRojinegro(stringNombrePadre);
                 String nombrePadreParsed = nombreRojinegro(vert.toString());
 
                 nombrePadre = Integer.parseInt(nombrePadreParsed);
@@ -1183,35 +1107,6 @@ public class GeneraHTML {
 
                 }
 
-
-
-
-
-                ////////////// OLD CODE
-                /*
-
-
-                int index_padre = nombresPadres.indiceDe(stringNombrePadre);
-                //Se extraen sus coordenadas
-                //double coordPadre = arrayCoordenadasPadres[index_padre];
-                double coordPadre = coordenadasPadres.get(index_padre);
-
-                double coordElemento;
-                ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
-                if(esIzquierdo(vertice)){
-                    coordElemento = calculaCoordenadas(coordPadre,"Izquierdo",profundidad);
-
-                } else {
-                    coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
-                }
-
-                 */
-
-
-
-
-                ////////////
-
                 nombresElementos.agrega(elementoString);
                 coordenadasElementos.agrega(coordElemento);
                 diccionarioElementos.agrega(vertice);
@@ -1236,18 +1131,12 @@ public class GeneraHTML {
 
 
                 arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
-
-                //arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
                 arbolSVG.append(circuloSVG(coordElemento,contadorY,llave,color,true));
 
                 contadorNivel++;
 
 
             }
-
-
-
-
 
 
             //////AQUI TERMINA EL PROCESO
@@ -1270,11 +1159,11 @@ public class GeneraHTML {
     }
 
     /*
-    Metodo que recibe un vertice Rojinegro y devuelve un string con el toString del vertice
+    Metodo que recibe un vertice Rojinegro y devuelve un string con el hash de Daniel J. Bernstein del toString del vertice
     + su profundidad + el nombre de su izquierdo + el nombre de su derecho con la finalidad de evitar repetidos
      */
 
-    private String hashRojiNegro (VerticeArbolBinario<Integer> vertice){
+    private String hashVertice (VerticeArbolBinario<Integer> vertice){
         StringBuilder resfinal = new StringBuilder("");
 
         String nombre = vertice.toString();
@@ -1294,7 +1183,12 @@ public class GeneraHTML {
             resfinal.append(vertice.derecho().toString());
         }
 
-        return resfinal.toString();
+        Dispersor<String> djb = FabricaDispersores.dispersorCadena(AlgoritmoDispersor.DJB_STRING);
+
+        Integer dispersado = djb.dispersa(resfinal.toString());
+        
+        //return resfinal.toString();
+        return dispersado.toString();
 
 
     }

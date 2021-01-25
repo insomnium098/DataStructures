@@ -25,4 +25,4 @@ Los archivos de entrada deben poder especificarse con rutas absolutas o relativa
 Su programa debe ser robusto frente a errores; si alguno de los archivos no existe; o el directorio de salida es un archivo; o no tienen los permisos necesarios, el programa no debe lanzar una excepción: debe mostrar un mensaje (al error estándar) explicando qué ocurrió, y terminar con gracia.
 Dada la calidad del código, puntos extras serán dados (o no) a discreción del profesor; la decisión para ello es inapelable.
 
-El proyecto se entregará únicamente al profesor
+El proyecto se entregará únicamente al profesor ANTONIODANIEL
