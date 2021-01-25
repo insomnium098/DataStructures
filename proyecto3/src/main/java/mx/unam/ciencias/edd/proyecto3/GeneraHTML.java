@@ -398,9 +398,10 @@ public class GeneraHTML {
             Double coordXtexto = 50.0 + 30.0 * Math.cos(anguloTexto);
             Double coordYtexto = 50.0 + 30.0 * Math.sin(anguloTexto);
 
+            //Calculamos el porcentaje
+            Integer porcentaje = (valor*100) / numPalabras;
 
-
-            String textoPie = llave + " "+ valor.toString();
+            String textoPie = llave + " "+ valor.toString() + " " + "(" + porcentaje + "%)";
 
 
             String lineaAux = lineaSVG(50.0, 50.0,coordXelem,coordYelem,false);
