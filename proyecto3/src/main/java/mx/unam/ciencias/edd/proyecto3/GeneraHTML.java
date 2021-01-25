@@ -29,7 +29,7 @@ public class GeneraHTML {
             nombreArchivo +=".html";
 
             //String rutaArchivo = carpeta+"/"+nombreArchivo;
-            
+
 
             FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
             //FileWriter fw = new FileWriter(new File(rutaArchivo));
@@ -40,7 +40,7 @@ public class GeneraHTML {
             fw.write(header);
             fw.write("\n");
             fw.write("<h1>Lista de apariciones de palabras</h1>");
-            String conteo = this.generaConteo(archivo);
+            String conteo = this.generaConteo(archivo);;
             fw.write(conteo);
             fw.write("\n");
 
@@ -524,6 +524,18 @@ public class GeneraHTML {
     private String generaArbolRojinegro(ArchivoTexto archivo){
         Diccionario<String, Integer> diccionarioTop15 = archivo.getListaPalabrasTop15();
 
+        ///Creamos un nuevo diccionario con diccionario top15 para que AVL funcione
+        Diccionario<String, Integer> diccionarioTop15COPIA = new Diccionario<>();
+
+        Iterator<String> it = diccionarioTop15.iteradorLlaves();
+        while (it.hasNext()){
+            String llave = it.next();
+            Integer valor = diccionarioTop15.get(llave);
+            diccionarioTop15COPIA.agrega(llave,valor);
+        }
+
+
+
         String arbolSVG = "";
 
         ArbolRojinegro<Integer> arbol = new ArbolRojinegro<>();
@@ -535,11 +547,11 @@ public class GeneraHTML {
             //System.out.println(i);
         }
 
-        //System.out.println("El arbol rojinegro:");
-        //System.out.println(arbol.toString());
+        System.out.println("El arbol rojinegro:");
+        System.out.println(arbol.toString());
 
 
-        arbolSVG += graficaArbolRojinegroBFS(arbol);
+        arbolSVG += graficaArbolRojinegroBFS(arbol, diccionarioTop15COPIA);
 
 
         String header = headerSVG(500, 1000);
@@ -623,7 +635,7 @@ public class GeneraHTML {
 
         /////////RECORRER POR BFS
 
-        VerticeArbolBinario<Integer> raiz = arbol.raiz();
+        //VerticeArbolBinario<Integer> raiz = arbol.raiz();
 
         Cola<VerticeArbolBinario<Integer>> cola = new Cola<>();
 
@@ -908,7 +920,7 @@ public class GeneraHTML {
 
      */
 
-    public String graficaArbolRojinegroBFS (ArbolRojinegro<Integer> arbol){
+    public String graficaArbolRojinegroBFS (ArbolRojinegro<Integer> arbol, Diccionario<String, Integer> diccionario){
 
         StringBuilder arbolSVG = new StringBuilder("");
 
@@ -1026,9 +1038,28 @@ public class GeneraHTML {
                 diccionarioPadres.agrega(vertice);
                 diccionarioElementos.agrega(vertice);
 
+                Integer valor = vertice.get();
+
+                ///Recorremos el diccionario para encontrar el valor, despues eliminamos la llave
+                Iterator<String> itLLaves = diccionario.iteradorLlaves();
+                String llave = null;
+                while (itLLaves.hasNext()){
+                    llave = itLLaves.next();
+                    Integer valorBusca = diccionario.get(llave);
+                    if (valor == valorBusca){
+                        diccionario.elimina(llave);
+                        break;
+                    }
+
+                }
+
+                llave += ": " + valor.toString();
 
 
-                arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
+
+
+                //arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(circuloSVG(50.0,contadorY,llave,color,true));
 
 
 
@@ -1125,9 +1156,28 @@ public class GeneraHTML {
                 diccionarioElementos.agrega(vertice);
 
 
+                ///Recorremos el diccionario para encontrar el valor, despues eliminamos la llave
+
+                Integer valor = vertice.get();
+                Iterator<String> itLLaves = diccionario.iteradorLlaves();
+                String llave = null;
+                while (itLLaves.hasNext()){
+                    llave = itLLaves.next();
+                    Integer valorBusca = diccionario.get(llave);
+                    if (valor == valorBusca){
+                        diccionario.elimina(llave);
+                        break;
+                    }
+
+                }
+
+                llave += ": " + valor.toString();
+
+
                 arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
 
-                arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
+                //arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(circuloSVG(coordElemento,contadorY,llave,color,true));
 
                 contadorNivel++;
 
@@ -1215,10 +1265,10 @@ public class GeneraHTML {
 
         if(color.equals("NEGRO")){
             color = "black";
-            colorTexto = "white";
+            colorTexto = "#0099ff";
         } else if (color.equals("ROJO")){
             color = "red";
-            colorTexto = "white";
+            colorTexto = "#0099ff";
         } else {
             color = "white";
         }

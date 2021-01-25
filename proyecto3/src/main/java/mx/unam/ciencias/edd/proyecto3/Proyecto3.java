@@ -139,6 +139,8 @@ public class Proyecto3 {
 
          */
 
+
+
         /*
         Hacer un diccionario cuyas llaves sean String y los nombres de los archivos y como
         valores serán objetos de la clase ArchivoTexto

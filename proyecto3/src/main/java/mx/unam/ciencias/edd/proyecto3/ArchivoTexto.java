@@ -54,6 +54,7 @@ public class ArchivoTexto {
                 nombreArchivo = nombreArchivo.substring(indiceArchivo + 1);
             }
 
+
             lineafinal = result.toString();
             lineafinal = lineafinal.trim();
             lineafinal = lineafinal.replaceAll("[\\n]", " ");
@@ -74,7 +75,6 @@ public class ArchivoTexto {
             lineafinal =lineafinal.replace('ñ','n');
             lineafinal= lineafinal.toLowerCase();
             this.lineaElementos = lineafinal;
-            //System.out.println(lineafinal);
 
             //Hacer array con las palabras
             String[] elementos_split = lineafinal.split("\\s+");
