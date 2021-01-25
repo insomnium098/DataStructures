@@ -24,60 +24,69 @@ public class GeneraHTML {
     public void Genera() throws IOException {
 
 
-        for (ArchivoTexto archivo: diccionario){
-            String nombreArchivo = archivo.getNombreArchivo();
-            nombreArchivo +=".html";
+        try {
+            for (ArchivoTexto archivo: diccionario){
+                String nombreArchivo = archivo.getNombreArchivo();
+                nombreArchivo +=".html";
 
-            //String rutaArchivo = carpeta+"/"+nombreArchivo;
-
-
-            FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
-            //FileWriter fw = new FileWriter(new File(rutaArchivo));
-            String header = headerHTML();
-            String cola = colaHTML();
-
-            ///HEADER
-            fw.write(header);
-            fw.write("\n");
-            fw.write("<h1>Lista de apariciones de palabras</h1>");
-            String conteo = this.generaConteo(archivo);;
-            fw.write(conteo);
-            fw.write("\n");
-
-            ///Grafica de pastel
-            //fw.write("<p>This is a paragraph.</p>");
-            fw.write("<h1>Gráfica de Pastel</h1>");
-            String pastel = this.generaPastel(archivo);
-            fw.write(pastel);
-            fw.write("\n");
-
-            //Grafica de Barras
-            fw.write("<h1>Gráfica de Barras</h1>");
-            String barras = this.generaBarras(archivo);
-            fw.write(barras);
-            fw.write("\n");
-
-            ///Arbol Rojinegro
-            fw.write("<h1>Árbol RojiNegro</h1>");
-            String arbolRojinegro = this.generaArbolRojinegro(archivo);
-            fw.write(arbolRojinegro);
-            fw.write("\n");
-
-            ///Arbol AVL
-            fw.write("<h1>Árbol AVL</h1>");
-            String arbolAVL = this.generaArbolAVL(archivo);
-            fw.write(arbolAVL);
-            fw.write("\n");
+                //String rutaArchivo = carpeta+"/"+nombreArchivo;
 
 
+                FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
+                //FileWriter fw = new FileWriter(new File(rutaArchivo));
+                String header = headerHTML();
+                String cola = colaHTML();
 
-            ///COLA
-            fw.write("\n");
-            fw.write(cola);
-            fw.close();
+                ///HEADER
+                fw.write(header);
+                fw.write("\n");
+                fw.write("<h1>Lista de apariciones de palabras</h1>");
+                String conteo = this.generaConteo(archivo);;
+                fw.write(conteo);
+                fw.write("\n");
+
+                ///Grafica de pastel
+                //fw.write("<p>This is a paragraph.</p>");
+                fw.write("<h1>Gráfica de Pastel</h1>");
+                String pastel = this.generaPastel(archivo);
+                fw.write(pastel);
+                fw.write("\n");
+
+                //Grafica de Barras
+                fw.write("<h1>Gráfica de Barras</h1>");
+                String barras = this.generaBarras(archivo);
+                fw.write(barras);
+                fw.write("\n");
+
+                ///Arbol Rojinegro
+                fw.write("<h1>Árbol RojiNegro</h1>");
+                String arbolRojinegro = this.generaArbolRojinegro(archivo);
+                fw.write(arbolRojinegro);
+                fw.write("\n");
+
+                ///Arbol AVL
+                fw.write("<h1>Árbol AVL</h1>");
+                String arbolAVL = this.generaArbolAVL(archivo);
+                fw.write(arbolAVL);
+                fw.write("\n");
 
 
 
+                ///COLA
+                fw.write("\n");
+                fw.write(cola);
+                fw.close();
+
+
+
+
+            }
+
+        } catch (Exception e){
+            System.out.println("No se pudieron escribir los archivos en el destino");
+            System.out.println("La carpeta seleccionada es un archivo o no tienes los permisos");
+            System.out.println("Saliendo del programa");
+            System.exit(1);
 
         }
 
@@ -90,40 +99,48 @@ public class GeneraHTML {
     }
 
     public void GeneraIndice(Grafica<String> grafica) throws IOException{
-        String nombreArchivo ="index.html";
+        try {
+            String nombreArchivo ="index.html";
 
-        FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
-        String header = headerHTML();
-        fw.write("\n");
-        fw.write("<h1>Indice</h1>");
-        fw.write("\n");
-        fw.write("<h2>Archivos analizados</h2>");
-        fw.write("\n");
-
-        for (ArchivoTexto archivo : diccionario){
-            String nombre = archivo.getNombreArchivo();
-            String nombreHTML = nombre + ".html";
-            Integer palabrasTotales = archivo.getPalabrasTotales();
-            String parrafo = generaParrafo(nombre, nombreHTML, palabrasTotales);
+            FileWriter fw = new FileWriter(new File(carpeta,nombreArchivo));
+            String header = headerHTML();
             fw.write("\n");
-            fw.write(parrafo);
+            fw.write("<h1>Indice</h1>");
+            fw.write("\n");
+            fw.write("<h2>Archivos analizados</h2>");
+            fw.write("\n");
+
+            for (ArchivoTexto archivo : diccionario){
+                String nombre = archivo.getNombreArchivo();
+                String nombreHTML = nombre + ".html";
+                Integer palabrasTotales = archivo.getPalabrasTotales();
+                String parrafo = generaParrafo(nombre, nombreHTML, palabrasTotales);
+                fw.write("\n");
+                fw.write(parrafo);
+            }
+
+            fw.write("<h2>Grafo</h2>");
+            fw.write("\n");
+            fw.write("<p>El grafo representa con nodos a los archivos analizados y las aristas si hay " +
+                    "palabras de al menos 7 caracteres en común entre los nodos</p>");
+            fw.write("\n");
+            String grafo = generaGrafica(grafica);
+            fw.write(grafo);
+            fw.write("\n");
+
+
+
+
+
+            String cola = colaHTML();
+            fw.close();
+        } catch (Exception e){
+            System.out.println("No se pudieron escribir los archivos en el destino");
+            System.out.println("La carpeta seleccionada es un archivo o no tienes los permisos");
+            System.out.println("Saliendo del programa");
+            System.exit(1);
+            
         }
-
-        fw.write("<h2>Grafo</h2>");
-        fw.write("\n");
-        fw.write("<p>El grafo representa con nodos a los archivos analizados y las aristas si hay " +
-                "palabras de al menos 7 caracteres en común entre los nodos</p>");
-        fw.write("\n");
-        String grafo = generaGrafica(grafica);
-        fw.write(grafo);
-        fw.write("\n");
-
-
-
-
-
-        String cola = colaHTML();
-        fw.close();
 
     }
 
@@ -1252,7 +1269,7 @@ public class GeneraHTML {
 
     /*
     Metodo que recibe un vertice Rojinegro y devuelve un string con el toString del vertice
-    + su profundidad + el nombre de su izquierdo + el nombre de su derecho
+    + su profundidad + el nombre de su izquierdo + el nombre de su derecho con la finalidad de evitar repetidos
      */
 
     private String hashRojiNegro (VerticeArbolBinario<Integer> vertice){
