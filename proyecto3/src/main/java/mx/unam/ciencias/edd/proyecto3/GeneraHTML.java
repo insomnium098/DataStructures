@@ -547,8 +547,8 @@ public class GeneraHTML {
             //System.out.println(i);
         }
 
-        System.out.println("El arbol rojinegro:");
-        System.out.println(arbol.toString());
+        //System.out.println("El arbol rojinegro:");
+        //System.out.println(arbol.toString());
 
 
         arbolSVG += graficaArbolRojinegroBFS(arbol, diccionarioTop15COPIA);
@@ -587,7 +587,7 @@ public class GeneraHTML {
         //System.out.println("El arbol : ");
         //System.out.println(arbol.toString());
 
-        arbolSVG += graficaArbolAVLBFS(arbol);
+        arbolSVG += graficaArbolAVLBFS(arbol, diccionarioTop15);
 
 
         String header = headerSVG(500, 1000);
@@ -605,7 +605,7 @@ public class GeneraHTML {
 
      */
 
-    public String graficaArbolAVLBFS (ArbolAVL<Integer> arbol){
+    public String graficaArbolAVLBFS (ArbolAVL<Integer> arbol, Diccionario<String, Integer> diccionario){
 
         StringBuilder arbolSVG = new StringBuilder("");
 
@@ -727,9 +727,27 @@ public class GeneraHTML {
                 diccionarioPadres.agrega(vertice);
                 diccionarioElementos.agrega(vertice);
 
+                Integer valor = vertice.get();
+
+                ///Recorremos el diccionario para encontrar el valor, despues eliminamos la llave
+                Iterator<String> itLLaves = diccionario.iteradorLlaves();
+                String llave = null;
+                while (itLLaves.hasNext()){
+                    llave = itLLaves.next();
+                    Integer valorBusca = diccionario.get(llave);
+                    if (valor == valorBusca){
+                        diccionario.elimina(llave);
+                        break;
+                    }
+
+                }
+
+                llave += ": " + valor.toString();
 
 
-                arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
+
+                //arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(circuloSVG(50.0,contadorY,llave,color,true));
                 arbolSVG.append(balanceSVG(50.0,contadorY,getBalanceAVL(vertice),"Izquierdo"));
 
 
@@ -834,9 +852,32 @@ public class GeneraHTML {
                 diccionarioElementos.agrega(vertice);
 
 
+                ///Recorremos el diccionario para encontrar el valor, despues eliminamos la llave
+
+                Integer valor = vertice.get();
+                Iterator<String> itLLaves = diccionario.iteradorLlaves();
+                String llave = null;
+                while (itLLaves.hasNext()){
+                    llave = itLLaves.next();
+                    Integer valorBusca = diccionario.get(llave);
+                    if (valor == valorBusca){
+                        diccionario.elimina(llave);
+                        break;
+                    }
+
+                }
+
+                llave += ": " + valor.toString();
+
+
+
+
+
+
                 arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
 
-                arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
+                //arbolSVG.append(circuloSVG(coordElemento,contadorY,nombreElemento.toString(),color,true));
+                arbolSVG.append(circuloSVG(coordElemento,contadorY,llave,color,true));
 
                 if(esIzquierdo(vertice)){
                     arbolSVG.append(balanceSVG(coordElemento,contadorY,getBalanceAVL(vertice),"Izquierdo"));
@@ -1271,6 +1312,7 @@ public class GeneraHTML {
             colorTexto = "#0099ff";
         } else {
             color = "white";
+            colorTexto = "#0099ff";
         }
 
         Double y_text;
@@ -1284,7 +1326,7 @@ public class GeneraHTML {
                     coordX,coordY, color);
 
 
-            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='10' x='%1$s%%' y='%2$s'\n" +
+            circuloTexto = String.format("<text fill='%4$s' font-family='sans-serif' font-size='15' x='%1$s%%' y='%2$s'\n" +
                     "          text-anchor='middle'>%3$s</text>",coordX,y_text,texto,colorTexto);
 
         } else {
