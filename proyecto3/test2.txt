@@ -1,7 +1,6 @@
-# DataStructures
-Projects for the DataStructures 2021-1 Class.
-Queréis con presunción necia
-    hallar a la que buscáis,
-para pretendida, Tais,
-    y en la posesión, Lucrecia.
-Porcentaje
+Desde el punto de vista de la emisión de la luz los monitores funcionan de la misma forma que los televisores, por lo que todo lo que vamos a ver es igualmente válido con ellos. Tanto los televisores como los monitores pueden generar un conjunto delimitado de niveles con diferente intensidad luminosa, por lo que su rango dinámico será mayor a medida que se incrementa la distancia que separa la intensidad de las zonas más oscuras de las imágenes de la intensidad que tienen las zonas más iluminadas.
+
+El rango dinámico depende de la distancia que separa la intensidad de las zonas más oscuras y la de las más iluminadas
+La capacidad de entrega mínima y máxima de brillo que tiene un televisor importa mucho en este contexto, pero también es crucial el número de niveles de luminosidad con diferente intensidad que consigue reproducir. Cuantos más niveles con diferente capacidad de entrega de brillo tengamos entre los niveles mínimo y máximo, mejor.
+
+Un número mayor de niveles contribuirá a que el televisor sea capaz de recuperar más información tanto en las zonas menos iluminadas como en altas luces (las zonas más iluminadas). Esta característica condiciona la habilidad con la que un dispositivo en particular va a reproducir los contenidos HDR, pero también importa si el panel incorpora píxeles autoemisivos, y, por tanto, es OLED o MicroLED, o si recurre a un esquema de iluminación periférica o de retroiluminación, que es lo que hacen los LCD LED y los MiniLED.
