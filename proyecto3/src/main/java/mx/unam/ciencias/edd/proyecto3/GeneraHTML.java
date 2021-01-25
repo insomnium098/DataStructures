@@ -532,8 +532,8 @@ public class GeneraHTML {
             //System.out.println(i);
         }
 
-        System.out.println("El arbol rojinegro:");
-        System.out.println(arbol.toString());
+        //System.out.println("El arbol rojinegro:");
+        //System.out.println(arbol.toString());
 
 
         arbolSVG += graficaArbolRojinegroBFS(arbol);
@@ -569,8 +569,8 @@ public class GeneraHTML {
             System.out.println(i);
         }
 
-        //System.out.println("El arbol : ");
-        //System.out.println(arbol.toString());
+        System.out.println("El arbol : ");
+        System.out.println(arbol.toString());
 
         arbolSVG += graficaArbolAVLBFS(arbol);
 
@@ -611,6 +611,11 @@ public class GeneraHTML {
         Lista<String> nombresElementos = new Lista<>();
         Lista<Double> coordenadasElementos = new Lista<>();
 
+        ////V3 Hacer Listas con los vertices para resolver el problema de los repetidos por nivel
+        //// la llave será simplemente un contador de nivel, que será un index en las listas
+        Lista<VerticeArbolBinario<Integer>> diccionarioPadres = new Lista<>();
+        Lista<VerticeArbolBinario<Integer>> diccionarioElementos = new Lista<>();
+
 
 
         /////////RECORRER POR BFS
@@ -620,6 +625,7 @@ public class GeneraHTML {
         Cola<VerticeArbolBinario<Integer>> cola = new Cola<>();
 
         cola.mete(arbol.raiz());
+        int contadorNivel = 0;
         while (!cola.esVacia()) {
 
 
@@ -630,8 +636,18 @@ public class GeneraHTML {
 
             String color = "white";
 
+            /*
+
             String elementoString = vertice.toString();
             String parseElemento = vertice.get().toString();
+
+            nombreElemento = Integer.parseInt(parseElemento);
+
+             */
+
+            String elementoString = hashRojiNegro(vertice);
+            //String parseElemento = nombreRojinegro(elementoString);
+            String parseElemento = vertice.get().toString();//nombreRojinegro(vertice.toString());
 
             nombreElemento = Integer.parseInt(parseElemento);
 
@@ -646,6 +662,8 @@ public class GeneraHTML {
                 profundidad = vertice.profundidad();
                 contadorY = contadorY + 70;
 
+                contadorNivel = 0;
+
                 nombresPadres.limpia();
                 for(String a : nombresElementos){
                     nombresPadres.agrega(a);
@@ -656,9 +674,18 @@ public class GeneraHTML {
                     coordenadasPadres.agrega(a);
                 }
 
+                diccionarioPadres.limpia();
+
+                //int contDiccionario = 0;
+                for (VerticeArbolBinario<Integer> ve : diccionarioElementos){
+                    diccionarioPadres.agrega(ve);
+                    //contDiccionario++;
+                }
+
 
                 nombresElementos.limpia();
                 coordenadasElementos.limpia();
+                diccionarioElementos.limpia();
 
 
 
@@ -681,6 +708,10 @@ public class GeneraHTML {
                 ///Aqui va la funcion que calcula la coordenada, como es raiz será de 50
                 coordenadasPadres.agrega(50.0);
 
+                //diccionarioPadres.agrega(0,vertice);
+                diccionarioPadres.agrega(vertice);
+                diccionarioElementos.agrega(vertice);
+
 
 
                 arbolSVG.append(circuloSVG(50.0,contadorY,nombreElemento.toString(),color,true));
@@ -697,10 +728,69 @@ public class GeneraHTML {
 
                 VerticeArbolBinario<Integer> vert = vertice.padre();
                 ///Este string tendra los corchetes con el color y el valor del padre que debe ser parseado
+                String stringNombrePadre = hashRojiNegro(vert);
+
+                //String nombrePadreParsed = nombreRojinegro(stringNombrePadre);
+                String nombrePadreParsed = nombreRojinegro(vert.toString());
+
+                //nombrePadre = Integer.parseInt(nombrePadreParsed);
+
+                ///Hay algunos casos donde en el mismo nivel se encuentran elementos repetidos,
+                // por lo que al buscar el padre es probable obtener un elemento que no es el verdadero padre,
+                ///El siguiente metodo se encarcargará de esto
+
+                ///Vamos a recorrer la lista nombres padres, si encontramos un padre obtenemos sus coordenadas,
+                //calculamos las coordenadas del elemento y verificamos que estas coordenadas no se encuentren
+                //agregadas en coordenadasElementos. Si ya se encuentran, vamos a seguir buscando el padre
+                Integer contadorListaPadres = 0;
+                double coordPadre = 0;
+                double coordElemento = 0;
+
+
+
+
+
+
+                for (String s : nombresPadres){
+                    if (s.equals(stringNombrePadre)){
+                        coordPadre = coordenadasPadres.get(contadorListaPadres);
+                        ///Vemos si el elemento es izquierdo o derecho y calculamos su coordenada
+                        if(esIzquierdo(vertice)){
+                            coordElemento = calculaCoordenadas(coordPadre,"Izquierdo",profundidad);
+
+                        } else {
+                            coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
+                        }
+
+                        ///Debemos revisar si coordElemento ya existe en coordenadasElementos,
+                        /// si no lo contiene terminamos
+                        if (!coordenadasElementos.contiene(coordElemento)){
+                            break;
+
+                        }
+
+
+                    }
+                    contadorListaPadres++;
+
+                }
+
+
+
+
+
+
+                ///OLD CODE
+
+                /*
                 String stringNombrePadre = vert.toString();
 
                 String nombrePadreParsed = vert.get().toString();
                 nombrePadre = Integer.parseInt(nombrePadreParsed);
+
+                 */
+
+                /*
 
 
                 int index_padre = nombresPadres.indiceDe(stringNombrePadre);
@@ -716,8 +806,17 @@ public class GeneraHTML {
                     coordElemento = calculaCoordenadas(coordPadre,"Derecho",profundidad);
                 }
 
+                 */
+
+
+
+
+
+                ///////
+
                 nombresElementos.agrega(elementoString);
                 coordenadasElementos.agrega(coordElemento);
+                diccionarioElementos.agrega(vertice);
 
 
                 arbolSVG.append(lineaSVG(coordPadre,contadorY-70,coordElemento,contadorY,true));
