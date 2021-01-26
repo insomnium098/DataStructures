@@ -12,11 +12,6 @@ public class Proyecto3 {
     public static Boolean hayCarpeta = false;
     public static String carpeta = null;
 
-
-
-    /* Imprime el uso del programa y lo termina. */
-
-
     private static void uso() {
         System.err.println("Debes de ingresar al menos un archivo");
         System.exit(1);
@@ -51,7 +46,6 @@ public class Proyecto3 {
 
         if(hayCarpeta){
             boolean carpetaCreada = false;
-            //System.out.println("La carpeta es: " + carpeta);
             File file = new File(carpeta);
 
             ///Revisamos si la carpeta existe
@@ -64,10 +58,13 @@ public class Proyecto3 {
                 }
             }
 
-
-
         } else {
             System.out.println("No se especificó una carpeta, saliendo.");
+            System.exit(1);
+        }
+
+        if (archivos.esVacia()){
+            System.out.println("No ingresaste ningun archivo, saliendo del programa");
             System.exit(1);
         }
 

@@ -119,22 +119,6 @@ public class ArchivoTexto {
     public void imprimeDiccionario(){
 
 
-        /*
-
-        System.out.println("Las llaves");
-        Iterator<String> llaves = conteoPalabras.iteradorLlaves();
-        while(llaves.hasNext()){
-            System.out.println(llaves.next());
-        }
-
-
-        System.out.println("Los valores:");
-        for (Integer s : conteoPalabras){
-            System.out.println(s);
-        }
-        
-         */
-
 
         System.out.println(conteoPalabras.toString());
 
@@ -155,24 +139,18 @@ public class ArchivoTexto {
         palabras = palabras.replaceAll(" '", "");
         palabras = palabras.replaceAll("'", " ");
 
-
-        //System.out.println(palabras);
         return palabras;
 
         
     }
 
     private void creaConjunto() {
-        //Conjunto<String> conjunto1 = new Conjunto<>();
-
         //Agregamos las llaves al conjunto
         Iterator<String> llaves = conteoPalabras.iteradorLlaves();
         while (llaves.hasNext()) {
             this.conjunto.agrega(llaves.next());
         }
 
-        //System.out.println("El conjunto:");
-        //System.out.println(this.conjunto.toString());
 
     }
 
@@ -246,9 +224,6 @@ public class ArchivoTexto {
 
 
         Diccionario<String,Integer> diccionarioTop5 = new Diccionario<>();
-
-
-
 
         Iterator<String> itLlaves = conteo.iteradorLlaves();
         while (itLlaves.hasNext()){

@@ -135,6 +135,7 @@ public class GeneraHTML {
             fw.write("\n");
 
             String cola = colaHTML();
+            fw.write(cola);
             fw.close();
         } catch (Exception e){
             System.out.println("No se pudieron escribir los archivos en el destino");
@@ -420,7 +421,7 @@ public class GeneraHTML {
             //Calculamos el porcentaje
             Integer porcentaje = (valor*100) / numPalabras;
 
-            String textoPie = llave + " "+ valor.toString() + " " + "(" + porcentaje + "%)";
+            String textoPie = llave + ": "+ valor.toString() + " " + "(" + porcentaje + "%)";
 
 
             String lineaAux = lineaSVG(50.0, 50.0,coordXelem,coordYelem,false);
@@ -776,10 +777,6 @@ public class GeneraHTML {
                 double coordElemento = 0;
 
 
-
-
-
-
                 for (String s : nombresPadres){
                     if (s.equals(stringNombrePadre)){
                         coordPadre = coordenadasPadres.get(contadorListaPadres);
@@ -842,11 +839,6 @@ public class GeneraHTML {
 
 
             }
-
-
-
-
-
 
             //////AQUI TERMINA EL PROCESO
 
@@ -1159,7 +1151,7 @@ public class GeneraHTML {
     }
 
     /*
-    Metodo que recibe un vertice Rojinegro y devuelve un string con el hash de Daniel J. Bernstein del toString del vertice
+    Metodo que recibe un vertice y devuelve un string con el hash de Daniel J. Bernstein aplicado al toString del vertice
     + su profundidad + el nombre de su izquierdo + el nombre de su derecho con la finalidad de evitar repetidos
      */
 
@@ -1186,7 +1178,7 @@ public class GeneraHTML {
         Dispersor<String> djb = FabricaDispersores.dispersorCadena(AlgoritmoDispersor.DJB_STRING);
 
         Integer dispersado = djb.dispersa(resfinal.toString());
-        
+
         //return resfinal.toString();
         return dispersado.toString();
 
