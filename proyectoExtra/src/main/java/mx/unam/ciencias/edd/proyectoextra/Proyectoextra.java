@@ -18,20 +18,52 @@ public class Proyectoextra {
 
     public static void main(String[] args) throws IOException {
 
-        /*
+
 
         if (args.length == 0)
             uso();
 
-         */
+        String argumento = args[0];
 
-        Lista<String> laberinto = leeLaberinto(args[0]);
+        switch (argumento) {
+            case "resuelve":
+                if(args.length != 2){
+                    uso();
+                } else {
+                    Lista<String> laberinto = leeLaberinto(args[1]);
+                    resuelveLaberinto(laberinto);
+                }
+                break;
 
-        Laberinto lab = new Laberinto(laberinto);
-        //lab.imprimeLaberinto();
-        //lab.imprimeGrafica();
-        //System.out.println("La entrada es:" + lab.getOrigen());
-        //System.out.println("La salida es:" + lab.getDestino());
+            case "genera": {
+                if (args.length != 3){
+                    uso();
+                } else {
+                    try {
+                        int nRows = Integer.parseInt(args[1]);
+                        int nCols = Integer.parseInt(args[2]);
+                        generaLaberinto(nRows, nCols);
+                    } catch (Exception ex) {
+                        System.out.println("ERROR: Las dimensiones del laberinto a generar deben de ser un entero");
+                        uso();
+                    }
+                }
+                break;
+            }
+
+            default:
+                uso();
+
+        }
+
+
+
+
+        //Lista<String> laberinto = leeLaberinto(args[0]);
+
+        //resuelveLaberinto(laberinto);
+
+
 
     }
 
@@ -72,6 +104,27 @@ public class Proyectoextra {
         return laberinto;
 
 
+    }
+
+    /*
+    Metodo que genera un laberinto
+     */
+    public static void generaLaberinto(Integer nRows, Integer nCols){
+        Laberinto lab = new Laberinto(nRows, nCols);
+    }
+
+
+    /*
+    Metodo que resuelve un laberinto
+     */
+
+    public static void resuelveLaberinto(Lista<String> laberinto){
+
+        Laberinto lab = new Laberinto(laberinto);
+        //lab.imprimeLaberinto();
+        //lab.imprimeGrafica();
+        //System.out.println("La entrada es:" + lab.getOrigen());
+        //System.out.println("La salida es:" + lab.getDestino());
     }
 
     /*

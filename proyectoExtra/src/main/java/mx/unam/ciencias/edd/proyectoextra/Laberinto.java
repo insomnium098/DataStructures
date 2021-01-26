@@ -18,8 +18,20 @@ public class Laberinto {
 
     /*
     El laberinto tendrá dos constructores, uno para inicializarlo desde generaLaberinto
-    y otro para recibor una lista desde resuelveLaberinto
+    y otro para recibir una lista desde resuelveLaberinto
      */
+
+
+    //Constructor para generaLaberinto
+    public Laberinto(Integer nRows, Integer nCols){
+        this.nRows = nRows;
+        this.nCols = nCols;
+        this.laberintoOriginal = construyeLaberintoOriginal(nRows,nCols);
+        this.grafica = new Grafica<>();
+        System.out.println("Constructor GeneraLaberinto");
+
+    }
+
 
     //Constructor para resuelveLaberinto
     public Laberinto (Lista<String> laberintoOriginal){
@@ -247,6 +259,8 @@ public class Laberinto {
             return true;
         }
 
+        /*
+
         if(a == 'E' && b == ' ' || a == ' ' && b == 'E'){
             return true;
         }
@@ -254,6 +268,8 @@ public class Laberinto {
         if(a == 'S' && b == ' ' || a == ' ' && b == 'S'){
             return true;
         }
+
+         */
 
         return false;
 
@@ -354,6 +370,33 @@ public class Laberinto {
         }
 
 
+    }
+
+
+    /*
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                        Metodos para generar un Laberinto
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     */
+
+    /*
+    Metodo que construye una Lista<String> como el laberinto original de resuelveLaberinto
+     */
+
+    private Lista<String> construyeLaberintoOriginal (Integer nRows, Integer nCols){
+        String paredesChar = "#";
+        ///repetimos las paredes por el numero de nCols
+        String paredes = new String(new char[(2*nCols) + 1]).replace("\0", paredesChar);
+        Lista<String> laberinto = new Lista<>();
+        ///El string paredes se agregará un número (2*nRows) + 1 veces. Esto representa las rows
+        Integer veces = (2*nRows) + 1;
+
+        for (int i = 0; i < veces; i ++){
+            laberinto.agrega(paredes);
+            System.out.println(paredes);
+        }
+        
+        return laberinto;
     }
 
 }
