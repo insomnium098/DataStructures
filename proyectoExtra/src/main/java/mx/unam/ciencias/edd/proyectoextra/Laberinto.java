@@ -7,6 +7,8 @@ public class Laberinto {
     private Integer [][] arrayLaberinto;
     private char [][] charLaberinto;
     private Grafica<Integer> grafica;
+    private Integer nRows;
+    private Integer nCols;
 
     ///variables para resuelveLaberinto
     private Integer origen;
@@ -39,18 +41,18 @@ public class Laberinto {
 
         ///Primero determinamos la longitud del laberinto
         ///El numero de "columnas" será la longitud de cada string
-        Integer nColumnas = laberintoOriginal.get(0).length();
+        nCols = laberintoOriginal.get(0).length();
         ///Las rows serán el numero de strings en la lista que contiene al laberinto
-        Integer nRows = laberintoOriginal.getLongitud();
+        nRows = laberintoOriginal.getLongitud();
 
-        Integer [][] laberintoNum = new Integer[nRows] [nColumnas];
+        Integer [][] laberintoNum = new Integer[nRows] [nCols];
 
         ///Llenar el laberinto con integers, cada uno representa un char en el string
         //El contador comenzará en 0
         Integer contador = 0;
 
         for(int rows = 0; rows < nRows; rows ++){
-            for (int columnas = 0; columnas < nColumnas; columnas ++){
+            for (int columnas = 0; columnas < nCols; columnas ++){
                 laberintoNum[rows][columnas] = contador;
                 contador ++;
             }
@@ -63,18 +65,18 @@ public class Laberinto {
     private void iniciaChar(){
         ///Primero determinamos la longitud del laberinto
         ///El numero de "columnas" será la longitud de cada string
-        Integer nColumnas = laberintoOriginal.get(0).length();
+        //Integer nColumnas = laberintoOriginal.get(0).length();
         ///Las rows serán el numero de strings en la lista que contiene al laberinto
-        Integer nRows = laberintoOriginal.getLongitud();
+        //Integer nRows = laberintoOriginal.getLongitud();
 
-        char [][] laberintoChar = new char [nRows] [nColumnas];
+        char [][] laberintoChar = new char [nRows] [nCols];
 
         ///Debemos convertir cada string de la lista en chars y agregarlas al laberinto
         int contador = 0;
 
         for(String s : laberintoOriginal){
             char [] character = s.toCharArray();
-            for (int columns = 0; columns < nColumnas; columns++){
+            for (int columns = 0; columns < nCols; columns++){
                 laberintoChar[contador][columns] = character[columns];
             }
             contador ++;
@@ -84,8 +86,8 @@ public class Laberinto {
     }
 
     private void construyeEdges(){
-        Integer nCols = arrayLaberinto[0].length;
-        Integer nRows = arrayLaberinto.length;
+        //Integer nCols = arrayLaberinto[0].length;
+        //Integer nRows = arrayLaberinto.length;
         Integer nElementos = nRows * nCols;
 
         ///Inicializamos la grafica
@@ -105,6 +107,15 @@ public class Laberinto {
                 ///Definir anterior y siguiente para ambos arrays
                 anteriorNum = arrayLaberinto[rows][columnas];
                 anteriorChar = charLaberinto[rows][columnas];
+                ///Revisar si son entrada o salida
+                if (esEntradaOSalida(anteriorChar, rows, columnas)){
+                    if (origen == null){
+                        origen = anteriorNum;
+                    } else {
+                        destino = anteriorNum;
+                    }
+                }
+
 
                 if(columnas + 1 == nCols ){
                     if(rows + 1 == nRows){
@@ -112,16 +123,38 @@ public class Laberinto {
                     } else {
                         siguienteNum = arrayLaberinto[rows+1][0];
                         siguienteChar = charLaberinto[rows+1][0];
+                        ///Revisar si son entrada o salida
+                        if (esEntradaOSalida(siguienteChar, rows+1, 0)){
+                            if (origen == null){
+                                origen = siguienteNum;
+                            } else {
+                                destino = siguienteNum;
+                            }
+                        }
                     }
 
                 } else {
                     siguienteNum = arrayLaberinto[rows][columnas+1];
                     siguienteChar = charLaberinto[rows][columnas+1];
+
+                    ///Revisar si son entrada o salida
+                    if (esEntradaOSalida(siguienteChar, rows, columnas+1)){
+                        if (origen == null){
+                            origen = siguienteNum;
+                        } else {
+                            destino = siguienteNum;
+                        }
+                    }
                 }
 
 
                 ///Revisar si son el origen y el destino para guardar su
                 //localizacion
+
+
+
+
+                /*
                 if(anteriorChar == 'E'){
                     origen = anteriorNum;
                 }
@@ -137,6 +170,8 @@ public class Laberinto {
                 if(siguienteChar == 'S'){
                     destino = siguienteNum;
                 }
+
+                 */
 
 
 
@@ -234,12 +269,38 @@ public class Laberinto {
 
 
     public void calculaTrayectoria(){
-        //System.out.println("La trayectoria");
+        if (origen == null || destino == null){
+            return;
+        }
         Lista<VerticeGrafica<Integer>> listaDijkstra = grafica.dijkstra(origen,destino);
         for (VerticeGrafica<Integer> elem : listaDijkstra){
             //System.out.println(elem.get());
             trayectoria.agrega(elem.get());
         }
+
+    }
+
+    /*
+    Metodo que devuelve si el caracter es una Entrada o Salida
+    Los caracteres en las coordenadas (0,b), (2n,b), (a, 0) y (a, 2m)
+    deben ser todos caracteres visibles, excepto por 2 (son las paredes externas
+    del laberinto, y la entrada y salida respectivamente.
+     */
+
+    private boolean esEntradaOSalida(char caracter, Integer m, Integer n){
+        if (caracter != ' '){
+            return false;
+        }
+
+        if(m == 0 || n == 0){
+            return true;
+        }
+
+        if (n % 2 == 0 || m % 2 == 0){
+            return true;
+        }
+
+        return false;
 
     }
 
@@ -257,8 +318,8 @@ public class Laberinto {
     public void imprimeLaberinto(){
 
         ////Removemos de la trayectoria al origen y destino para no sobreescribir su character
-        trayectoria.elimina(origen);
-        trayectoria.elimina(destino);
+        //trayectoria.elimina(origen);
+        //trayectoria.elimina(destino);
 
 
         ///Vamos a recorrer el laberinto con un contador, y si el valor del contador está
@@ -272,7 +333,6 @@ public class Laberinto {
 
         for(int rows = 0; rows < nRows; rows ++){
             for (int columnas = 0; columnas < nCols; columnas ++){
-                //System.out.print(charLaberinto[rows][columnas]);
 
                 if(trayectoria.contiene(contador)){
                     System.out.print('*');

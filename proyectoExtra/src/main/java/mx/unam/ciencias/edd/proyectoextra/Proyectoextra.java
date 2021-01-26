@@ -31,8 +31,6 @@ public class Proyectoextra {
         //lab.imprimeLaberinto();
         //lab.imprimeGrafica();
 
-        System.out.println("El origen:" + lab.getOrigen());
-        System.out.println("El destino:" + lab.getDestino());
     }
 
     /*
