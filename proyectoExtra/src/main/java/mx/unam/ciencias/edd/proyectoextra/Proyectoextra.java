@@ -30,6 +30,8 @@ public class Proyectoextra {
         Laberinto lab = new Laberinto(laberinto);
         //lab.imprimeLaberinto();
         //lab.imprimeGrafica();
+        System.out.println("La entrada es:" + lab.getOrigen());
+        System.out.println("La salida es:" + lab.getDestino());
 
     }
 
