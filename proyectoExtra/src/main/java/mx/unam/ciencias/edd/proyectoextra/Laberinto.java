@@ -24,11 +24,26 @@ public class Laberinto {
 
     //Constructor para generaLaberinto
     public Laberinto(Integer nRows, Integer nCols){
+        System.out.println("Constructor GeneraLaberinto");
         this.nRows = nRows;
         this.nCols = nCols;
         this.laberintoOriginal = construyeLaberintoOriginal(nRows,nCols);
         this.grafica = new Grafica<>();
-        System.out.println("Constructor GeneraLaberinto");
+        this.trayectoria = new Lista<>();
+
+
+        this.iniciaArray();
+        this.iniciaChar();
+
+        ////
+        System.out.println("Imprimiendo laberinto");
+        this.imprimeLaberinto();
+        ///
+
+        /*
+        Aqui va el algoritmo que genere el laberinto
+         */
+
 
     }
 
@@ -40,7 +55,7 @@ public class Laberinto {
         this.trayectoria = new Lista<>();
         this.iniciaArray();
         this.iniciaChar();
-        this.construyeEdges();
+        this.construyeEdges(true);
         this.calculaTrayectoria();
         this.imprimeLaberinto();
 
@@ -97,7 +112,7 @@ public class Laberinto {
         this.charLaberinto = laberintoChar;
     }
 
-    private void construyeEdges(){
+    private void construyeEdges(boolean resuelve){
         //Integer nCols = arrayLaberinto[0].length;
         //Integer nRows = arrayLaberinto.length;
         Integer nElementos = nRows * nCols;
@@ -121,11 +136,15 @@ public class Laberinto {
                 anteriorChar = charLaberinto[rows][columnas];
                 ///Revisar si son entrada o salida
                 if (esEntradaOSalida(anteriorChar, rows, columnas)){
-                    if (origen == null){
-                        origen = anteriorNum;
-                    } else {
-                        destino = anteriorNum;
+                    if(resuelve){
+                        if (origen == null){
+                            origen = anteriorNum;
+                        } else {
+                            destino = anteriorNum;
+                        }
+
                     }
+
                 }
 
 
@@ -137,11 +156,15 @@ public class Laberinto {
                         siguienteChar = charLaberinto[rows+1][0];
                         ///Revisar si son entrada o salida
                         if (esEntradaOSalida(siguienteChar, rows+1, 0)){
-                            if (origen == null){
-                                origen = siguienteNum;
-                            } else {
-                                destino = siguienteNum;
+
+                            if (resuelve){
+                                if (origen == null){
+                                    origen = siguienteNum;
+                                } else {
+                                    destino = siguienteNum;
+                                }
                             }
+
                         }
                     }
 
@@ -151,11 +174,14 @@ public class Laberinto {
 
                     ///Revisar si son entrada o salida
                     if (esEntradaOSalida(siguienteChar, rows, columnas+1)){
-                        if (origen == null){
-                            origen = siguienteNum;
-                        } else {
-                            destino = siguienteNum;
+                        if (resuelve){
+                            if (origen == null){
+                                origen = siguienteNum;
+                            } else {
+                                destino = siguienteNum;
+                            }
                         }
+
                     }
                 }
 
@@ -188,19 +214,40 @@ public class Laberinto {
 
 
 
-                ///Revisar si estan conectados en el charLaberinto
+                ///Revisar si estan conectados en el charLaberinto, Este metodo solo entra si se llama
+                ///al metodo desde resuelve, en caso contrario se conectan los edges
 
-                if(estanConectados(anteriorChar,siguienteChar)){
-                    
+                /*
+                Caso para resuelve
+                 */
+
+                if (resuelve){
+                    if(estanConectados(anteriorChar,siguienteChar)){
+
+                        ///Si no son vecinos o el mismo elemento, se agregan
+                        if (!grafica.sonVecinos(anteriorNum,siguienteNum) && anteriorNum != siguienteNum){
+
+                            ///Conectar los numericos
+                            grafica.conecta(anteriorNum,siguienteNum);
+
+                        }
+
+                    }
+                }  else {
+
+                    /*
+                    Caso para genera laberinto
+                     */
                     ///Si no son vecinos o el mismo elemento, se agregan
                     if (!grafica.sonVecinos(anteriorNum,siguienteNum) && anteriorNum != siguienteNum){
 
                         ///Conectar los numericos
                         grafica.conecta(anteriorNum,siguienteNum);
-
                     }
 
                 }
+
+
 
 
 
@@ -223,16 +270,35 @@ public class Laberinto {
                     siguienteNum = arrayLaberinto[rows1+1][columnas1];
                     siguienteChar = charLaberinto[rows1+1][columnas1];
 
-                    if(estanConectados(anteriorChar,siguienteChar)){
 
+                    /*
+                    Caso para resuelveLaberinto
+                     */
+
+                    if (resuelve){
+                        if(estanConectados(anteriorChar,siguienteChar)){
+
+                            if(!grafica.sonVecinos(anteriorNum, siguienteNum) && anteriorNum != siguienteNum){
+                                ///Conectar los numericos
+                                grafica.conecta(anteriorNum,siguienteNum);
+
+                            }
+
+
+                        }
+
+                    } else {
+                        /*
+                        Caso para generaLaberinto
+                         */
                         if(!grafica.sonVecinos(anteriorNum, siguienteNum) && anteriorNum != siguienteNum){
                             ///Conectar los numericos
                             grafica.conecta(anteriorNum,siguienteNum);
 
                         }
 
-
                     }
+                    
 
                 }
 
@@ -393,9 +459,9 @@ public class Laberinto {
 
         for (int i = 0; i < veces; i ++){
             laberinto.agrega(paredes);
-            System.out.println(paredes);
+            //System.out.println(paredes);
         }
-        
+
         return laberinto;
     }
 

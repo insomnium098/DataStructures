@@ -45,7 +45,8 @@ public class Proyectoextra {
                         generaLaberinto(nRows, nCols);
                     } catch (Exception ex) {
                         System.out.println("ERROR: Las dimensiones del laberinto a generar deben de ser un entero");
-                        uso();
+                        //uso();
+                        ex.printStackTrace();
                     }
                 }
                 break;
