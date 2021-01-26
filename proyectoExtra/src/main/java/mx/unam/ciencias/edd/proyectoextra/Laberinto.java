@@ -270,6 +270,7 @@ public class Laberinto {
 
     public void calculaTrayectoria(){
         if (origen == null | destino == null | destino == origen){
+            return;
         }
         Lista<VerticeGrafica<Integer>> listaDijkstra = grafica.dijkstra(origen,destino);
         for (VerticeGrafica<Integer> elem : listaDijkstra){
@@ -331,7 +332,7 @@ public class Laberinto {
         Integer nCols = charLaberinto[0].length;
         Integer nRows = charLaberinto.length;
 
-        
+
         Integer contador = 0;
 
         for(int rows = 0; rows < nRows; rows ++){
