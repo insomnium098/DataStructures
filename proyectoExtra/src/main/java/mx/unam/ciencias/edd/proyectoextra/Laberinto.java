@@ -6,7 +6,12 @@ public class Laberinto {
     private Lista<String> laberintoOriginal;
     private Integer [][] arrayLaberinto;
     private char [][] charLaberinto;
+         /*
+        Para resuelveLaberinto, la grafica contiene los nodos conectados en ese laberinto
+        En el caso de generaLaberinto, la grafica contiene a los nodos y que nodos son sus vecinos válidos
+        */
     private Grafica<Integer> grafica;
+    private Grafica<Integer> graficaGeneraLaberinto;
     private Integer nRows;
     private Integer nCols;
 
@@ -28,21 +33,33 @@ public class Laberinto {
         this.nRows = nRows;
         this.nCols = nCols;
         this.laberintoOriginal = construyeLaberintoOriginal(nRows,nCols);
+
+        /*
+        Para resuelveLaberinto, la grafica contiene los nodos conectados en ese laberinto
+        En el caso de generaLaberinto, la grafica contiene a los nodos y que nodos son sus vecinos válidos
+         */
         this.grafica = new Grafica<>();
+        this.graficaGeneraLaberinto = new Grafica<>();
         this.trayectoria = new Lista<>();
 
 
         this.iniciaArray();
         this.iniciaChar();
+        this.construyeEdges(false);
+        this.inicializaGraficaConstruye();
 
         ////
         System.out.println("Imprimiendo laberinto");
         this.imprimeLaberinto();
+        //System.out.println("Imprimiendo grafica");
+        //this.imprimeGrafica();
         ///
 
         /*
         Aqui va el algoritmo que genere el laberinto
          */
+
+        this.algoritmoPrim();
 
 
     }
@@ -298,7 +315,7 @@ public class Laberinto {
                         }
 
                     }
-                    
+
 
                 }
 
@@ -463,6 +480,201 @@ public class Laberinto {
         }
 
         return laberinto;
+    }
+
+
+    /*
+    Metodo que inicializa la graficaConstruyeLaberinto solo con los nodos
+     */
+
+
+    private void inicializaGraficaConstruye(){
+
+        for (Integer i = 0; i < nRows * nCols; i++){
+            graficaGeneraLaberinto.agrega(i);
+        }
+
+        System.out.println("La graficaGeneraLaberinto:");
+
+        System.out.println(this.graficaGeneraLaberinto.toString());
+
+    }
+
+    private void algoritmoPrim(){
+
+        /*
+        VerticeGrafica<Integer> n = grafica.vertice(0);
+        System.out.println("Los vecinos de 0:");
+        for (VerticeGrafica<Integer> s : n.vecinos()){
+            System.out.println(s.get());
+        }
+
+        //
+        System.out.println("Numeros aleatorios;");
+
+        for (int i = 0; i < 10; i++){
+            System.out.println(numeroAleatorio());
+        }
+
+         */
+
+        ///Inicio del algoritmo
+        //
+
+        //Creamos un conjunto V
+        Conjunto<VerticeGrafica<Integer>> V = new Conjunto<>();
+
+        /*
+        Esto se hace mientras existan elementos en graficaGeneraLaberinto
+         */
+        ///Elegimos al azar un elemento de la gráfica y lo agregamos al conjunto
+
+        System.out.println("Las coordenadas X de 11 :" + coordenadasX(20));
+        System.out.println("Las coordenadas Y de 11 :" + coordenadasY(20));
+
+        System.out.println("Los nRows:" + nRows);
+        System.out.println("Los nCols:" + nCols);
+
+
+
+
+    }
+
+    /*
+    Metodo que recibe un integer que se encuentre en la gráfica y calcula las coordenadas X (rows) que tiene en
+    arrayLaberinto y charLaberinto
+     */
+
+    private Integer coordenadasX (Integer elemento){
+
+        if (elemento == 0){
+            return 0;
+        }
+
+        ///El ncols nos dice cuantos elementos caben por row, asi que hacemos un contador para calcular el row
+        //correspondiente
+
+        int contador = 0;
+        int acumulado = 0;
+
+        for (int i = 0; i < nRows; i++){
+
+            acumulado += nCols - 1;
+            //System.out.println("El acumulado es : " + acumulado);
+
+            if ( acumulado >= elemento){
+                //System.out.println("El i es: " + i);
+                break;
+            } else {
+                contador +=1;
+            }
+
+        }
+
+        return contador;
+
+
+        /*
+
+        int contador = 0;
+
+        for(int rows = 0; rows < (nRows * nCols) - 1; rows ++){
+
+            if (rows != 1 & rows % nRows == 1 ){
+                //System.out.println("El rows i es: " + rows);
+                contador += 1;
+            }
+
+            if (rows == elemento){
+                break;
+            }
+
+
+
+
+
+
+        }
+
+        return contador;
+
+         */
+
+    }
+
+    private Integer coordenadasY (Integer elemento){
+
+        if (elemento == 0){
+            return 0;
+        }
+
+        /*
+
+        //Obtenemos las coordenadas X
+        int coordX = coordenadasX(elemento);
+        ///Calculamos que elemento está al inicio de ese renglon
+        int elemInicio = coordX * nCols;
+
+        ///Finalmente calculamos la diferencia
+        int diferencia = elemento- elemInicio;
+
+
+
+
+        return diferencia;
+
+         */
+
+        if (elemento == 0){
+            return 0;
+        }
+
+        int contador = 0;
+
+        for(int rows = 0; rows < (nRows * nCols) - 1; rows ++){
+            //System.out.println("Rows: " + rows + " contador: " + contador);
+
+
+
+            if (rows % nRows == 0 ){
+                //System.out.println("El rows i de Y es: " + rows);
+                contador = 0;
+            }
+
+            if (rows == elemento){
+                break;
+            }
+
+            contador +=1;
+
+
+
+
+
+
+
+
+        }
+
+        return contador;
+
+    }
+
+
+
+
+
+
+    /*
+    Metodo que devuelve un número aleatorio que es un válido elemento de la gráfica
+     */
+
+    private Integer numeroAleatorio(){
+
+        int maximo = (nRows * nCols) - 1;
+        int numero = (int)(Math.random() * maximo);
+
+        return numero;
     }
 
 }
