@@ -970,7 +970,9 @@ public class Grafica<T> implements Coleccion<T> {
         return trayectoria;
 
 
-
     }
+
+
+
 
 }

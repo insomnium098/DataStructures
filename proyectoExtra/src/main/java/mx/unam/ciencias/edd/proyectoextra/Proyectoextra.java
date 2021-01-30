@@ -3,6 +3,8 @@ package mx.unam.ciencias.edd.proyectoextra;
 import java.io.IOException;
 import mx.unam.ciencias.edd.*;
 import java.io.*;
+import java.util.Iterator;
+
 
 /**
  * Proyecto extra.
@@ -17,8 +19,6 @@ public class Proyectoextra {
 
 
     public static void main(String[] args) throws IOException {
-
-
 
         if (args.length == 0)
             uso();
@@ -56,6 +56,8 @@ public class Proyectoextra {
                 uso();
 
         }
+
+
 
 
 
@@ -151,7 +153,6 @@ public class Proyectoextra {
         return true;
 
     }
-
 
 
 }
