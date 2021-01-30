@@ -503,342 +503,12 @@ public class Laberinto {
             graficaGeneraLaberinto.agrega(i);
         }
 
-        System.out.println("La graficaGeneraLaberinto:");
+        //System.out.println("La graficaGeneraLaberinto:");
 
-        System.out.println(this.graficaGeneraLaberinto.toString());
+        //System.out.println(this.graficaGeneraLaberinto.toString());
 
     }
 
-    private void algoritmoPrim(){
-
-        /*
-        VerticeGrafica<Integer> n = grafica.vertice(0);
-        System.out.println("Los vecinos de 0:");
-        for (VerticeGrafica<Integer> s : n.vecinos()){
-            System.out.println(s.get());
-        }
-
-        //
-        System.out.println("Numeros aleatorios;");
-
-        for (int i = 0; i < 10; i++){
-            System.out.println(numeroAleatorio());
-        }
-
-         */
-
-        ///Inicio del algoritmo
-        //
-
-        //Creamos un conjunto V QUE CONTENDRA A LOS NODOS VISITADOS
-        Conjunto<VerticeGrafica<Integer>> V = new Conjunto<>();
-        //Creamos al conjunto listaParedes que contiene a las paredes del laberinto
-        Conjunto<Integer> listaParedes = new Conjunto<>();
-
-
-
-        /////////////       PASO 1          //////////////////////////////
-        ///Elegimos al azar un elemento de la gráfica, obtenemos el vertice
-        // correspondiente y lo agregamos al conjunto
-
-        Integer n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
-        System.out.println("El nodo espacio aleatorio es: " + n);
-        System.out.println("La grafica: " + grafica.toString());
-
-        VerticeGrafica<Integer> vertice = grafica.vertice(n);
-        System.out.println("El vertice es: " + vertice.get());
-        //Lo agregamos al conjunto que tiene los vertices agregados al laberinto y lo
-        //quitamos del conjunto de espacios
-        V.agrega(vertice);
-        conjuntoIntegerEspacios.elimina(n);
-
-        Integer contadorInicio = 0;
-
-        //Conjunto<VerticeGrafica<Integer>> nodosYaMerged = new Conjunto<>();
-
-        ///En este primer paso se agregan todas sus paredes V, solo a sus PAREDES a listaParedes
-        System.out.println("Sus vecinos PAREDES son: ");
-        for (VerticeGrafica<Integer> nFrontera : vertice.vecinos()){
-            if (conjuntoIntegerParedes.contiene(nFrontera.get())){
-                System.out.println(nFrontera.get());
-                listaParedes.agrega(nFrontera.get());
-            }
-
-        }
-
-        System.out.println("El conjunto V tiene a los nodos visitados:");
-
-        for (VerticeGrafica<Integer> Ve : V){
-            System.out.println(Ve.get());
-        }
-
-        System.out.println("El conjunto listaParedes tiene a las paredes (De los nodos visitados):");
-
-        for (Integer Ve : listaParedes){
-            System.out.println(Ve);
-        }
-
-
-        imprimeLaberinto();
-
-        Conjunto<VerticeGrafica<Integer>> paredesBorradas = new Conjunto<>();
-
-
-        //for (int x = 0; x < 4; x++){
-        while (!listaParedes.esVacia()){
-            ///Elegimos una pared al azar
-            Integer nAzar = numeroAleatorioConjuntoInteger(listaParedes);
-            System.out.println("El nAzar es: " + nAzar);
-            //Lo extraemos de la grafica para saber que elementos adyacentes tiene
-            VerticeGrafica<Integer> paredAzar = grafica.vertice(nAzar);
-            //Recorremos los espacios que estan conectados por la pared al azar
-            for (VerticeGrafica<Integer> ve : paredAzar.vecinos()){
-                ///Si el primer espacio conectado por la pared no se encuentra en V
-                if (conjuntoIntegerEspacios.contiene(ve.get()) & !V.contiene(ve) & grafica.sonVecinos(nAzar, ve.get())){
-                //if (!V.contiene(ve) & grafica.sonVecinos(nAzar, ve.get())){
-                    ///Hacemos la pared un espacio
-                    actualizaChar(nAzar,' ');
-                    //La quitamos del conjunto paredes
-                    conjuntoIntegerParedes.elimina(nAzar);
-                    //Añadimos el nodo espacio ve a V
-                    V.agrega(ve);
-                    //Añadimos solo las PAREDES de ve al laberinto (listaParedes)
-                    for (VerticeGrafica<Integer> paredes : ve.vecinos()){
-                        if (conjuntoIntegerParedes.contiene(paredes.get()) & !paredesBorradas.contiene(paredes)){
-                            listaParedes.agrega(paredes.get());
-
-                        }
-                    }
-                    //break;
-                }
-
-                //Removemos la pared de listaParedes y la agregamos a las borradas
-                //paredesBorradas.agrega(ve);
-                //listaParedes.elimina(ve);
-
-                paredesBorradas.agrega(paredAzar);
-                listaParedes.elimina(paredAzar.get());
-
-            }
-
-            //paredesBorradas.agrega(paredAzar);
-            //listaParedes.elimina(paredAzar.get());
-
-
-
-
-
-
-            System.out.println("Listaparedes:");
-            for (Integer i : listaParedes){
-                System.out.println(i);
-                //if (paredesBorradas.contiene(i)){
-                //    listaParedes.elimina(i);
-                //}
-            }
-
-            System.out.println("V:");
-
-            for (VerticeGrafica<Integer> i : V){
-                System.out.println(i.get());
-            }
-
-            System.out.println("paredesBorradas");
-
-            for (VerticeGrafica<Integer> i : paredesBorradas){
-                System.out.println(i.get());
-            }
-
-
-
-            imprimeLaberinto();
-
-
-
-
-            //listaParedes.limpia();
-
-
-
-
-        }
-
-
-
-
-
-        /*
-
-
-        while (!listaParedes.esVacia()){
-            ///Elegimos una pared al azar
-            Integer nAzar = numeroAleatorioConjuntoVertice(listaParedes);
-            //Lo extraemos de la grafica para saber que elementos adyacentes tiene
-            VerticeGrafica<Integer> paredAzar = grafica.vertice(nAzar);
-            //Recorremos los espacios que estan conectados por la pared al azar
-            for (VerticeGrafica<Integer> ve : paredAzar.vecinos()){
-                ///Si el primer espacio conectado por la pared no se encuentra en V
-                if (conjuntoIntegerEspacios.contiene(ve.get()) & !V.contiene(ve) & grafica.sonVecinos(nAzar, ve.get())){
-                    ///Hacemos la pared un espacio
-                    actualizaChar(nAzar,' ');
-                    //La quitamos del conjunto paredes
-                    conjuntoIntegerParedes.elimina(nAzar);
-                    //Añadimos el nodo espacio ve a V
-                    V.agrega(ve);
-                    //Añadimos solo las PAREDES de ve al laberinto (listaParedes)
-                    for (VerticeGrafica<Integer> paredes : ve.vecinos()){
-                        if (conjuntoIntegerParedes.contiene(paredes.get()) & !paredesBorradas.contiene(paredes)){
-                            listaParedes.agrega(paredes);
-
-                        }
-                    }
-                    break;
-                }
-
-                //Removemos la pared de listaParedes y la agregamos a las borradas
-                //paredesBorradas.agrega(ve);
-                //listaParedes.elimina(ve);
-
-            }
-
-            paredesBorradas.agrega(paredAzar);
-            listaParedes.elimina(paredAzar);
-
-            System.out.println("Listaparedes:");
-            for (VerticeGrafica<Integer> i : listaParedes){
-                System.out.println(i.get());
-            }
-
-            System.out.println("V:");
-
-            for (VerticeGrafica<Integer> i : V){
-                System.out.println(i.get());
-            }
-
-            System.out.println("paredesBorradas");
-
-            for (VerticeGrafica<Integer> i : paredesBorradas){
-                System.out.println(i.get());
-            }
-
-
-
-            imprimeLaberinto();
-
-
-
-
-            //listaParedes.limpia();
-
-
-
-
-        }
-
-         */
-
-        System.out.println("El laberinto final");
-        imprimeLaberinto();
-
-
-
-
-
-
-
-
-        /////////////ESTO YA FUNCIONA
-
-        /*
-
-
-
-
-        /////////// PASO 2 ///////////////////////
-        //Obtenemos los nodos frontera (Paredes) del nodo agregado y los agregamos a V. Nos quedamos con uno de ellos
-        //, estos nodos frontera (paredes) son eliminados del conjuntoParedes
-
-        System.out.println("El conjuntoParedes antes: " + conjuntoIntegerParedes.toString());
-
-        System.out.println("Sus vecinos son: ");
-        VerticeGrafica<Integer> nodoFrontera = null;
-        for (VerticeGrafica<Integer> nFrontera : vertice.vecinos()){
-            if (conjuntoIntegerParedes.contiene(nFrontera.get())){
-                System.out.println(nFrontera.get());
-                V.agrega(nFrontera);
-                nodoFrontera = nFrontera;
-
-            }
-
-            conjuntoIntegerParedes.elimina(nFrontera.get());
-
-        }
-
-        ///Elegimos un nodo Frontera al azar, este no debe de ser el primer n
-        boolean nfron1 = false;
-        Integer fronteraAzar = null;
-
-        while(!nfron1){
-            fronteraAzar = numeroAleatorioConjuntoVertice(V);
-            if (fronteraAzar != n){
-                nfron1 = true;
-            }
-
-        }
-        //fronteraAzar = numeroAleatorioConjuntoVertice(V);
-
-        nodoFrontera = grafica.vertice(fronteraAzar);
-
-
-        System.out.println("El nodo frontera es: " + nodoFrontera.get());
-
-        ///Debemos buscar a los nodos conectados del nodoFrontera que estén en V, al primero que cumpla esta condición
-        /// es conectado con el nodo frontera. Esta conexion se dará en la graficaGeneraLaberinto
-        System.out.println("Los vecinos del nodo frontera son:");
-        Boolean conectado = false;
-
-        for (VerticeGrafica<Integer> vecinoFrontera : nodoFrontera.vecinos()){
-
-            if (conectado){
-                break;
-            }
-            for (VerticeGrafica<Integer> elementoEnV : V){
-                if (grafica.sonVecinos(vecinoFrontera.get(), elementoEnV.get())){
-                    graficaGeneraLaberinto.conecta(nodoFrontera.get(), vecinoFrontera.get());
-
-
-                    actualizaChar(nodoFrontera.get(), ' ');
-
-                    System.out.println(nodoFrontera.get() + " conectado con " + vecinoFrontera.get());
-                    actualizaChar(vecinoFrontera.get(), ' ');
-
-                    conectado = true;
-                    break;
-                }
-            }
-            System.out.println(vecinoFrontera.get());
-
-
-        }
-
-         */
-
-
-
-        /////////////ESTO YA FUNCIONA/////////////ESTO YA FUNCIONA/////////////ESTO YA FUNCIONA
-
-
-
-
-
-        //System.out.println("El conjuntoParedes despues: " + conjuntoIntegerParedes.toString());
-        //imprimeLaberinto();
-
-
-
-
-
-    }
 
     /*
     Metodo que actualiza el char de charLaberinto
@@ -856,7 +526,7 @@ public class Laberinto {
         for (int rows = 0; rows < nRows; rows ++){
             for (int columnas = 0; columnas < nCols; columnas ++){
 
-                if (contador == elemento){
+                if (contador.equals(elemento)){
                     charLaberinto[rows][columnas] = charNuevo;
                 }
 
@@ -934,7 +604,7 @@ public class Laberinto {
 
     private Integer coordenadasX (Integer elemento){
 
-        if (elemento == 0){
+        if (elemento.equals(0)){
             return 0;
         }
 
@@ -1075,6 +745,11 @@ public class Laberinto {
 
         this.conjuntoIntegerEspacios = new Conjunto<>();
         this.conjuntoIntegerParedes = new Conjunto<>();
+        System.out.println("Los nRows : " + nRows);
+        System.out.println("Los nCols : " + nCols);
+
+        Conjunto<Integer> bordes = new Conjunto<>();
+
 
         int contador = 0;
 
@@ -1084,19 +759,66 @@ public class Laberinto {
                 ///Los espacios
                 if (rows % 2 !=0 & columnas % 2 != 0 ){
                     actualizaChar(contador, '+');
+                    System.out.println("El char:" + contador + " Rows: " + rows + " columnas: " + columnas);
                     conjuntoIntegerEspacios.agrega(contador);
                 } else {
                     conjuntoIntegerParedes.agrega(contador);
                 }
+
+
+                ///(0,b), (a,0)
+                if (rows == 0 || columnas == 0 || rows == nRows - 1 || columnas == nCols -1){
+                    bordes.agrega(contador);
+                    //System.out.println("El borde: " + contador);
+                }
+
                 contador ++;
             }
 
 
         }
 
+
+        ////Al azar elegiremos dos elementos de bordes y serán eliminados de los bordes, serán la entrada y salida
+        Integer azar1 = numeroAleatorioConjuntoInteger(bordes);
+        bordes.elimina(azar1);
+
+        Integer azar2 = numeroAleatorioConjuntoInteger(bordes);
+        bordes.elimina(azar2);
+
+        ///Los restantes serán eliminados de las paredes y de la grafica
+        for (Integer i : bordes){
+            this.conjuntoIntegerParedes.elimina(i);
+            this.grafica.elimina(i);
+            this.conjuntoIntegerEspacios.elimina(i);
+        }
+
+        //actualizaChar(azar1, '¿');
+        //actualizaChar(azar2, '?');
+
+        ///Los bordes
+
+        /*
+        System.out.println("Los bordes:" );
+
+        for (Integer l : bordes){
+            System.out.println(bordes);
+        }
+
+         */
+
+
+
+
+
     }
 
     private void algoritmoPrim2(){
+
+
+        System.out.println("La grafica:");
+
+        System.out.println(this.grafica.toString());
 
         //Conjunto con los espacios visitados
         Conjunto<Integer> espaciosVisitados = new Conjunto<>();
@@ -1117,7 +839,7 @@ public class Laberinto {
 
 
         Integer n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
-        System.out.println("El espacio aleatorio es: " + n);
+        //System.out.println("El espacio aleatorio es: " + n);
         //System.out.println("La grafica: " + grafica.toString());
         //VerticeGrafica<Integer> vertice = grafica.vertice(n);
 
@@ -1125,7 +847,7 @@ public class Laberinto {
         VerticeGrafica<Integer> celda = grafica.vertice(n);
 
 
-        System.out.println("La celda aleatoria es: " + celda.get());
+        //System.out.println("La celda aleatoria es: " + celda.get());
         //Agregamos esta celda al mazo y a los espacios visitados
         espaciosDelMazo.agrega(n);
         espaciosVisitados.agrega(n);
@@ -1144,11 +866,11 @@ public class Laberinto {
         Conjunto<Integer> fronteras = getFronterasEspacio(celda);
 
 
-        System.out.println("Las fronteras de la celda aleatoria son:");
+        //System.out.println("Las fronteras de la celda aleatoria son:");
 
         for (Integer Ve : fronteras){
             VerticeGrafica<Integer> vertice = grafica.vertice(Ve);
-            System.out.println(Ve);
+            //System.out.println(Ve);
             listaFronteras.agrega(Ve);
             paredes = getParedes(vertice);
             for (Integer par : paredes){
@@ -1157,10 +879,12 @@ public class Laberinto {
             paredes.limpia();
         }
 
-        System.out.println("Las paredes de estas fronteras son: ");
+        //System.out.println("Las paredes de estas fronteras son: ");
         for (Integer i : listaParedes){
             System.out.println(i);
         }
+
+
 
         imprimeLaberinto();
 
@@ -1180,18 +904,15 @@ public class Laberinto {
             Conjunto<Integer> paredesEspacioAzar = getParedes(verticeEsacioAzar);
 
             for (Integer pared : paredesEspacioAzar){
-                for (Integer paredLista : listaParedes){
-                    if (pared.equals(paredLista)){
-                        actualizaChar(pared, ' ');
-                        listaParedes.elimina(pared);
-                        paredesVisitadas.agrega(pared);
-                        break;
-                    } else {
-                        listaParedes.elimina(paredLista);
-                        //paredesVisitadas.agrega(pared);
-                    }
+                if (listaParedes.contiene(pared)){
+                    actualizaChar(pared, ' ');
+                    listaParedes.elimina(pared);
+                    paredesVisitadas.agrega(pared);
+                    break;
                 }
             }
+
+            
 
             ///El espacioAzar se agrega a los espacios del Mazo y a los espaciosVisitados y se actualiza su char
             espaciosDelMazo.agrega(espacioAzar);
