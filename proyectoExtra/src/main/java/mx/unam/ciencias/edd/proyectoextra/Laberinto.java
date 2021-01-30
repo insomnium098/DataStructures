@@ -793,8 +793,8 @@ public class Laberinto {
             this.conjuntoIntegerEspacios.elimina(i);
         }
 
-        //actualizaChar(azar1, '¿');
-        //actualizaChar(azar2, '?');
+        actualizaChar(azar1, '¿');
+        actualizaChar(azar2, '?');
 
         ///Los bordes
 
@@ -828,7 +828,7 @@ public class Laberinto {
         Conjunto<Integer> espaciosDelMazo = new Conjunto<>();
         ///Conjunto con las paredes visitadas
         Conjunto<Integer> paredesVisitadas = new Conjunto<>();
-        ///Conjunto con las paredes del mazo
+        ///Conjunto con las paredes de solo los NODOS DEL MAZO
         Conjunto<Integer> listaParedes = new Conjunto<>();
 
 
@@ -862,7 +862,7 @@ public class Laberinto {
 
 
 
-        ///Obtenemos a sus nodos espacios adyacentes y los agregamos a listaFronteras,asi como sus paredes a listaParedes
+        ///Obtenemos a sus nodos espacios adyacentes y los agregamos a listaFronteras
         Conjunto<Integer> fronteras = getFronterasEspacio(celda);
 
 
@@ -872,17 +872,25 @@ public class Laberinto {
             VerticeGrafica<Integer> vertice = grafica.vertice(Ve);
             //System.out.println(Ve);
             listaFronteras.agrega(Ve);
+
+            /*
             paredes = getParedes(vertice);
             for (Integer par : paredes){
                 listaParedes.agrega(par);
             }
             paredes.limpia();
+
+             */
         }
 
         //System.out.println("Las paredes de estas fronteras son: ");
+
+        /*
         for (Integer i : listaParedes){
             System.out.println(i);
         }
+
+         */
 
 
 
@@ -898,10 +906,10 @@ public class Laberinto {
             ///Lo agregamos a los espaciosVisitados
             espaciosVisitados.agrega(espacioAzar);
             //Determinamos el vertice correspondiente del espacio
-            VerticeGrafica<Integer> verticeEsacioAzar = grafica.vertice(espacioAzar);
+            VerticeGrafica<Integer> verticeEspacioAzar = grafica.vertice(espacioAzar);
             ///Debemos de encontrar una pared del verticeEspacioAzar que se comparta con alguna pared en la listaParedes
             ///Esta pared se actualiza su char, se elimina de listaParedes y se agrega a paredesVisitadas
-            Conjunto<Integer> paredesEspacioAzar = getParedes(verticeEsacioAzar);
+            Conjunto<Integer> paredesEspacioAzar = getParedes(verticeEspacioAzar);
 
             for (Integer pared : paredesEspacioAzar){
                 if (listaParedes.contiene(pared)){
@@ -912,7 +920,16 @@ public class Laberinto {
                 }
             }
 
-            
+
+            ///Despues agregamos todas las paredes del verticeEspacioAzar a la listaParedes, solo aquellas que
+            //no estén en lista paredes y que no hayan sido visitadas
+            for (Integer paredVerticeAzar : paredesEspacioAzar){
+                if (!listaParedes.contiene(paredVerticeAzar) && !paredesVisitadas.contiene(paredVerticeAzar)){
+                    listaParedes.agrega(paredVerticeAzar);
+                }
+            }
+
+
 
             ///El espacioAzar se agrega a los espacios del Mazo y a los espaciosVisitados y se actualiza su char
             espaciosDelMazo.agrega(espacioAzar);
@@ -920,10 +937,9 @@ public class Laberinto {
             actualizaChar(espacioAzar, ' ');
 
             //////Despues tenemos que buscar a sus espaciosFrontera del espacioAzar que no se encuentren ya
-            ////// en espaciosDelMazo ni en espaciosVisitados y agregarlos a listaFronteras asi como sus paredes
-            ///// que no existan en listaParedes y que no hayan sido visitadas
+            ////// en espaciosDelMazo ni en espaciosVisitados y agregarlos a listaFronteras
 
-            Conjunto<Integer> fronterasEspacioAzar = getFronterasEspacio(verticeEsacioAzar);
+            Conjunto<Integer> fronterasEspacioAzar = getFronterasEspacio(verticeEspacioAzar);
 
 
 
@@ -932,12 +948,17 @@ public class Laberinto {
 
                 if(!espaciosDelMazo.contiene(Ve) && !espaciosVisitados.contiene(Ve)){
                     listaFronteras.agrega(Ve);
-                    Conjunto<Integer> paredesAzar = getParedes(vertice);
+                    //Conjunto<Integer> paredesAzar = getParedes(vertice);
+
+                    /*
+
                     for (Integer par: paredesAzar){
                         if(!paredesVisitadas.contiene(par)){
                             listaParedes.agrega(par);
                         }
                     }
+
+                     */
 
                 }
 
