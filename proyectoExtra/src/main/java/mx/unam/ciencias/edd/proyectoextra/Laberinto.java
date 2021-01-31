@@ -400,7 +400,7 @@ public class Laberinto {
             return false;
         }
 
-        if(m == 0 || n == 0){
+        if(m == 0 || n == 0 || m.equals(nRows-1) || n.equals(nCols-1)){
             return true;
         }
 
