@@ -35,7 +35,7 @@ public class Laberinto {
 
     //Constructor para generaLaberinto
     public Laberinto(Integer nRows, Integer nCols){
-        System.out.println("Constructor GeneraLaberinto");
+        //System.out.println("Constructor GeneraLaberinto");
         this.nRows = nRows;
         this.nCols = nCols;
         this.laberintoOriginal = construyeLaberintoOriginal(nRows,nCols);
@@ -57,8 +57,8 @@ public class Laberinto {
         this.inicializaGraficaConstruye();
 
         ////
-        System.out.println("Imprimiendo laberinto");
-        this.imprimeLaberinto();
+        //System.out.println("Imprimiendo laberinto");
+        //this.imprimeLaberinto();
         //System.out.println("Imprimiendo grafica");
         //this.imprimeGrafica();
         ///
@@ -745,10 +745,11 @@ public class Laberinto {
 
         this.conjuntoIntegerEspacios = new Conjunto<>();
         this.conjuntoIntegerParedes = new Conjunto<>();
-        System.out.println("Los nRows : " + nRows);
-        System.out.println("Los nCols : " + nCols);
+        //System.out.println("Los nRows : " + nRows);
+        //System.out.println("Los nCols : " + nCols);
 
         Conjunto<Integer> bordes = new Conjunto<>();
+        Conjunto<Integer> esquinas = new Conjunto<>();
 
 
         int contador = 0;
@@ -759,7 +760,7 @@ public class Laberinto {
                 ///Los espacios
                 if (rows % 2 !=0 & columnas % 2 != 0 ){
                     actualizaChar(contador, '+');
-                    System.out.println("El char:" + contador + " Rows: " + rows + " columnas: " + columnas);
+                    //System.out.println("El char:" + contador + " Rows: " + rows + " columnas: " + columnas);
                     conjuntoIntegerEspacios.agrega(contador);
                 } else {
                     conjuntoIntegerParedes.agrega(contador);
@@ -768,8 +769,12 @@ public class Laberinto {
 
                 ///(0,b), (a,0)
                 if (rows == 0 || columnas == 0 || rows == nRows - 1 || columnas == nCols -1){
+                    ///Revisar que no sean los bordes del laberinto
                     bordes.agrega(contador);
-                    //System.out.println("El borde: " + contador);
+                    if (sonEsquinas(rows, columnas)){
+                        esquinas.agrega(contador);
+                    }
+
                 }
 
                 contador ++;
@@ -780,6 +785,17 @@ public class Laberinto {
 
 
         ////Al azar elegiremos dos elementos de bordes y serán eliminados de los bordes, serán la entrada y salida
+
+        for (Integer e : esquinas){
+            bordes.elimina(e);
+            this.conjuntoIntegerEspacios.elimina(e);
+            this.conjuntoIntegerParedes.elimina(e);
+            this.grafica.elimina(e);
+
+        }
+
+
+
         Integer azar1 = numeroAleatorioConjuntoInteger(bordes);
         bordes.elimina(azar1);
 
@@ -793,8 +809,8 @@ public class Laberinto {
             this.conjuntoIntegerEspacios.elimina(i);
         }
 
-        actualizaChar(azar1, '¿');
-        actualizaChar(azar2, '?');
+        actualizaChar(azar1, ' ');
+        actualizaChar(azar2, ' ');
 
         ///Los bordes
 
@@ -816,9 +832,9 @@ public class Laberinto {
     private void algoritmoPrim2(){
 
 
-        System.out.println("La grafica:");
+        //System.out.println("La grafica:");
 
-        System.out.println(this.grafica.toString());
+        //System.out.println(this.grafica.toString());
 
         //Conjunto con los espacios visitados
         Conjunto<Integer> espaciosVisitados = new Conjunto<>();
@@ -894,7 +910,7 @@ public class Laberinto {
 
 
 
-        imprimeLaberinto();
+        //imprimeLaberinto();
 
 
         ////Aqui comienza el loop
@@ -1269,6 +1285,29 @@ public class Laberinto {
         return fronteras;
 
 
+
+
+    }
+
+    /*
+    Metodo que devuelve si son esquinas
+     */
+
+    private Boolean sonEsquinas (Integer rows, Integer columnas){
+
+        if (rows.equals(0) && columnas.equals(0)){
+            return true;
+        }
+
+        if (rows.equals(0) && columnas.equals(nCols-1)){
+            return true;
+        }
+
+        if (rows.equals(nRows-1) && columnas.equals(0)){
+            return true;
+        }
+
+        return rows.equals(nRows - 1) && columnas.equals(nCols - 1);
 
 
     }
