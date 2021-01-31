@@ -3,13 +3,18 @@ package mx.unam.ciencias.edd.proyectoextra;
 import java.io.IOException;
 import mx.unam.ciencias.edd.*;
 import java.io.*;
-import java.util.Iterator;
+import javax.swing.JFrame;
+import javax.swing.*;
+
 
 
 /**
  * Proyecto extra.
  */
 public class Proyectoextra {
+
+    private static JPanel panel1;
+    private static JButton button;
 
     private static void uso() {
         System.err.println("Debes de ingresar al menos un archivo");
@@ -19,6 +24,10 @@ public class Proyectoextra {
 
 
     public static void main(String[] args) throws IOException {
+
+
+
+
 
         if (args.length == 0)
             uso();
@@ -42,7 +51,7 @@ public class Proyectoextra {
                     try {
                         int nRows = Integer.parseInt(args[1]);
                         int nCols = Integer.parseInt(args[2]);
-                        generaLaberinto(nRows, nCols);
+                        generaLaberinto(nRows, nCols, false);
                     } catch (Exception ex) {
                         System.out.println("ERROR: Las dimensiones del laberinto a generar deben de ser un entero");
                         //uso();
@@ -52,10 +61,17 @@ public class Proyectoextra {
                 break;
             }
 
+            case "gui":
+                generaLaberinto(10, 10,true);
+                //iniciaGUI();
+                break;
+
             default:
                 uso();
 
         }
+
+
 
 
 
@@ -112,8 +128,23 @@ public class Proyectoextra {
     /*
     Metodo que genera un laberinto
      */
-    public static void generaLaberinto(Integer nRows, Integer nCols){
-        Laberinto lab = new Laberinto(nRows, nCols);
+    public static void generaLaberinto(Integer nRows, Integer nCols, boolean GUI){
+
+        if (!GUI){
+            Laberinto lab = new Laberinto(nRows, nCols, false);
+            //Cola<char[][]> colaLa = lab.getCharLaberinto();
+
+            //while()
+
+
+
+        } else {
+
+            Laberinto lab = new Laberinto(nRows, nCols, true);
+            iniciaGUI(lab);
+
+        }
+
     }
 
 
@@ -152,6 +183,36 @@ public class Proyectoextra {
 
         return true;
 
+    }
+
+
+    /*
+    Metodo para inicializar la gui
+     */
+
+    public static void iniciaGUI(Laberinto laberinto){
+
+        /*
+        Dibujar panel = new Dibujar();
+        JFrame aplicacion = new JFrame();
+
+        aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        aplicacion.add(panel);		//agrega el panel al marco
+        aplicacion.setSize(800, 800);	//establece tamaño del marco
+        aplicacion.setLocationRelativeTo(null);
+        aplicacion.setVisible(true);
+
+         */
+
+
+        DibujaLaberintoGUI panel = new DibujaLaberintoGUI(laberinto);
+        JFrame aplicacion = new JFrame();
+
+        aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        aplicacion.add(panel);		//agrega el panel al marco
+        aplicacion.setSize(800, 800);	//establece tamaño del marco
+        aplicacion.setLocationRelativeTo(null);
+        aplicacion.setVisible(true);
     }
 
 
