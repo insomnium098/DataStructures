@@ -3,7 +3,9 @@ import mx.unam.ciencias.edd.Lista;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -136,17 +138,55 @@ public class Menu extends JFrame {
                 //---- Añade lo que quieras que haga el boton para generar -----
                 String rowsS=renglones.getText();
                 String colsS=columnas.getText();
+                if (rowsS == null || colsS == null){
+                    mensaje("Selecciona un número de renglones y columnas", "Error");
+                }
 
-                Proyectoextra.generaLaberinto(Integer.valueOf(rowsS),Integer.valueOf(colsS),true);
+                try{
+                    Integer rows = Integer.parseInt(rowsS);
+                    Integer cols = Integer.parseInt(colsS);
+
+                    if (rows == 0 || cols == 0){
+                        mensaje("Selecciona un número válido de renglones y columnas", "Error");
+                    } else {
+                        Proyectoextra.generaLaberinto(rows,cols,true);
+                    }
+
+
+
+                } catch (Exception ex){
+                    mensaje("Selecciona un número válido de renglones y columnas", "Error");
+
+                }
+
+
+
+
+
+
             }
         });
         botonResuelve.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
                 //---- Añade lo que quieras que haga el boton para resolver -----
                 String archivo = abrirExplorador();
-                Lista<String> laberinto = Proyectoextra.leeLaberinto(archivo);
+                ////Verificamos que el laberinto sea valido
 
-                Proyectoextra.resuelveLaberinto(laberinto, true);
+                boolean esValido = leeLaberinto(archivo);
+
+                if(esValido){
+                    Lista<String> laberinto = Proyectoextra.leeLaberinto(archivo);
+                    Proyectoextra.resuelveLaberinto(laberinto, true);
+
+                } else {
+                    mensaje("El laberinto está corrupto","Laberinto corrupto");
+
+                }
+
+
+
+
+
 
             }
         });
@@ -241,6 +281,67 @@ public class Menu extends JFrame {
 
 
 
+
+    }
+
+
+    public static void mensaje(String infoMessage, String titleBar){
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    public static Boolean leeLaberinto (String nombreArchivo){
+        ///leemos el archivo
+
+        Lista<String> laberinto = new Lista<>();
+        BufferedReader br;
+        String linea;
+
+        try {
+            br = new BufferedReader(new FileReader(nombreArchivo));
+            while ((linea = br.readLine()) != null){
+                laberinto.agrega(linea);
+            }
+
+
+        } catch (Exception e ){
+            System.out.println("No se pudo leer el archivo con el laberinto");
+            System.exit(1);
+        }
+
+
+
+
+        if (!revisaLaberinto(laberinto)){
+            //infoBox("Laberinto erroneo" ,"Laberinto Erroneo");
+            return false;
+
+
+        }
+
+
+        return true;
+
+
+    }
+
+
+    public static boolean revisaLaberinto(Lista<String> laberinto){
+        Integer nCols = laberinto.get(0).length();
+        ///Las rows serán el numero de strings en la lista que contiene al laberinto
+        Integer nRows = laberinto.getLongitud();
+
+        for (String linea : laberinto){
+            if (linea.length() != nCols){
+                return false;
+            }
+
+            if (linea.isEmpty()){
+                return false;
+            }
+        }
+
+        return true;
 
     }
 

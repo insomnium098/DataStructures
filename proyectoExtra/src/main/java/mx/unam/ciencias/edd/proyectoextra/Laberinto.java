@@ -845,7 +845,7 @@ public class Laberinto {
 
 
         //Integer n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
-        System.out.println("El espacio aleatorio es: " + n);
+        //System.out.println("El espacio aleatorio es: " + n);
         //System.out.println("La grafica: " + grafica.toString());
         //VerticeGrafica<Integer> vertice = grafica.vertice(n);
 
