@@ -1,10 +1,14 @@
 package mx.unam.ciencias.edd.proyectoextra;
+import mx.unam.ciencias.edd.Lista;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Menu extends JFrame {
@@ -12,7 +16,7 @@ public class Menu extends JFrame {
     JLabel label1, label2, label3;
     JTextField columnas, renglones, delay;
     JButton botonGenera, botonResuelve, botonBorra;
-    final JFileChooser fc = new JFileChooser("~");
+    //final JFileChooser fc = new JFileChooser("~");
 
     public Menu(){
         super("Menú");
@@ -59,7 +63,11 @@ public class Menu extends JFrame {
         botonResuelve.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
                 //---- Añade lo que quieras que haga el boton para resolver -----
-                abrirExplorador();
+                String archivo = abrirExplorador();
+                Lista<String> laberinto = Proyectoextra.leeLaberinto(archivo);
+
+                Proyectoextra.resuelveLaberinto(laberinto, true);
+
             }
         });
         botonBorra.addMouseListener(new MouseAdapter()  {
@@ -110,10 +118,36 @@ public class Menu extends JFrame {
 
     }
 
-    private void abrirExplorador(){
+    private String abrirExplorador(){
 
-        int returnVal = fc.showOpenDialog(this);
-        System.out.println(returnVal);
+        ///Para abrir en la carpeta donde se ejecuto
+        File wd= new File(System.getProperty("user.dir"));
+
+        ////
+        JFileChooser fc = new JFileChooser("~");
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+                "Laberintos en txt", "txt");
+        fc.setFileFilter(filtro);
+        fc.setCurrentDirectory(wd);
+
+        int returnVal = fc.showOpenDialog(getParent());
+        //System.out.println(returnVal);
+
+        /*
+        String archivo;
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            archivo = fc.getSelectedFile().getName();
+        }
+
+         */
+
+        return fc.getSelectedFile().getName();
+
+
+
+
+
     }
 
 

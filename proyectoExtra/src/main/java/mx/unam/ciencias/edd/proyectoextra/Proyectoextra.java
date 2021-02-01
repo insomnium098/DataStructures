@@ -157,7 +157,7 @@ public class Proyectoextra {
 
             System.out.println("Cargando....");
             Laberinto lab = new Laberinto(nRows, nCols, true);
-            iniciaGUI(lab);
+            iniciaGUI(lab,false);
 
         }
 
@@ -171,11 +171,11 @@ public class Proyectoextra {
     public static void resuelveLaberinto(Lista<String> laberinto, boolean GUI){
 
         if(!GUI){
-            Laberinto lab = new Laberinto(laberinto);
+            Laberinto lab = new Laberinto(laberinto, false);
 
         } else{
-            Laberinto lab = new Laberinto(laberinto);
-            iniciaGUI(lab);
+            Laberinto lab = new Laberinto(laberinto, true);
+            iniciaGUI(lab, true);
 
         }
 
@@ -215,7 +215,7 @@ public class Proyectoextra {
     Metodo para inicializar la gui
      */
 
-    public static void iniciaGUI(Laberinto laberinto){
+    public static void iniciaGUI(Laberinto laberinto, boolean resuelve){
 
         /*
         Dibujar panel = new Dibujar();
@@ -239,8 +239,7 @@ public class Proyectoextra {
         DibujaLaberintoGUI panel = new DibujaLaberintoGUI(laberinto);
         JFrame aplicacion = new JFrame();
 
-        ////Aqui se agregan los botones
-        panel.add(botonResuelve);
+
 
 
         //aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -284,8 +283,16 @@ public class Proyectoextra {
 
         ///Localizacion de los botones
 
-        aplicacion.setLayout(new BorderLayout());
-        aplicacion.add(botonResuelve,BorderLayout.SOUTH);
+        ////Aqui se agregan los botones
+
+        if(!resuelve){
+            panel.add(botonResuelve);
+
+            aplicacion.setLayout(new BorderLayout());
+            aplicacion.add(botonResuelve,BorderLayout.SOUTH);
+
+        }
+
 
 
         ////Añadir el panel

@@ -90,7 +90,7 @@ public class Laberinto {
 
 
     //Constructor para resuelveLaberinto
-    public Laberinto (Lista<String> laberintoOriginal){
+    public Laberinto (Lista<String> laberintoOriginal, boolean GUI){
         this.laberintoOriginal = laberintoOriginal;
         this.grafica = new Grafica<>();
         this.trayectoria = new Lista<>();
@@ -99,7 +99,11 @@ public class Laberinto {
         this.iniciaChar();
         this.construyeEdges(true);
         this.calculaTrayectoria();
-        this.imprimeLaberinto();
+
+        if(!GUI){
+            this.imprimeLaberinto();
+        }
+
 
     }
 
