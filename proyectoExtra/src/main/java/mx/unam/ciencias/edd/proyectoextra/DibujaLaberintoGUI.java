@@ -41,7 +41,7 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
         super.paintComponent( g );
 
-        char[][] charLaberinto;
+        char[][] charLaberinto = null;
 
         if (timer.getDelay() == 0){
             charLaberinto = laberinto.getCharLaberinto();
@@ -208,7 +208,7 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
         } else if (caracter == '?'){
             g.setColor(new Color(30, 245, 73));
         } else {
-            g.setColor(new Color(0, 255, 239));
+            g.setColor(new Color(0, 0, 0));
         }
         for (int i = y1; i < y2; i++){
             g.drawLine(x1, i, x2, i);
@@ -282,7 +282,11 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent ev) {
         if (ev.getSource() == timer && !this.colaLaberinto.esVacia()) {
+
+
+
             repaint();
+            //this.paintComponent(this.getGraphics());
         }
     }
 

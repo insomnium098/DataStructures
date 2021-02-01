@@ -19,7 +19,13 @@ public class Proyectoextra {
 
 
     private static void uso() {
-        System.err.println("Debes de ingresar al menos un archivo");
+        //System.err.println("Debes de ingresar al menos un archivo");
+        System.out.println("Parametros: ");
+        System.out.println("gui         -Inicia la interfaz gráfica ");
+        System.out.println("genera n m  -Genera un laberinto de n x m ");
+        System.out.println("resuelve r  -Resuelve el laberinto r");
+
+
         System.exit(1);
     }
 
@@ -56,8 +62,8 @@ public class Proyectoextra {
                         generaLaberinto(nRows, nCols, false);
                     } catch (Exception ex) {
                         System.out.println("ERROR: Las dimensiones del laberinto a generar deben de ser un entero");
-                        //uso();
-                        ex.printStackTrace();
+                        uso();
+                        //ex.printStackTrace();
                     }
                 }
                 break;
