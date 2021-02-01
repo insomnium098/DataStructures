@@ -17,8 +17,6 @@ import javax.swing.*;
  */
 public class Proyectoextra {
 
-    private static JPanel panel1;
-    private static JButton button;
 
     private static void uso() {
         System.err.println("Debes de ingresar al menos un archivo");
@@ -68,18 +66,14 @@ public class Proyectoextra {
             case "gui":
 
                 //Para resuelve;
-                Lista<String> laberinto = leeLaberinto(args[1]);
-                resuelveLaberinto(laberinto, true);
+                //Lista<String> laberinto = leeLaberinto(args[1]);
+                //resuelveLaberinto(laberinto, true);
+                menu();
 
 
                 ///Para genera:
                 //generaLaberinto(15, 15,true);
                 break;
-            case "menu":
-                menu();
-
-                break;
-
             default:
                 uso();
 
@@ -279,7 +273,12 @@ public class Proyectoextra {
 
         botonGuarda.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
+
+                ///Para abrir en la carpeta donde se ejecuto
+                File wd= new File(System.getProperty("user.dir"));
+
                 JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(wd);
                 fileChooser.setDialogTitle("Especifica el archivo para guardar el laberinto");
 
                 int seleccion = fileChooser.showSaveDialog(aplicacion);
@@ -289,6 +288,8 @@ public class Proyectoextra {
 
                     try {
                         panel.guardaLaberinto(archivoGuardar.getAbsolutePath());
+                        Menu.mensaje("Laberinto correctamente guardado en : "+ archivoGuardar.getAbsolutePath(),
+                                "Archivo guardado correctamente");
 
 
                     } catch (IOException ioException) {

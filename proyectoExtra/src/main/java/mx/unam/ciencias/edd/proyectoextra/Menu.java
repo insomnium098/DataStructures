@@ -83,7 +83,7 @@ public class Menu extends JFrame {
         /// Listener para botonGenera
         botonGenera.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
-                //---- Añade lo que quieras que haga el boton para generar -----
+
                 String rowsS=renglones.getText();
                 String colsS=columnas.getText();
 
@@ -135,7 +135,7 @@ public class Menu extends JFrame {
 
         botonGenera.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
-                //---- Añade lo que quieras que haga el boton para generar -----
+
                 String rowsS=renglones.getText();
                 String colsS=columnas.getText();
                 if (rowsS == null || colsS == null){
@@ -168,7 +168,7 @@ public class Menu extends JFrame {
         });
         botonResuelve.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
-                //---- Añade lo que quieras que haga el boton para resolver -----
+
                 String archivo = abrirExplorador();
                 ////Verificamos que el laberinto sea valido
 

@@ -105,9 +105,16 @@ public class Laberinto {
         this.construyeEdges(true);
         this.calculaTrayectoria();
 
+
+
+
+
+
         if(!GUI){
             this.imprimeLaberinto();
         }
+
+
 
 
     }
@@ -543,6 +550,8 @@ public class Laberinto {
     }
 
 
+
+
     /*
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                         Metodos para generar un Laberinto
@@ -720,6 +729,12 @@ public class Laberinto {
         Conjunto<Integer> bordes = new Conjunto<>();
         Conjunto<Integer> esquinas = new Conjunto<>();
 
+        ///Para hacer mas interesantes los laberintos, los bordes estaran en lados opuestos
+        Conjunto<Integer> bordeSuperior = new Conjunto<>();
+        Conjunto<Integer> bordeInferior = new Conjunto<>();
+        Conjunto<Integer> bordeIzquierdo= new Conjunto<>();
+        Conjunto<Integer> bordeDerecho = new Conjunto<>();
+
 
         int contador = 0;
 
@@ -740,6 +755,21 @@ public class Laberinto {
                 if (rows == 0 || columnas == 0 || rows == nRows - 1 || columnas == nCols -1){
                     ///Revisar que no sean los bordes del laberinto
                     bordes.agrega(contador);
+
+
+                    if(rows == 0){
+                        bordeSuperior.agrega(contador);
+                    } else if ( columnas == 0){
+                        bordeIzquierdo.agrega(contador);
+                    } else if (rows == nRows - 1){
+                        bordeInferior.agrega(contador);
+                    } else if ( columnas == nCols -1){
+                        bordeDerecho.agrega(contador);
+                    }
+
+
+
+
                     if (sonEsquinas(rows, columnas)){
                         esquinas.agrega(contador);
                     }
@@ -757,6 +787,11 @@ public class Laberinto {
 
         for (Integer e : esquinas){
             bordes.elimina(e);
+            bordeIzquierdo.elimina(e);
+            bordeSuperior.elimina(e);
+            bordeDerecho.elimina(e);
+            bordeInferior.elimina(e);
+
             this.conjuntoIntegerEspacios.elimina(e);
             this.conjuntoIntegerParedes.elimina(e);
             this.grafica.elimina(e);
@@ -769,7 +804,30 @@ public class Laberinto {
         bordes.elimina(azar1);
         this.borde1 = azar1;
 
-        Integer azar2 = numeroAleatorioConjuntoInteger(bordes);
+
+        ////Determinamos el borde del azar 1 y sacamos el borde azar 2 del contrario
+        Integer azar2 = null;
+        if(bordeIzquierdo.contiene(azar1)){
+            bordeIzquierdo.elimina(azar1);
+            azar2 = numeroAleatorioConjuntoInteger(bordeDerecho);
+
+        } else if (bordeSuperior.contiene(azar1)){
+            bordeSuperior.elimina(azar1);
+            azar2 = numeroAleatorioConjuntoInteger(bordeInferior);
+
+        } else if (bordeDerecho.contiene(azar1)){
+            bordeDerecho.elimina(azar1);
+            azar2 = numeroAleatorioConjuntoInteger(bordeIzquierdo);
+
+        } else if (bordeInferior.contiene(azar1)){
+            bordeInferior.elimina(azar1);
+            azar2 = numeroAleatorioConjuntoInteger(bordeSuperior);
+
+        }
+
+
+
+        //Integer azar2 = numeroAleatorioConjuntoInteger(bordes);
         bordes.elimina(azar2);
         this.borde2 = azar2;
 
@@ -1118,4 +1176,7 @@ public class Laberinto {
     public Lista<String> getLaberintoOriginal() {
         return laberintoOriginal;
     }
+
+
+
 }
