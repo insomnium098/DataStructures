@@ -31,6 +31,11 @@ public class Laberinto {
     /////////Cola que irá guardando los cambios que va sufriendo el laberinto para la interfaz grafica
     private Cola<char[][]> colaLaberinto;
 
+    ////// bordes para generaLaberinto
+    private Integer borde1;
+    private Integer borde2;
+
+
 
     /*
     El laberinto tendrá dos constructores, uno para inicializarlo desde generaLaberinto
@@ -685,125 +690,6 @@ public class Laberinto {
     arrayLaberinto y charLaberinto
      */
 
-    private Integer coordenadasX (Integer elemento){
-
-        if (elemento.equals(0)){
-            return 0;
-        }
-
-        ///El ncols nos dice cuantos elementos caben por row, asi que hacemos un contador para calcular el row
-        //correspondiente
-
-        //System.out.println("El nCols es: " + nCols);
-
-        int contador = 0;
-        int acumulado = 0;
-
-        for (int i = 0; i < nRows; i++){
-
-            //acumulado += nCols - 1;
-            acumulado += nCols ;
-            //System.out.println("El acumulado es : " + acumulado);
-
-            if ( acumulado >= elemento){
-                //System.out.println("El i es: " + i);
-                break;
-            } else {
-                contador +=1;
-            }
-
-        }
-
-        return contador;
-
-
-        /*
-
-        int contador = 0;
-
-        for(int rows = 0; rows < (nRows * nCols) - 1; rows ++){
-
-            if (rows != 1 & rows % nRows == 1 ){
-                //System.out.println("El rows i es: " + rows);
-                contador += 1;
-            }
-
-            if (rows == elemento){
-                break;
-            }
-
-
-
-
-
-
-        }
-
-        return contador;
-
-         */
-
-    }
-
-    private Integer coordenadasY (Integer elemento){
-
-        if (elemento == 0){
-            return 0;
-        }
-
-        /*
-
-        //Obtenemos las coordenadas X
-        int coordX = coordenadasX(elemento);
-        ///Calculamos que elemento está al inicio de ese renglon
-        int elemInicio = coordX * nCols;
-
-        ///Finalmente calculamos la diferencia
-        int diferencia = elemento- elemInicio;
-
-
-
-
-        return diferencia;
-
-         */
-
-        if (elemento == 0){
-            return 0;
-        }
-
-        int contador = 0;
-
-        for(int rows = 0; rows < (nRows * nCols) - 1; rows ++){
-            //System.out.println("Rows: " + rows + " contador: " + contador);
-
-
-
-            if (rows % nRows == 0 ){
-                //System.out.println("El rows i de Y es: " + rows);
-                contador = 0;
-            }
-
-            if (rows == elemento){
-                break;
-            }
-
-            contador +=1;
-
-
-
-
-
-
-
-
-        }
-
-        return contador;
-
-    }
-
-
 
 
 
@@ -881,9 +767,11 @@ public class Laberinto {
 
         Integer azar1 = numeroAleatorioConjuntoInteger(bordes);
         bordes.elimina(azar1);
+        this.borde1 = azar1;
 
         Integer azar2 = numeroAleatorioConjuntoInteger(bordes);
         bordes.elimina(azar2);
+        this.borde2 = azar2;
 
         ///Los restantes serán eliminados de las paredes y de la grafica
         for (Integer i : bordes){
@@ -939,8 +827,25 @@ public class Laberinto {
         // correspondiente, lo agregamos al mazo y metemos a listaFronteras los espacios adyacentes del vertice
 
 
-        Integer n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
-        //System.out.println("El espacio aleatorio es: " + n);
+
+        ///Buscaremos un numero aleatorio que no sea alguno de los bordes
+
+        Integer n = null;
+        boolean borde = true;
+
+        while (borde){
+            n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
+            if (!n.equals(borde1) && !n.equals(borde2)){
+                borde = false;
+            }
+
+        }
+
+
+
+
+        //Integer n = numeroAleatorioConjuntoInteger(conjuntoIntegerEspacios);
+        System.out.println("El espacio aleatorio es: " + n);
         //System.out.println("La grafica: " + grafica.toString());
         //VerticeGrafica<Integer> vertice = grafica.vertice(n);
 

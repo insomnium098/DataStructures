@@ -261,7 +261,7 @@ public class Proyectoextra {
                     panel.guardaLaberinto("temp.txt");
                     Lista<String> laberinto = leeLaberinto("temp.txt");
                     File temp= new File("temp.txt");
-                    temp.delete();
+                    //temp.delete();
                     resuelveLaberinto(laberinto, true);
 
 

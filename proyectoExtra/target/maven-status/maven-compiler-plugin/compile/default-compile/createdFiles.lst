@@ -3,6 +3,7 @@ mx/unam/ciencias/edd/Diccionario$IteradorLlaves.class
 mx/unam/ciencias/edd/ArbolAVL.class
 mx/unam/ciencias/edd/Grafica.class
 mx/unam/ciencias/edd/proyectoextra/Menu.class
+mx/unam/ciencias/edd/proyectoextra/Menu$5.class
 mx/unam/ciencias/edd/ArbolBinarioOrdenado.class
 mx/unam/ciencias/edd/proyectoextra/Menu$2.class
 mx/unam/ciencias/edd/Dispersores.class
@@ -40,6 +41,7 @@ mx/unam/ciencias/edd/ArbolRojinegro.class
 mx/unam/ciencias/edd/proyectoextra/Proyectoextra$1.class
 mx/unam/ciencias/edd/proyectoextra/Laberinto.class
 mx/unam/ciencias/edd/Color.class
+mx/unam/ciencias/edd/proyectoextra/Menu$4.class
 mx/unam/ciencias/edd/Cola.class
 mx/unam/ciencias/edd/FabricaDispersores$1.class
 mx/unam/ciencias/edd/MonticuloMinimo.class

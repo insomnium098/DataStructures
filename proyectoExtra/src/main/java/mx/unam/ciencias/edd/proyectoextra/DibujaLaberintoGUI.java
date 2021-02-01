@@ -45,6 +45,8 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
         if (timer.getDelay() == 0){
             charLaberinto = laberinto.getCharLaberinto();
+        } else if (colaLaberinto.esVacia()){
+            charLaberinto = laberinto.getCharLaberinto();
         } else {
             charLaberinto = colaLaberinto.saca();
         }

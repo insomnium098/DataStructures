@@ -2,10 +2,7 @@ package mx.unam.ciencias.edd.proyectoextra;
 import mx.unam.ciencias.edd.Lista;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -14,8 +11,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Menu extends JFrame {
     JPanel panelTextos, panelBotones, panelInputs, panel;
     JLabel label1, label2, label3;
-    JTextField columnas, renglones, delay;
-    JButton botonGenera, botonResuelve, botonBorra;
+    JTextField columnas, renglones;
+    JButton botonGenera, botonResuelve;
     //final JFileChooser fc = new JFileChooser("~");
 
     public Menu(){
@@ -35,7 +32,7 @@ public class Menu extends JFrame {
 
         label1 = new JLabel("Ingresa el número de renglones");
         label2 = new JLabel("Ingresa el número de columnas");
-        label3 = new JLabel("Ingresa los segundos de delay");
+        //label3 = new JLabel("Ingresa los segundos de delay");
 
         renglones = new JTextField(10);
         renglones.setMinimumSize(new Dimension(150, 20));
@@ -43,13 +40,96 @@ public class Menu extends JFrame {
         columnas = new JTextField(10);
         columnas.setMinimumSize(new Dimension(50, 25));
         columnas.setMaximumSize(new Dimension(15,20));
-        delay = new JTextField(10);
-        delay.setMinimumSize(new Dimension(50, 25));
-        delay.setMaximumSize(new Dimension(15, 20));
+        //delay = new JTextField(10);
+        //delay.setMinimumSize(new Dimension(50, 25));
+        //delay.setMaximumSize(new Dimension(15, 20));
 
         botonGenera = new JButton("Genera un laberinto");
         botonResuelve = new JButton("Resuelve el laberinto");
-        botonBorra = new JButton("Borra el laberinto");
+        //botonBorra = new JButton("Borra el laberinto");
+
+        botonGenera.setEnabled(false);
+
+
+
+        ///////////////
+
+        ////Listener para renglones
+        renglones.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+
+
+
+                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+                    renglones.setEditable(true);
+                    //label.setText("");
+                    botonGenera.setEnabled(true);
+
+
+                } else {
+                    //renglones.setEditable(false);
+                    renglones.setText("");
+                    botonGenera.setEnabled(false);
+
+                }
+            }
+        });
+
+
+        ///////
+
+        /// Listener para botonGenera
+        botonGenera.addMouseListener(new MouseAdapter()  {
+            public void mouseClicked(MouseEvent e)  {
+                //---- Añade lo que quieras que haga el boton para generar -----
+                String rowsS=renglones.getText();
+                String colsS=columnas.getText();
+
+                if (rowsS.matches("-?\\d+") && colsS.matches("-?\\d+")){
+                    botonGenera.setEnabled(true);
+                } else {
+                    botonGenera.setEnabled(false);
+                }
+
+
+
+
+                //Proyectoextra.generaLaberinto(Integer.valueOf(rowsS),Integer.valueOf(colsS),true);
+            }
+        });
+
+
+        ////
+
+
+
+
+
+        ///////////////
+
+        ////Listener para columnas
+        columnas.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+
+
+
+                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+                    columnas.setEditable(true);
+                    //label.setText("");
+                    botonGenera.setEnabled(true);
+
+
+                } else {
+                    //renglones.setEditable(false);
+                    columnas.setText("");
+                    botonGenera.setEnabled(false);
+
+                }
+            }
+        });
+
+
+        ///////
 
         botonGenera.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
@@ -70,35 +150,49 @@ public class Menu extends JFrame {
 
             }
         });
+
+        /*
         botonBorra.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
                 //---- Añade lo que quieras que haga el boton para borrar -----
             }
         });
 
+         */
+
         panelTextos.add(Box.createHorizontalGlue());
         panelTextos.add(label1);
         panelTextos.add(Box.createHorizontalGlue());
         panelTextos.add(label2);
         panelTextos.add(Box.createHorizontalGlue());
+        /*
         panelTextos.add(label3);
         panelTextos.add(Box.createHorizontalGlue());
+
+         */
 
         panelInputs.add(Box.createHorizontalGlue());
         panelInputs.add(renglones);
         panelInputs.add(Box.createHorizontalGlue());
         panelInputs.add(columnas);
         panelInputs.add(Box.createHorizontalGlue());
+
+        /*
         panelInputs.add(delay);
         panelInputs.add(Box.createHorizontalGlue());
+
+         */
 
         panelBotones.add(Box.createHorizontalGlue());
         panelBotones.add(botonGenera);
         panelBotones.add(Box.createHorizontalGlue());
         panelBotones.add(botonResuelve);
         panelBotones.add(Box.createHorizontalGlue());
+        /*
         panelBotones.add(botonBorra);
         panelBotones.add(Box.createHorizontalGlue());
+
+         */
 
         panel.add(Box.createVerticalGlue());
         panel.add(panelTextos);
