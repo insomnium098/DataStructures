@@ -231,7 +231,8 @@ public class Proyectoextra {
 
         ////Definiendo los botones
 
-        JButton botonResuelve = new JButton("Resuelve");
+        JButton botonResuelve = new JButton("Resuelve Laberinto con el algoritmo de Dijkstra");
+        JButton botonGuarda = new JButton("Guarda el laberinto");
 
 
 
@@ -261,7 +262,7 @@ public class Proyectoextra {
                     panel.guardaLaberinto("temp.txt");
                     Lista<String> laberinto = leeLaberinto("temp.txt");
                     File temp= new File("temp.txt");
-                    //temp.delete();
+                    temp.delete();
                     resuelveLaberinto(laberinto, true);
 
 
@@ -276,6 +277,46 @@ public class Proyectoextra {
         });
 
 
+        botonGuarda.addMouseListener(new MouseAdapter()  {
+            public void mouseClicked(MouseEvent e)  {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Especifica el archivo para guardar el laberinto");
+
+                int seleccion = fileChooser.showSaveDialog(aplicacion);
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    File archivoGuardar = fileChooser.getSelectedFile();
+
+
+                    try {
+                        panel.guardaLaberinto(archivoGuardar.getAbsolutePath());
+
+
+                    } catch (IOException ioException) {
+
+                        Menu.mensaje("Error al guardar el archivo", "Error al guardar");
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+
+
+
 
 
 
@@ -287,11 +328,18 @@ public class Proyectoextra {
 
         if(!resuelve){
             panel.add(botonResuelve);
+            //panel.add(botonGuarda);
 
             aplicacion.setLayout(new BorderLayout());
             aplicacion.add(botonResuelve,BorderLayout.SOUTH);
+            //aplicacion.add(botonGuarda,BorderLayout.NORTH);
 
         }
+
+        panel.add(botonGuarda);
+        aplicacion.add(botonGuarda,BorderLayout.NORTH);
+
+        //////
 
 
 

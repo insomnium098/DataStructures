@@ -174,6 +174,8 @@ public class Menu extends JFrame {
 
                 boolean esValido = leeLaberinto(archivo);
 
+                //System.out.println("El archivo es: " + archivo);
+
                 if(esValido){
                     Lista<String> laberinto = Proyectoextra.leeLaberinto(archivo);
                     Proyectoextra.resuelveLaberinto(laberinto, true);
@@ -260,9 +262,9 @@ public class Menu extends JFrame {
         ////
         JFileChooser fc = new JFileChooser("~");
 
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
-                "Laberintos en txt", "txt");
-        fc.setFileFilter(filtro);
+        //FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+        //        "Laberintos");
+        //fc.setFileFilter(filtro);
         fc.setCurrentDirectory(wd);
 
         int returnVal = fc.showOpenDialog(getParent());
@@ -276,7 +278,11 @@ public class Menu extends JFrame {
 
          */
 
-        return fc.getSelectedFile().getName();
+        String archivo = fc.getSelectedFile().getAbsolutePath();
+
+
+        //return fc.getSelectedFile().getName();
+        return archivo;
 
 
 
@@ -296,6 +302,9 @@ public class Menu extends JFrame {
         Lista<String> laberinto = new Lista<>();
         BufferedReader br;
         String linea;
+
+        //System.out.println("El archivo es: " + nombreArchivo);
+
 
         try {
             br = new BufferedReader(new FileReader(nombreArchivo));

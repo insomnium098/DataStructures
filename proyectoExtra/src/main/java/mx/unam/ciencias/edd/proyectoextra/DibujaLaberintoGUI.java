@@ -16,7 +16,7 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
     private Laberinto laberinto;
     private Cola<char[][]> colaLaberinto;
-    Timer timer= new Timer(10, this);
+    Timer timer= new Timer(1, this);
 
     private int cols;
     private int iA;
