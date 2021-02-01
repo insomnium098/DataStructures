@@ -91,18 +91,6 @@ public class Proyectoextra {
         }
 
 
-
-
-
-
-
-
-        //Lista<String> laberinto = leeLaberinto(args[0]);
-
-        //resuelveLaberinto(laberinto);
-
-
-
     }
 
     /*
@@ -152,10 +140,6 @@ public class Proyectoextra {
         if (!GUI){
 
             Laberinto lab = new Laberinto(nRows, nCols, false);
-            //Cola<char[][]> colaLa = lab.getCharLaberinto();
-
-            //while()
-
 
 
         } else {
@@ -184,11 +168,6 @@ public class Proyectoextra {
 
         }
 
-
-        //lab.imprimeLaberinto();
-        //lab.imprimeGrafica();
-        //System.out.println("La entrada es:" + lab.getOrigen());
-        //System.out.println("La salida es:" + lab.getDestino());
     }
 
     /*
@@ -248,9 +227,8 @@ public class Proyectoextra {
 
 
 
-        //aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
         aplicacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //aplicacion.add(panel);		//agrega el panel al marco
 
 
         ///Aqui se añade el comportamiento de los botones
@@ -260,9 +238,6 @@ public class Proyectoextra {
 
         botonResuelve.addMouseListener(new MouseAdapter()  {
             public void mouseClicked(MouseEvent e)  {
-                //---- Añade lo que quieras que haga el boton para resolver -----
-                //Proyectoextra.generaLaberinto(Integer.valueOf(5),Integer.valueOf(5),true);
-                //panel.BorraLaberinto();
                 try {
                     panel.guardaLaberinto("temp.txt");
                     Lista<String> laberinto = leeLaberinto("temp.txt");
@@ -360,7 +335,7 @@ public class Proyectoextra {
         aplicacion.add(panel);
 
 
-        aplicacion.setSize(800, 800);	//establece tamaño del marco
+        aplicacion.setSize(800, 800);
         aplicacion.setLocationRelativeTo(null);
         aplicacion.setVisible(true);
     }
@@ -369,13 +344,6 @@ public class Proyectoextra {
         Menu panel = new Menu();
         JFrame aplicacion = new JFrame();
 
-
-
-//        aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-//        aplicacion.add(panel);		//agrega el panel al marco
-//        aplicacion.setSize(800, 800);	//establece tamaño del marco
-//        aplicacion.setLocationRelativeTo(null);
-//        aplicacion.setVisible(true);
 
 
         panel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

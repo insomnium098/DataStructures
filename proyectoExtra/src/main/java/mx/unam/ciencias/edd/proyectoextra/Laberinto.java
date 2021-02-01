@@ -78,7 +78,7 @@ public class Laberinto {
         Aqui va el algoritmo que genere el laberinto
          */
 
-        //this.algoritmoPrim();
+
         this.algoritmoPrim2();
         if(!GUI){
             imprimeLaberinto();
@@ -452,9 +452,6 @@ public class Laberinto {
 
 
 
-    /*
-    End metodos para resuelve laberinto
-     */
 
 
     /*
@@ -723,8 +720,7 @@ public class Laberinto {
 
         this.conjuntoIntegerEspacios = new Conjunto<>();
         this.conjuntoIntegerParedes = new Conjunto<>();
-        //System.out.println("Los nRows : " + nRows);
-        //System.out.println("Los nCols : " + nCols);
+
 
         Conjunto<Integer> bordes = new Conjunto<>();
         Conjunto<Integer> esquinas = new Conjunto<>();
@@ -843,16 +839,6 @@ public class Laberinto {
         actualizaChar(azar1, ' ',false);
         actualizaChar(azar2, ' ',false);
 
-        ///Los bordes
-
-        /*
-        System.out.println("Los bordes:" );
-
-        for (Integer l : bordes){
-            System.out.println(bordes);
-        }
-
-         */
 
 
 
@@ -962,8 +948,6 @@ public class Laberinto {
                 if (listaParedes.contiene(pared)){
                     actualizaChar(pared, ' ',true);
 
-                    //this.colaLaberinto.agrega(this.charLaberinto);
-
 
                     listaParedes.elimina(pared);
                     paredesVisitadas.agrega(pared);
@@ -1017,33 +1001,6 @@ public class Laberinto {
 
     }
 
-    private void añadeBordes(){
-        for (int rows = 0; rows < nRows; rows ++){
-            for (int columnas = 0; columnas < nCols; columnas ++){
-
-                if (rows == 0){
-                    charLaberinto[rows][columnas] = '+';
-                }
-
-                if (columnas == 0){
-                    charLaberinto[rows][columnas] = '+';
-                }
-
-                if ( columnas == nCols-1){
-                    charLaberinto[rows][columnas] = '+';
-
-                }
-
-                if ( rows == nRows-1){
-                    charLaberinto[rows][columnas] = '+';
-
-                }
-
-            }
-
-        }
-
-    }
 
     /*
     Metodo que recibe un vertice espacio del laberinto y delvuelve una conjunto con sus paredes

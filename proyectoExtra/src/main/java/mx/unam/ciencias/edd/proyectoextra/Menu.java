@@ -15,10 +15,10 @@ public class Menu extends JFrame {
     JLabel label1, label2, label3;
     JTextField columnas, renglones;
     JButton botonGenera, botonResuelve;
-    //final JFileChooser fc = new JFileChooser("~");
+
 
     public Menu(){
-        super("Menú");
+        super("Proyecto Extra de Estructuras de Datos. Autor: Antonio Daniel Martinez Gutierrez");
 
         panelTextos = new JPanel();
         panelTextos.setLayout(new BoxLayout(panelTextos, BoxLayout.LINE_AXIS));
@@ -34,7 +34,7 @@ public class Menu extends JFrame {
 
         label1 = new JLabel("Ingresa el número de renglones");
         label2 = new JLabel("Ingresa el número de columnas");
-        //label3 = new JLabel("Ingresa los segundos de delay");
+
 
         renglones = new JTextField(10);
         renglones.setMinimumSize(new Dimension(150, 20));
@@ -42,13 +42,10 @@ public class Menu extends JFrame {
         columnas = new JTextField(10);
         columnas.setMinimumSize(new Dimension(50, 25));
         columnas.setMaximumSize(new Dimension(15,20));
-        //delay = new JTextField(10);
-        //delay.setMinimumSize(new Dimension(50, 25));
-        //delay.setMaximumSize(new Dimension(15, 20));
 
         botonGenera = new JButton("Genera un laberinto");
         botonResuelve = new JButton("Resuelve el laberinto");
-        //botonBorra = new JButton("Borra el laberinto");
+
 
         botonGenera.setEnabled(false);
 
@@ -64,12 +61,12 @@ public class Menu extends JFrame {
 
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
                     renglones.setEditable(true);
-                    //label.setText("");
+
                     botonGenera.setEnabled(true);
 
 
                 } else {
-                    //renglones.setEditable(false);
+
                     renglones.setText("");
                     botonGenera.setEnabled(false);
 
@@ -93,10 +90,6 @@ public class Menu extends JFrame {
                     botonGenera.setEnabled(false);
                 }
 
-
-
-
-                //Proyectoextra.generaLaberinto(Integer.valueOf(rowsS),Integer.valueOf(colsS),true);
             }
         });
 
@@ -117,12 +110,10 @@ public class Menu extends JFrame {
 
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
                     columnas.setEditable(true);
-                    //label.setText("");
                     botonGenera.setEnabled(true);
 
 
                 } else {
-                    //renglones.setEditable(false);
                     columnas.setText("");
                     botonGenera.setEnabled(false);
 
@@ -174,8 +165,6 @@ public class Menu extends JFrame {
 
                 boolean esValido = leeLaberinto(archivo);
 
-                //System.out.println("El archivo es: " + archivo);
-
                 if(esValido){
                     Lista<String> laberinto = Proyectoextra.leeLaberinto(archivo);
                     Proyectoextra.resuelveLaberinto(laberinto, true);
@@ -193,25 +182,13 @@ public class Menu extends JFrame {
             }
         });
 
-        /*
-        botonBorra.addMouseListener(new MouseAdapter()  {
-            public void mouseClicked(MouseEvent e)  {
-                //---- Añade lo que quieras que haga el boton para borrar -----
-            }
-        });
-
-         */
 
         panelTextos.add(Box.createHorizontalGlue());
         panelTextos.add(label1);
         panelTextos.add(Box.createHorizontalGlue());
         panelTextos.add(label2);
         panelTextos.add(Box.createHorizontalGlue());
-        /*
-        panelTextos.add(label3);
-        panelTextos.add(Box.createHorizontalGlue());
 
-         */
 
         panelInputs.add(Box.createHorizontalGlue());
         panelInputs.add(renglones);
@@ -219,22 +196,12 @@ public class Menu extends JFrame {
         panelInputs.add(columnas);
         panelInputs.add(Box.createHorizontalGlue());
 
-        /*
-        panelInputs.add(delay);
-        panelInputs.add(Box.createHorizontalGlue());
-
-         */
 
         panelBotones.add(Box.createHorizontalGlue());
         panelBotones.add(botonGenera);
         panelBotones.add(Box.createHorizontalGlue());
         panelBotones.add(botonResuelve);
         panelBotones.add(Box.createHorizontalGlue());
-        /*
-        panelBotones.add(botonBorra);
-        panelBotones.add(Box.createHorizontalGlue());
-
-         */
 
         panel.add(Box.createVerticalGlue());
         panel.add(panelTextos);
@@ -262,28 +229,21 @@ public class Menu extends JFrame {
         ////
         JFileChooser fc = new JFileChooser("~");
 
-        //FileNameExtensionFilter filtro = new FileNameExtensionFilter(
-        //        "Laberintos");
-        //fc.setFileFilter(filtro);
+
         fc.setCurrentDirectory(wd);
 
         int returnVal = fc.showOpenDialog(getParent());
-        //System.out.println(returnVal);
 
-        /*
-        String archivo;
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            archivo = fc.getSelectedFile().getName();
+
+
+
+
+        if (returnVal == JFileChooser.APPROVE_OPTION){
+            String archivo = fc.getSelectedFile().getAbsolutePath();
+            return archivo;
         }
 
-         */
-
-        String archivo = fc.getSelectedFile().getAbsolutePath();
-
-
-        //return fc.getSelectedFile().getName();
-        return archivo;
-
+        return "";
 
 
 
@@ -292,7 +252,7 @@ public class Menu extends JFrame {
 
 
     public static void mensaje(String infoMessage, String titleBar){
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, infoMessage, "Mensaje: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
 
@@ -303,9 +263,6 @@ public class Menu extends JFrame {
         BufferedReader br;
         String linea;
 
-        //System.out.println("El archivo es: " + nombreArchivo);
-
-
         try {
             br = new BufferedReader(new FileReader(nombreArchivo));
             while ((linea = br.readLine()) != null){
@@ -315,14 +272,14 @@ public class Menu extends JFrame {
 
         } catch (Exception e ){
             System.out.println("No se pudo leer el archivo con el laberinto");
-            System.exit(1);
+            //System.exit(1);
+            return false;
         }
 
 
 
 
         if (!revisaLaberinto(laberinto)){
-            //infoBox("Laberinto erroneo" ,"Laberinto Erroneo");
             return false;
 
 
