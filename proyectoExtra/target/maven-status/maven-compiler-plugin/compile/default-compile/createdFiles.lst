@@ -2,7 +2,9 @@ mx/unam/ciencias/edd/proyectoextra/DibujaLaberintoGUI.class
 mx/unam/ciencias/edd/Diccionario$IteradorLlaves.class
 mx/unam/ciencias/edd/ArbolAVL.class
 mx/unam/ciencias/edd/Grafica.class
+mx/unam/ciencias/edd/proyectoextra/Menu.class
 mx/unam/ciencias/edd/ArbolBinarioOrdenado.class
+mx/unam/ciencias/edd/proyectoextra/Menu$2.class
 mx/unam/ciencias/edd/Dispersores.class
 mx/unam/ciencias/edd/AccionVerticeGrafica.class
 mx/unam/ciencias/edd/MonticuloMinimo$Adaptador.class
@@ -18,6 +20,7 @@ mx/unam/ciencias/edd/Arreglos.class
 mx/unam/ciencias/edd/Grafica$BuscadorCamino.class
 mx/unam/ciencias/edd/Diccionario.class
 mx/unam/ciencias/edd/VerticeGrafica.class
+mx/unam/ciencias/edd/proyectoextra/Menu$1.class
 mx/unam/ciencias/edd/Diccionario$IteradorValores.class
 mx/unam/ciencias/edd/Grafica$Iterador.class
 mx/unam/ciencias/edd/ArbolBinario$Vertice.class
@@ -34,6 +37,7 @@ mx/unam/ciencias/edd/Lista$Nodo.class
 mx/unam/ciencias/edd/Pila.class
 mx/unam/ciencias/edd/Diccionario$Entrada.class
 mx/unam/ciencias/edd/ArbolRojinegro.class
+mx/unam/ciencias/edd/proyectoextra/Proyectoextra$1.class
 mx/unam/ciencias/edd/proyectoextra/Laberinto.class
 mx/unam/ciencias/edd/Color.class
 mx/unam/ciencias/edd/Cola.class
@@ -44,6 +48,7 @@ mx/unam/ciencias/edd/ArbolBinarioCompleto.class
 mx/unam/ciencias/edd/MonticuloMinimo$Iterador.class
 mx/unam/ciencias/edd/Lista$Iterador.class
 mx/unam/ciencias/edd/Grafica$Vecino.class
+mx/unam/ciencias/edd/proyectoextra/Menu$3.class
 mx/unam/ciencias/edd/ComparableIndexable.class
 mx/unam/ciencias/edd/Dispersor.class
 mx/unam/ciencias/edd/AccionVerticeArbolBinario.class

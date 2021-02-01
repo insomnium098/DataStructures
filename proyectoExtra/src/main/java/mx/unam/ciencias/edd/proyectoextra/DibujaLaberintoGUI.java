@@ -1,13 +1,14 @@
 package mx.unam.ciencias.edd.proyectoextra;
 
 import mx.unam.ciencias.edd.Cola;
+import mx.unam.ciencias.edd.Lista;
 
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.IOException;
 import javax.swing.*;
 
 
@@ -15,13 +16,24 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
     private Laberinto laberinto;
     private Cola<char[][]> colaLaberinto;
-    Timer timer=new Timer(100, this);
+    Timer timer= new Timer(10, this);
+
+    private int cols;
+    private int iA;
+    private int alt;
+    private int rows;
+    private int interAnchura;
+    private int Anch;
+
+
+
 
 
     public DibujaLaberintoGUI(Laberinto laberinto){
         this.laberinto = laberinto;
         this.colaLaberinto = laberinto.getColaLaberinto();
         timer.start();
+
     }
 
     public void paintComponent(Graphics g) {
@@ -29,31 +41,51 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
 
         super.paintComponent( g );
 
-        //char[][] charLaberinto = laberinto.getCharLaberinto();
-        char[][] charLaberinto = colaLaberinto.saca();
+        char[][] charLaberinto;
+
+        if (timer.getDelay() == 0){
+            charLaberinto = laberinto.getCharLaberinto();
+        } else {
+            charLaberinto = colaLaberinto.saca();
+        }
+
+        //char[][] charLaberinto = colaLaberinto.saca();
 
 
 
         int anchura = getWidth();
+        Anch = anchura;
+
         int altura = getHeight();
+        alt = altura;
+
+
 
 
         int columnas = charLaberinto[0].length;
+        cols = columnas;
+
         int renglones = charLaberinto.length;
+        rows = renglones;
 
         int intervalo_anchura = altura / renglones;
-        int intervalo_altura = anchura / columnas;
 
-        int dif1 = ((intervalo_altura* columnas) - anchura) / 2;
-        int dif2 = ((intervalo_anchura* renglones) - altura) / 2;
+        interAnchura = intervalo_anchura;
+
+        int intervalo_altura = anchura / columnas;
+        iA = intervalo_altura;
+
+
+
+
 
         int val1;
         int val2;
-        int contador = 0;
 
 
 
-        System.out.println((intervalo_altura* columnas) - anchura);
+
+        //System.out.println((intervalo_altura* columnas) - anchura);
         //System.out.println("JALA VERGAS");
 
 
@@ -79,16 +111,15 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
                 } else {
                     val2 = intervalo_altura;
                 }
-                System.out.println(charLaberinto[i][j]);
+                //System.out.println(charLaberinto[i][j]);
 
 
                 colorearRecuadro(j * intervalo_altura, (j + 1) * val2,
                         i * intervalo_anchura, val1 * (i + 1), charLaberinto[i][j], g);
 
-                contador++;
 
             }
-            System.out.println();
+            //System.out.println();
         }
 
 
@@ -175,7 +206,7 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
         } else if (caracter == '?'){
             g.setColor(new Color(30, 245, 73));
         } else {
-            g.setColor(new Color(245, 30, 80));
+            g.setColor(new Color(0, 255, 239));
         }
         for (int i = y1; i < y2; i++){
             g.drawLine(x1, i, x2, i);
@@ -221,7 +252,7 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
                 } else {
                     val2 = intervalo_altura;
                 }
-                System.out.println(charLaberinto[i][j]);
+                //System.out.println(charLaberinto[i][j]);
 
                 /*
                 if(trayectoria.contains(contador)) {
@@ -251,5 +282,35 @@ public class DibujaLaberintoGUI extends JPanel implements ActionListener {
         if (ev.getSource() == timer && !this.colaLaberinto.esVacia()) {
             repaint();
         }
+    }
+
+    public void BorraLaberinto(){
+
+        Graphics g = this.getGraphics();
+
+        for (int i = 1; i < cols; i++){
+            g.drawLine(i * iA, 0, i * iA, alt);
+        }
+        for (int i = 1; i < rows; i++){
+            g.drawLine(0, i * interAnchura, Anch, i * interAnchura);
+        }
+        System.out.println("BORA");
+
+        repaint();
+
+
+
+    }
+
+    public Lista<String> getLaberintoOriginal() {
+        return laberinto.getLaberintoOriginal();
+    }
+
+    public char[][] getCharLaberinto() {
+        return laberinto.getCharLaberinto();
+    }
+
+    public void guardaLaberinto(String nombreArchivo) throws IOException {
+        laberinto.guardaLaberinto(nombreArchivo);
     }
 }

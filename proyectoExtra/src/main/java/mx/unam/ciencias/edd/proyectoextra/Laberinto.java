@@ -1,5 +1,6 @@
 package mx.unam.ciencias.edd.proyectoextra;
 import mx.unam.ciencias.edd.*;
+import java.io.*;
 
 public class Laberinto {
 
@@ -76,13 +77,16 @@ public class Laberinto {
         this.algoritmoPrim2();
         if(!GUI){
             imprimeLaberinto();
-            imprimeColaLaberinto();
+            //imprimeColaLaberinto();
             //stringLaberinto();
         }
 
 
 
     }
+
+
+    ///
 
 
     //Constructor para resuelveLaberinto
@@ -394,8 +398,10 @@ public class Laberinto {
         }
         Lista<VerticeGrafica<Integer>> listaDijkstra = grafica.dijkstra(origen,destino);
         for (VerticeGrafica<Integer> elem : listaDijkstra){
+            Integer elemento = elem.get();
             //System.out.println(elem.get());
-            trayectoria.agrega(elem.get());
+            trayectoria.agrega(elemento);
+            actualizaChar(elemento,'*', true);
         }
 
     }
@@ -474,6 +480,57 @@ public class Laberinto {
         }
 
 
+    }
+
+
+    /*
+    Metodo para guardar el charLaberinto en un txt
+     */
+
+    public void guardaLaberinto(String nombreArchivo) throws IOException {
+        //String nombreArchivo = "temp.txt";
+        FileWriter fw = new FileWriter(new File(nombreArchivo));
+
+        StringBuilder s = new StringBuilder("");
+
+
+
+        ///Vamos a recorrer el laberinto con un contador, y si el valor del contador está
+        // en la trayectoria vamos a imprimir un asterisco
+
+        Integer nCols = charLaberinto[0].length;
+        Integer nRows = charLaberinto.length;
+
+
+        Integer contador = 0;
+
+        for(int rows = 0; rows < nRows; rows ++){
+            for (int columnas = 0; columnas < nCols; columnas ++){
+
+                /*
+
+                if(trayectoria.contiene(contador)){
+                    System.out.print('*');
+                } else {
+                    System.out.print(charLaberinto[rows][columnas]);
+
+                }
+
+                 */
+
+                s.append(charLaberinto[rows][columnas]);
+
+
+
+                contador ++;
+            }
+            //System.out.println();
+            s.append("\n");
+
+        }
+
+        fw.write(s.toString());
+        fw.close();
     }
 
 
@@ -831,6 +888,8 @@ public class Laberinto {
             this.conjuntoIntegerEspacios.elimina(i);
         }
 
+        this.conjuntoIntegerEspacios.agrega(azar1);
+        this.conjuntoIntegerEspacios.agrega(azar2);
         actualizaChar(azar1, ' ',false);
         actualizaChar(azar2, ' ',false);
 
@@ -1145,5 +1204,9 @@ public class Laberinto {
 
 
 
+    }
+
+    public Lista<String> getLaberintoOriginal() {
+        return laberintoOriginal;
     }
 }

@@ -1,7 +1,11 @@
 package mx.unam.ciencias.edd.proyectoextra;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import mx.unam.ciencias.edd.*;
+
 import java.io.*;
 import javax.swing.JFrame;
 import javax.swing.*;
@@ -40,7 +44,7 @@ public class Proyectoextra {
                     uso();
                 } else {
                     Lista<String> laberinto = leeLaberinto(args[1]);
-                    resuelveLaberinto(laberinto);
+                    resuelveLaberinto(laberinto, false);
                 }
                 break;
 
@@ -62,8 +66,18 @@ public class Proyectoextra {
             }
 
             case "gui":
-                generaLaberinto(10, 10,true);
-                //iniciaGUI();
+
+                //Para resuelve;
+                Lista<String> laberinto = leeLaberinto(args[1]);
+                resuelveLaberinto(laberinto, true);
+
+
+                ///Para genera:
+                //generaLaberinto(15, 15,true);
+                break;
+            case "menu":
+                menu();
+
                 break;
 
             default:
@@ -131,6 +145,7 @@ public class Proyectoextra {
     public static void generaLaberinto(Integer nRows, Integer nCols, boolean GUI){
 
         if (!GUI){
+
             Laberinto lab = new Laberinto(nRows, nCols, false);
             //Cola<char[][]> colaLa = lab.getCharLaberinto();
 
@@ -140,6 +155,7 @@ public class Proyectoextra {
 
         } else {
 
+            System.out.println("Cargando....");
             Laberinto lab = new Laberinto(nRows, nCols, true);
             iniciaGUI(lab);
 
@@ -152,9 +168,18 @@ public class Proyectoextra {
     Metodo que resuelve un laberinto
      */
 
-    public static void resuelveLaberinto(Lista<String> laberinto){
+    public static void resuelveLaberinto(Lista<String> laberinto, boolean GUI){
 
-        Laberinto lab = new Laberinto(laberinto);
+        if(!GUI){
+            Laberinto lab = new Laberinto(laberinto);
+
+        } else{
+            Laberinto lab = new Laberinto(laberinto);
+            iniciaGUI(lab);
+
+        }
+
+
         //lab.imprimeLaberinto();
         //lab.imprimeGrafica();
         //System.out.println("La entrada es:" + lab.getOrigen());
@@ -204,15 +229,94 @@ public class Proyectoextra {
 
          */
 
+        ////Definiendo los botones
+
+        JButton botonResuelve = new JButton("Resuelve");
+
+
+
 
         DibujaLaberintoGUI panel = new DibujaLaberintoGUI(laberinto);
         JFrame aplicacion = new JFrame();
 
-        aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        aplicacion.add(panel);		//agrega el panel al marco
+        ////Aqui se agregan los botones
+        panel.add(botonResuelve);
+
+
+        //aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        aplicacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //aplicacion.add(panel);		//agrega el panel al marco
+
+
+        ///Aqui se añade el comportamiento de los botones
+
+
+
+
+        botonResuelve.addMouseListener(new MouseAdapter()  {
+            public void mouseClicked(MouseEvent e)  {
+                //---- Añade lo que quieras que haga el boton para resolver -----
+                //Proyectoextra.generaLaberinto(Integer.valueOf(5),Integer.valueOf(5),true);
+                //panel.BorraLaberinto();
+                try {
+                    panel.guardaLaberinto("temp.txt");
+                    Lista<String> laberinto = leeLaberinto("temp.txt");
+                    File temp= new File("temp.txt");
+                    temp.delete();
+                    resuelveLaberinto(laberinto, true);
+
+
+                } catch (IOException ioException) {
+                    System.out.println("Error al guardar el laberinto");
+                    ioException.printStackTrace();
+                    System.exit(1);
+                }
+
+
+            }
+        });
+
+
+
+
+
+        //////////////
+
+        ///Localizacion de los botones
+
+        aplicacion.setLayout(new BorderLayout());
+        aplicacion.add(botonResuelve,BorderLayout.SOUTH);
+
+
+        ////Añadir el panel
+
+        aplicacion.add(panel);
+
+
         aplicacion.setSize(800, 800);	//establece tamaño del marco
         aplicacion.setLocationRelativeTo(null);
         aplicacion.setVisible(true);
+    }
+
+    public static void menu(){
+        Menu panel = new Menu();
+        JFrame aplicacion = new JFrame();
+
+
+
+//        aplicacion.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+//        aplicacion.add(panel);		//agrega el panel al marco
+//        aplicacion.setSize(800, 800);	//establece tamaño del marco
+//        aplicacion.setLocationRelativeTo(null);
+//        aplicacion.setVisible(true);
+
+
+        panel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel.setSize(800, 300);
+        panel.setLocationRelativeTo(null);
+        panel.setVisible(true);
+
+
     }
 
 
